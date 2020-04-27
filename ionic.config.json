@@ -1,0 +1,7 @@
+{
+  "name": "vedgiz",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
