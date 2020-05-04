@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VegetablesPage implements OnInit {
 
-  constructor() { }
+  public vegetables;
+
+  constructor() {
+    this.vegetables = ['a', 'b'];
+  }
 
   ngOnInit() {
   }
