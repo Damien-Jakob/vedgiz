@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'vegetables',
+    loadChildren: () => import('./vegetables/vegetables.module').then( m => m.VegetablesPageModule)
+  },
 ];
 
 @NgModule({
