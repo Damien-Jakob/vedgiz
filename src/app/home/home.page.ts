@@ -7,17 +7,16 @@ import {Validators, FormBuilder, FormGroup} from '@angular/forms';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-    private applyForm: FormGroup;
+    private applicationForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {
-        this.applyForm = this.formBuilder.group({
+        this.applicationForm = this.formBuilder.group({
             title: ['', Validators.required],
             description: [''],
         });
     }
 
-    logForm() {
-        console.log(this.applyForm.value)
+    private submitApplicationForm() {
+        console.log(this.applicationForm.value)
     }
-
 }

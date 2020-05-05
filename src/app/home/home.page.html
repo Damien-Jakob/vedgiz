@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-title>
-            Vedgiz
+            Vedgiz - Accueil
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -15,7 +15,7 @@
 
     <div id="container">
 
-        <form [formGroup]="applyForm" (ngSubmit)="logForm()">
+        <form [formGroup]="applicationForm" (ngSubmit)="submitApplicationForm()">
             <ion-item>
                 <ion-input type="text" formControlName="firstname" placeholder="Prénom"></ion-input>
             </ion-item>
@@ -25,7 +25,7 @@
             <ion-item>
                 <ion-input type="text" formControlName="phonenumber" placeholder="Téléphone"></ion-input>
             </ion-item>
-            <button ion-button type="submit" [disabled]="!applyForm.valid">Inscription</button>
+            <ion-button type="submit" [disabled]="!applicationForm.valid">Inscription</ion-button>
         </form>
     </div>
 </ion-content>
