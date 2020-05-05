@@ -15,41 +15,17 @@
 
     <div id="container">
 
-        <form [formGroup]="todo" (ngSubmit)="logForm()">
+        <form [formGroup]="applyForm" (ngSubmit)="logForm()">
             <ion-item>
-                <ion-label>Todo</ion-label>
-                <ion-input type="text" formControlName="title"></ion-input>
+                <ion-input type="text" formControlName="firstname" placeholder="Prénom"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label>Todo</ion-label>
-                <ion-input type="text" formControlName="title"></ion-input>
+                <ion-input type="text" formControlName="lastname" placeholder="Nom"></ion-input>
             </ion-item>
-            <button ion-button type="submit" [disabled]="!todo.valid">Submit</button>
+            <ion-item>
+                <ion-input type="text" formControlName="phonenumber" placeholder="Téléphone"></ion-input>
+            </ion-item>
+            <button ion-button type="submit" [disabled]="!applyForm.valid">Inscription</button>
         </form>
-
-        <h1>Ionic</h1>
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic
-            <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">
-                UI Components</a>
-        </p>
-
-        <h1>Accueil</h1>
-        <p>{{ welcomeMessage }} {{ isFemale ? "madame" : "monsieur" }} {{ welcomePerson }}.</p>
-        <div *ngIf="isVip; then vip else notVip"></div>
-        <ng-template #vip><p>C'est un honneur de vous recevoir !</p></ng-template>
-        <ng-template #notVip><p>Tenue correcte exigée.</p></ng-template>
-
-        <h2>Your games</h2>
-        <ul>
-            <li *ngFor="let game of games; index as i">
-                <div [ngSwitch]="game.length % 3">
-                    <div *ngSwitchCase="0">{{ i }}) {{ game }}</div>
-                    <div *ngSwitchCase="1">{{ i }}} {{ game }}</div>
-                    <div *ngSwitchDefault>{{ i }}: {{ game }}</div>
-                </div>
-
-            </li>
-        </ul>
     </div>
 </ion-content>
