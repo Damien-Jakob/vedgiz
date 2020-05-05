@@ -17,7 +17,7 @@
 
         <form [formGroup]="applicationForm" (ngSubmit)="submitApplicationForm()">
             <ion-item>
-                <ion-input type="text" formControlName="firstname" placeholder="Prénom"></ion-input>
+                <ion-input type="text" formControlName="firstname" placeholder="Prénom" required=""></ion-input>
             </ion-item>
             <ion-item>
                 <ion-input type="text" formControlName="lastname" placeholder="Nom"></ion-input>
