@@ -22,11 +22,12 @@ Sinon, le browser bloque les requêtes envers un autre serveur.
 1. Injection de dépendance de Router. Dans `myPageName.page.ts`
     * `import {Router} from "@angular/router";`
     *  `constructor(private router: Router)`
-1. Navigation : `router.navigate(['/users/63'])`
+1. Navigation : `router.navigate(['/users'])`, `router.navigate(['/users', 63])`
 1. Pour utiliser les données de l'url :
-    * Injection de dépendance de ActivatedRoute
-    * `route.snapshot.paramMap.get('id')`
-
+    * Injection de dépendance de ActivatedRoute : 
+        * `import {ActivatedRoute} from "@angular/router";`
+        * `constructor(protected route: ActivatedRoute)`
+    * `this.route.snapshot.paramMap.get('id')`
 
 ## Utiliser l'API
 Utiliser HttpClient. En effet, Http ne fonctionne pas avec le browser.
