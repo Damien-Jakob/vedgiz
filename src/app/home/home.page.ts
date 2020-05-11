@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
+import {AlertController} from '@ionic/angular';
 
 @Component({
     selector: 'app-home',
@@ -19,7 +20,11 @@ export class HomePage {
 
     private applicationForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private httpClient: HttpClient,
+        private alertController: AlertController
+    ) {
         this.applicationForm = this.formBuilder.group({
             firstname: ['', HomePage.nameValidator],
             lastname: ['', HomePage.nameValidator],
@@ -46,20 +51,22 @@ export class HomePage {
             error => {
                 console.log('Error : ', error.error);
                 console.log(error);
+                // Note that error.error is a string or an object depending on the error
+                this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.error})`) ;
             },
             () => {
                 console.log('Application request finished');
             });
+    }
 
+    async alert(title: string, message: string) {
+        const alert = await this.alertController.create({
+            header: title,
+            //subHeader: 'Subtitle',
+            message: message,
+            buttons: ['OK'],
+        });
 
-        /*
-        this.http.post(HomePage.applicationUrl, {}, {})
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-         */
+        await alert.present();
     }
 }
