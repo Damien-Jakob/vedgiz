@@ -32,30 +32,7 @@ export class HomePage {
         private authentication: AuthenticationService,
         private router: Router
     ) {
-        this.applicationForm = this.formBuilder.group({
-            firstname: ['', HomePage.nameValidator],
-            lastname: ['', HomePage.nameValidator],
-            phonenumber: ['', [
-                Validators.required,
-                // Can start by +
-                // Can use . - / ' ' after a number
-                // Min 9 numbers
-                // Note : for some reason, \s does not work for matching whitspaces
-                Validators.pattern("^[+]?([0-9][-\/\. ]?){9,}$"),
-            ]],
-        });
-
-        this.connectionForm = this.formBuilder.group({
-            token: ['', [
-                Validators.required,
-                // 60 chars, letters and numbers only
-                // Note that some inacurate requirements want only downcase letters
-                Validators.pattern("^[a-zA-Z0-9]{60}$")
-            ]],
-        })
-    }
-
-    protected ngOnInit(): void {
+        // TODO find a better place to do this initial routing ?
         if (this.authentication.hasToken()) {
             console.log('Trying to validate the token.');
 
@@ -77,6 +54,28 @@ export class HomePage {
         } else {
             console.log("No token found.");
         }
+
+        this.applicationForm = this.formBuilder.group({
+            firstname: ['', HomePage.nameValidator],
+            lastname: ['', HomePage.nameValidator],
+            phonenumber: ['', [
+                Validators.required,
+                // Can start by +
+                // Can use . - / ' ' after a number
+                // Min 9 numbers
+                // Note : for some reason, \s does not work for matching whitspaces
+                Validators.pattern("^[+]?([0-9][-\/\. ]?){9,}$"),
+            ]],
+        });
+
+        this.connectionForm = this.formBuilder.group({
+            token: ['', [
+                Validators.required,
+                // 60 chars, letters and numbers only
+                // Note that some inacurate requirements want only downcase letters
+                Validators.pattern("^[a-zA-Z0-9]{60}$")
+            ]],
+        })
     }
 
     private submitApplicationForm(): void {
@@ -124,7 +123,7 @@ export class HomePage {
     private afterValidToken(): void {
         console.log("Token is valid.");
 
-        // TODO change page
+        this.router.navigate(['/users/me']);
     }
 
     private async alert(title: string, message: string) {
