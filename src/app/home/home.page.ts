@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
 import {AlertController} from '@ionic/angular';
+import {HttpHeaders} from "@angular/common/http";
 
 @Component({
     selector: 'app-home',
@@ -86,9 +87,11 @@ Test of the token : try the /api/me API
     private validateToken() {
         console.log('Trying to validate the token');
 
-        // TODO Add header
-        
-        this.httpClient.get(HomePage.CONNECTION_URL, {}).subscribe(
+        const headers: HttpHeaders = new HttpHeaders({
+            'Authorization': `Bearer ${this.connectionForm.value.token}`,
+        });
+
+        this.httpClient.get(HomePage.CONNECTION_URL, {headers}).subscribe(
             data => {
                 console.log('Token validated');
                 // TODO save token
