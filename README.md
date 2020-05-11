@@ -10,6 +10,24 @@ Ouvrir l'application dans Chrome, et utiliser l'extension
 [Allow CORS: Access-Control-Allow-Origin](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf). 
 Sinon, le browser bloque les requêtes envers un autre serveur.
 
+## Génération automatique
+
+    ionic generate page myPageName
+    ionic generate service myServiceName
+
+## Navigation
+1. Générer la page : `ionic generate page myPageName`
+1. Si besoin, modifier la route dans `/src/app/app-routing.module.ts`
+    * Pour utiliser des données dans l'url : `path: 'users/:id'`
+1. Injection de dépendance de Router. Dans `myPageName.page.ts`
+    * `import {Router} from "@angular/router";`
+    *  `constructor(private router: Router)`
+1. Navigation : `router.navigate(['/users/63'])`
+1. Pour utiliser les données de l'url :
+    * Injection de dépendance de ActivatedRoute
+    * `route.snapshot.paramMap.get('id')`
+
+
 ## Utiliser l'API
 Utiliser HttpClient. En effet, Http ne fonctionne pas avec le browser.
 
