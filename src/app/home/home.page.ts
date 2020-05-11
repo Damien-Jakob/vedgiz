@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {AlertController} from '@ionic/angular';
 import {HttpHeaders} from "@angular/common/http";
 import {AuthenticationService} from "../authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-home',
@@ -28,7 +29,8 @@ export class HomePage {
         private formBuilder: FormBuilder,
         private httpClient: HttpClient,
         private alertController: AlertController,
-        private authentication: AuthenticationService
+        private authentication: AuthenticationService,
+        private router: Router
     ) {
         this.applicationForm = this.formBuilder.group({
             firstname: ['', HomePage.nameValidator],
@@ -68,6 +70,7 @@ export class HomePage {
                     console.log(error);
 
                     // TODO Redirect to error page
+                    this.router.navigate(['/error']);
                 },
                 () => {
                     // kept here for example
