@@ -53,6 +53,30 @@ export class HomePage {
         })
     }
 
+    protected ngOnInit(): void {
+        if (this.authentication.hasToken()) {
+            console.log('Trying to validate the token.');
+
+            const headers: HttpHeaders = this.authentication.headersFromToken(this.authentication.token());
+
+            this.httpClient.get(HomePage.CONNECTION_URL, {headers}).subscribe(
+                data => {
+                    this.afterValidToken();
+                },
+                error => {
+                    console.log('Error : ', error.error);
+                    console.log(error);
+
+                    // TODO Redirect to error page
+                },
+                () => {
+                    // kept here for example
+                });
+        } else {
+            console.log("No token found.");
+        }
+    }
+
     private submitApplicationForm(): void {
         console.log('Click on the app form');
         console.log('Data sent : ', this.applicationForm.value);
@@ -70,21 +94,8 @@ export class HomePage {
                 console.log(error);
                 // Note that error.error is a string or an object depending on the error
                 this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.error})`);
-            },
-            () => {
-                console.log('Application request finished');
             });
     }
-
-    /*
-header :
-authorization -> Bearer ~token~
-
-Test of the token : try the /api/me API
-
-* No token : Unauthenticated (401)
-* Bad token : Invalid Token (401)
- */
 
     private validateToken(): void {
         console.log('Trying to validate the token');
@@ -94,21 +105,27 @@ Test of the token : try the /api/me API
         this.httpClient.get(HomePage.CONNECTION_URL, {headers}).subscribe(
             data => {
                 console.log('Token validated');
+
                 // TODO save token
-                // TODO change page
+
+                this.afterValidToken();
             },
             error => {
                 console.log('Error : ', error.error);
                 console.log(error);
                 // Note that error.error is a string or an object depending on the error
                 this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.error})`);
-            },
-            () => {
-                console.log('Token validation request finished');
             });
     }
 
-    async alert(title: string, message: string) {
+    // static ?
+    private afterValidToken(): void {
+        console.log("Token is valid.");
+
+        // TODO change page
+    }
+
+    private async alert(title: string, message: string) {
         const alert = await this.alertController.create({
             header: title,
             //subHeader: 'Subtitle',
