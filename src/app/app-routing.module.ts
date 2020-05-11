@@ -14,8 +14,9 @@ const routes: Routes = [
   {
     path: 'vegetables',
     loadChildren: () => import('./vegetables/vegetables.module').then( m => m.VegetablesPageModule)
-  },  {
-    path: 'error',
+  },
+  {
+    path: 'error/:errorCategory',
     loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
   },
 

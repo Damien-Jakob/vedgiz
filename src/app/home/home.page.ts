@@ -69,8 +69,7 @@ export class HomePage {
                     console.log('Error : ', error.error);
                     console.log(error);
 
-                    // TODO Redirect to error page
-                    this.router.navigate(['/error']);
+                    this.router.navigate(['/error', "invalid-token"]);
                 },
                 () => {
                     // kept here for example
