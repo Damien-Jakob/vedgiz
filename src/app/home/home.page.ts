@@ -3,6 +3,7 @@ import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
 import {AlertController} from '@ionic/angular';
 import {HttpHeaders} from "@angular/common/http";
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
     selector: 'app-home',
@@ -26,7 +27,8 @@ export class HomePage {
     constructor(
         private formBuilder: FormBuilder,
         private httpClient: HttpClient,
-        private alertController: AlertController
+        private alertController: AlertController,
+        private authentication: AuthenticationService
     ) {
         this.applicationForm = this.formBuilder.group({
             firstname: ['', HomePage.nameValidator],
@@ -51,7 +53,7 @@ export class HomePage {
         })
     }
 
-    private submitApplicationForm() {
+    private submitApplicationForm(): void {
         console.log('Click on the app form');
         console.log('Data sent : ', this.applicationForm.value);
 
@@ -84,12 +86,10 @@ Test of the token : try the /api/me API
 * Bad token : Invalid Token (401)
  */
 
-    private validateToken() {
+    private validateToken(): void {
         console.log('Trying to validate the token');
 
-        const headers: HttpHeaders = new HttpHeaders({
-            'Authorization': `Bearer ${this.connectionForm.value.token}`,
-        });
+        const headers: HttpHeaders = this.authentication.headersFromToken(this.connectionForm.value.token);
 
         this.httpClient.get(HomePage.CONNECTION_URL, {headers}).subscribe(
             data => {
