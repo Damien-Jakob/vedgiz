@@ -85,6 +85,24 @@ Test of the token : try the /api/me API
 
     private validateToken() {
         console.log('Trying to validate the token');
+
+        // TODO Add header
+        
+        this.httpClient.get(HomePage.CONNECTION_URL, {}).subscribe(
+            data => {
+                console.log('Token validated');
+                // TODO save token
+                // TODO change page
+            },
+            error => {
+                console.log('Error : ', error.error);
+                console.log(error);
+                // Note that error.error is a string or an object depending on the error
+                this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.error})`);
+            },
+            () => {
+                console.log('Token validation request finished');
+            });
     }
 
     async alert(title: string, message: string) {
