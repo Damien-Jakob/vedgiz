@@ -9,7 +9,7 @@ import {AlertController} from '@ionic/angular';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-    private static applicationUrl: string = 'http://127.0.0.1:8000/api/user/apply';
+    private static APPLICATION_URL: string = 'http://127.0.0.1:8000/api/user/apply';
 
     private static nameValidator = [
         Validators.compose([
@@ -35,7 +35,6 @@ export class HomePage {
                 // Min 9 numbers
                 // Note : for some reason, \s does not work for matching whitspaces
                 Validators.pattern("^[+]?([0-9][-\/\. ]?){9,}$"),
-                //
             ]],
         });
     }
@@ -44,15 +43,19 @@ export class HomePage {
         console.log('Click on the app form');
         console.log('Data sent : ', this.applicationForm.value);
 
-        this.httpClient.post(HomePage.applicationUrl, this.applicationForm.value).subscribe(
+        this.httpClient.post(HomePage.APPLICATION_URL, this.applicationForm.value).subscribe(
             data => {
-                console.log('Data received : ', data);
+                this.alert(
+                    "Inscription réussie",
+                    `Vous devriez prochainement recevoir un token d'activation qui vous permettra d'accéder à l'application`
+                );
+                this.applicationForm.reset();
             },
             error => {
                 console.log('Error : ', error.error);
                 console.log(error);
                 // Note that error.error is a string or an object depending on the error
-                this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.error})`) ;
+                this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.error})`);
             },
             () => {
                 console.log('Application request finished');
