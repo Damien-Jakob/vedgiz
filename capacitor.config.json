@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "vedgiz",
+  "appId": "ch.cpnv.vedjiz",
+  "appName": "vedjiz",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
