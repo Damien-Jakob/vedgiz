@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">vedjiz</string>
+    <string name="title_activity_main">vedjiz</string>
+    <string name="package_name">ch.cpnv.vedjiz</string>
+    <string name="custom_url_scheme">ch.cpnv.vedjiz</string>
+</resources>
