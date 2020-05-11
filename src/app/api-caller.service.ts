@@ -27,6 +27,8 @@ export class ApiCallerService {
     }
 
     public validateToken(token: string): Observable<object> {
+      // Note that this cannot be just shortened in 1 line,
+      // because {this.[...} considers this to identify the new object, not the apiCaller
         const headers: HttpHeaders = this.authentication.headersFromToken(token);
         return this.http.get(this.url(this.ME_API), {headers});
     }
