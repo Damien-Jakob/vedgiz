@@ -10,6 +10,52 @@ Ouvrir l'application dans Chrome, et utiliser l'extension
 [Allow CORS: Access-Control-Allow-Origin](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf). 
 Sinon, le browser bloque les requêtes envers un autre serveur.
 
+## Emulation
+Cordova
+
+### Nouvelle app
+
+    ionic start myApp tabs --capacitor
+
+### Ajouter à une app existante
+
+    ionic integrations enable capacitor
+
+### Initialisation
+
+    npx cap init [appName] [appId]
+
+* appName : nom de l'app
+* appId : domaine idantifiant l'app, ex : ch.cpnv.vedjiz
+
+### Initialisation
+Le projet doit avoir été build au moins une fois pour ajouter des plateformes natives.
+
+    ionic build
+    
+### Ajout de plateformes
+
+    npx cap add android
+    npx cap add ios
+    
+### Lancer l'émulation
+
+    npx cap open android
+
+Utilise Android Studio.
+
+    npx cap open ios
+    
+Xcode.
+
+### Utilisation
+Utiliser l'IDE (Android Studio) pour buil, run et deploy.
+
+### Synchronisation
+Quand on effectue un build qui modifie le répertoire web :
+
+    npx cap copy
+
 ## Requêtes
 Utiliser HttpClient. En effet, Http ne fonctionne pas avec le browser.
 
@@ -47,3 +93,38 @@ export class FilmsPage {
   }
 }
 ```
+
+## Storage
+### Install
+
+    ionic cordova plugin add @ionic-enterprise/offline-storage
+    
+### Utilisation
+Remarque : ne marche pas avec dans le browser.
+
+Dans `src/app/app.module.ts` :
+    
+```typescript
+import { SQLite } from '@ionic-enterprise/offline-storage/ngx';
+ 
+@NgModule({
+  providers: [
+      SQLite
+    ],
+})
+```
+
+
+
+
+
+@NgModule({
+  // ... snip ... 
+  
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+
+
+
+
