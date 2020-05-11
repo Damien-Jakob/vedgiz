@@ -1,10 +1,9 @@
 import {Component} from '@angular/core';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
-import {HttpClient} from "@angular/common/http";
 import {AlertController} from '@ionic/angular';
-import {HttpHeaders} from "@angular/common/http";
 import {AuthenticationService} from "../authentication.service";
 import {Router} from "@angular/router";
+import {ApiCallerService} from "../api-caller.service";
 
 @Component({
     selector: 'app-home',
@@ -12,8 +11,8 @@ import {Router} from "@angular/router";
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-    private static APPLICATION_URL: string = 'http://127.0.0.1:8000/api/user/apply';
-    private static CONNECTION_URL: string = 'http://127.0.0.1:8000/api/me';
+    private applicationForm: FormGroup;
+    private connectionForm: FormGroup;
 
     private static nameValidator = [
         Validators.compose([
@@ -22,23 +21,19 @@ export class HomePage {
         Validators.pattern('^[a-zA-Zàâäãèéêëėįîïùûü ,.\'-]*'), // conform to the API
     ];
 
-    private applicationForm: FormGroup;
-    private connectionForm: FormGroup;
-
     constructor(
         private formBuilder: FormBuilder,
-        private httpClient: HttpClient,
         private alertController: AlertController,
         private authentication: AuthenticationService,
-        private router: Router
+        private router: Router,
+        private api: ApiCallerService,
     ) {
         // TODO find a better place to do this initial routing ?
         if (this.authentication.hasToken()) {
             console.log('Trying to validate the token.');
 
-            const headers: HttpHeaders = this.authentication.headersFromToken(this.authentication.token());
-
-            this.httpClient.get(HomePage.CONNECTION_URL, {headers}).subscribe(
+            // Test if the registered token is valid
+            this.api.me().subscribe(
                 data => {
                     this.afterValidToken();
                 },
@@ -82,7 +77,7 @@ export class HomePage {
         console.log('Click on the app form');
         console.log('Data sent : ', this.applicationForm.value);
 
-        this.httpClient.post(HomePage.APPLICATION_URL, this.applicationForm.value).subscribe(
+        this.api.apply(this.applicationForm.value).subscribe(
             data => {
                 this.alert(
                     "Inscription réussie",
@@ -101,9 +96,7 @@ export class HomePage {
     private validateToken(): void {
         console.log('Trying to validate the token');
 
-        const headers: HttpHeaders = this.authentication.headersFromToken(this.connectionForm.value.token);
-
-        this.httpClient.get(HomePage.CONNECTION_URL, {headers}).subscribe(
+        this.api.validateToken(this.connectionForm.value.token).subscribe(
             data => {
                 console.log('Token validated');
 
