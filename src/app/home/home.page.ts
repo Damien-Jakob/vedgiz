@@ -10,6 +10,7 @@ import {AlertController} from '@ionic/angular';
 })
 export class HomePage {
     private static APPLICATION_URL: string = 'http://127.0.0.1:8000/api/user/apply';
+    private static CONNECTION_URL: string = 'http://127.0.0.1:8000/api/me';
 
     private static nameValidator = [
         Validators.compose([
@@ -38,16 +39,6 @@ export class HomePage {
                 Validators.pattern("^[+]?([0-9][-\/\. ]?){9,}$"),
             ]],
         });
-
-        /*
-        Toutes les routes sauf user/apply sont sujettes à authentification par bearer token ajouté dans le header.
-            Sans token => Unauthenticated (401)
-        Mauvais token => Invalid Token (401)
-
-        header :
-        authorization : Bearer ~token~
-        bearer token -> header
-         */
 
         this.connectionForm = this.formBuilder.group({
             token: ['', [
@@ -81,6 +72,16 @@ export class HomePage {
                 console.log('Application request finished');
             });
     }
+
+    /*
+header :
+authorization -> Bearer ~token~
+
+Test of the token : try the /api/me API
+
+* No token : Unauthenticated (401)
+* Bad token : Invalid Token (401)
+ */
 
     private validateToken() {
         console.log('Trying to validate the token');
