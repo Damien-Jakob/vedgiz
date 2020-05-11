@@ -19,6 +19,7 @@ export class HomePage {
     ];
 
     private applicationForm: FormGroup;
+    private connectionForm: FormGroup;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -37,6 +38,25 @@ export class HomePage {
                 Validators.pattern("^[+]?([0-9][-\/\. ]?){9,}$"),
             ]],
         });
+
+        /*
+        Toutes les routes sauf user/apply sont sujettes à authentification par bearer token ajouté dans le header.
+            Sans token => Unauthenticated (401)
+        Mauvais token => Invalid Token (401)
+
+        header :
+        authorization : Bearer ~token~
+        bearer token -> header
+         */
+
+        this.connectionForm = this.formBuilder.group({
+            token: ['', [
+                Validators.required,
+                // 60 chars, letters and numbers only
+                // Note that some inacurate requirements want only downcase letters
+                Validators.pattern("^[a-zA-Z0-9]{60}$")
+            ]],
+        })
     }
 
     private submitApplicationForm() {
@@ -60,6 +80,10 @@ export class HomePage {
             () => {
                 console.log('Application request finished');
             });
+    }
+
+    private validateToken() {
+        console.log('Trying to validate the token');
     }
 
     async alert(title: string, message: string) {

@@ -14,10 +14,9 @@
     </ion-header>
 
     <div id="container">
-
         <form [formGroup]="applicationForm" (ngSubmit)="submitApplicationForm()">
             <ion-item>
-                <ion-input type="text" formControlName="firstname" placeholder="Prénom" required=""></ion-input>
+                <ion-input type="text" formControlName="firstname" placeholder="Prénom"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-input type="text" formControlName="lastname" placeholder="Nom"></ion-input>
@@ -26,6 +25,12 @@
                 <ion-input type="text" formControlName="phonenumber" placeholder="Téléphone"></ion-input>
             </ion-item>
             <ion-button type="submit" [disabled]="!applicationForm.valid">Inscription</ion-button>
+        </form>
+        <form [formGroup]="connectionForm" (ngSubmit)="validateToken()">
+            <ion-item>
+                <ion-input type="text" formControlName="token" placeholder="Token" required=""></ion-input>
+            </ion-item>
+            <ion-button type="submit" [disabled]="!connectionForm.valid">Inscription</ion-button>
         </form>
     </div>
 </ion-content>
