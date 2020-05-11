@@ -14,7 +14,11 @@ const routes: Routes = [
   {
     path: 'vegetables',
     loadChildren: () => import('./vegetables/vegetables.module').then( m => m.VegetablesPageModule)
+  },  {
+    path: 'error',
+    loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
   },
+
 ];
 
 @NgModule({
