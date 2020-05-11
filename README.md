@@ -95,9 +95,12 @@ export class FilmsPage {
 ```
 
 ## Storage
+https://capacitor.ionicframework.com/docs/getting-started/with-ionic/
+
 ### Install
 
-    ionic cordova plugin add @ionic-enterprise/offline-storage
+    npm install @ionic-enterprise/offline-storage
+    npx cap sync
     
 ### Utilisation
 Remarque : ne marche pas avec dans le browser.
@@ -113,17 +116,6 @@ import { SQLite } from '@ionic-enterprise/offline-storage/ngx';
     ],
 })
 ```
-
-
-
-
-
-@NgModule({
-  // ... snip ... 
-  
-  bootstrap: [AppComponent]
-})
-export class AppModule {}
 
 
 
