@@ -7,10 +7,9 @@ import {ActivatedRoute} from "@angular/router";
     styleUrls: ['./error.page.scss'],
 })
 export class ErrorPage implements OnInit {
-    protected error: string;
+    protected error: string = "";
 
     constructor(protected route: ActivatedRoute) {
-        this.error = "";
         this.error = this.route.snapshot.paramMap.get('errorCategory');
     }
 
