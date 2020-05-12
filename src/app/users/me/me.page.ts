@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiCallerService} from "../../api-caller.service";
 import {User} from "../../models/user";
+import {Router} from "@angular/router";
 
 // TODO display more informations -> look what the apis can do
 
@@ -12,7 +13,7 @@ import {User} from "../../models/user";
 export class MePage implements OnInit {
     protected user: User;
 
-    constructor(protected api: ApiCallerService) {
+    constructor(protected api: ApiCallerService, protected router: Router) {
         this.user = new User();
     }
 
@@ -22,6 +23,10 @@ export class MePage implements OnInit {
                 this.user = answer.data;
             }
         );
+    }
+
+    protected toVegetables() {
+        this.router.navigate(['/vegetables']);
     }
 
 }
