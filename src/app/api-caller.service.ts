@@ -22,18 +22,18 @@ export class ApiCallerService {
         return this.API_ROOT + api;
     }
 
-    public apply(applicationData: object): Observable<object> {
+    public apply(applicationData: object): Observable<any> {
         return this.http.post(this.url(this.APPLY_API), applicationData);
     }
 
-    public validateToken(token: string): Observable<object> {
+    public validateToken(token: string): Observable<any> {
       // Note that this cannot be just shortened in 1 line,
       // because {this.[...} considers this to identify the new object, not the apiCaller
         const headers: HttpHeaders = this.authentication.headersFromToken(token);
         return this.http.get(this.url(this.ME_API), {headers});
     }
 
-    public me(): Observable<object> {
+    public me(): Observable<any> {
         const headers: HttpHeaders = this.authentication.headers();
         return this.http.get(this.url(this.ME_API), {headers});
     }

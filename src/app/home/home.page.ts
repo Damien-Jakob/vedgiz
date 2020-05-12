@@ -34,7 +34,7 @@ export class HomePage {
 
             // Test if the registered token is valid
             this.api.me().subscribe(
-                data => {
+                answer => {
                     this.afterValidToken();
                 },
                 error => {
@@ -78,7 +78,7 @@ export class HomePage {
         console.log('Data sent : ', this.applicationForm.value);
 
         this.api.apply(this.applicationForm.value).subscribe(
-            data => {
+            answer => {
                 this.alert(
                     "Inscription réussie",
                     `Vous devriez prochainement recevoir un token d'activation qui vous permettra d'accéder à l'application`
@@ -97,7 +97,7 @@ export class HomePage {
         console.log('Trying to validate the token');
 
         this.api.validateToken(this.connectionForm.value.token).subscribe(
-            data => {
+            answer => {
                 console.log('Token validated');
 
                 // TODO save token
