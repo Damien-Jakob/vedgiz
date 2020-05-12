@@ -65,6 +65,16 @@ export class FilmsPage {
 }
 ```
 
+## Variables d'environement
+Dans /src/app/environments.
+
+Utilisation :
+```typescript
+import {environment} from "../environments/environment";
+
+if(environment.production)
+```
+
 ## Emulation
 Cordova
 
