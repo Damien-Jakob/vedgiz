@@ -25,21 +25,14 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-#container {
-  text-align: center;
-  padding: 10px;
-
-  position: absolute;
-  left: 0;
-  right: 0;
+ion-content {
+  --padding-bottom: 10px;
+  --padding-end: 5px;
+  --padding-start: 5px;
+  --padding-top: 10px;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
+p {
   font-size: 16px;
   line-height: 22px;
 
@@ -48,6 +41,11 @@
   margin: 0;
 }
 
-#container a {
+a {
   text-decoration: none;
+}
+
+strong {
+  font-size: 20px;
+  line-height: 26px;
 }

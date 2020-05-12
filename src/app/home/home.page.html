@@ -18,13 +18,13 @@
             <ion-item>
                 <ion-input type="text" formControlName="phonenumber" placeholder="Téléphone"></ion-input>
             </ion-item>
-            <ion-button type="submit" [disabled]="!applicationForm.valid">Inscription</ion-button>
+            <ion-button type="submit" expand="block" [disabled]="!applicationForm.valid">Inscription</ion-button>
         </form>
         <form [formGroup]="connectionForm" (ngSubmit)="validateToken()">
             <ion-item>
                 <ion-input type="text" formControlName="token" placeholder="Token" required=""></ion-input>
             </ion-item>
-            <ion-button type="submit" [disabled]="!connectionForm.valid">Connexion</ion-button>
+            <ion-button type="submit" expand="block" [disabled]="!connectionForm.valid">Connexion</ion-button>
         </form>
     </div>
 </ion-content>
