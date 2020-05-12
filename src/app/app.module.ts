@@ -11,6 +11,7 @@ import {AppRoutingModule} from './app-routing.module';
 
 // Manually added
 import {HttpClientModule} from '@angular/common/http';
+import {ApiCallerService} from "./api-caller.service";
 
 @NgModule({
     declarations: [AppComponent],
@@ -22,10 +23,13 @@ import {HttpClientModule} from '@angular/common/http';
         // Manually added
         HttpClientModule,
     ],
+    // Use a single provider for all the app
     providers: [
         StatusBar,
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+        // Manually added
+        ApiCallerService,
     ],
     bootstrap: [AppComponent]
 })

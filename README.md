@@ -1,4 +1,4 @@
-# Vedgiz
+# Vedjiz
 
 Application developed dor the MOB1 module.
 
@@ -9,6 +9,75 @@ Application developed dor the MOB1 module.
 Ouvrir l'application dans Chrome, et utiliser l'extension 
 [Allow CORS: Access-Control-Allow-Origin](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf). 
 Sinon, le browser bloque les requêtes envers un autre serveur.
+
+## Génération automatique
+
+    ionic generate page myPageName
+    ionic generate service myServiceName
+    ng generate class models/Student
+
+## Navigation
+1. Générer la page : `ionic generate page myPageName`
+1. Si besoin, modifier la route dans `/src/app/app-routing.module.ts`
+    * Pour utiliser des données dans l'url : `path: 'users/:id'`
+1. Injection de dépendance de Router. Dans `myPageName.page.ts`
+    * `import {Router} from "@angular/router";`
+    *  `constructor(private router: Router)`
+1. Navigation : `router.navigate(['/users'])`, `router.navigate(['/users', 63])`
+1. Pour utiliser les données de l'url :
+    * Injection de dépendance de ActivatedRoute : 
+        * `import {ActivatedRoute} from "@angular/router";`
+        * `constructor(protected route: ActivatedRoute)`
+    * `this.route.snapshot.paramMap.get('id')`
+
+## Utiliser l'API
+Utiliser HttpClient. En effet, Http ne fonctionne pas avec le browser.
+
+### Utilisation
+
+Dans `src/app/app.module.ts` :
+    
+```typescript
+import { HttpClientModule } from '@angular/common/http';
+ 
+@NgModule({
+  imports: [
+    HttpClientModule,
+  ],
+})
+```
+    
+Exemple de page (`src/pages/films/films.ts`) :
+
+```typescript
+import { HttpClient } from '@angular/common/http'; 
+ 
+export class FilmsPage {
+  films: Observable<any>;
+ 
+  constructor(public httpClient: HttpClient) { 
+    this.films = this.httpClient.get('https://swapi.co/api/films');
+    this.films.subscribe(answer => {
+      console.log('my answer: ', answer);
+      console.log('my data: ', answer.data);
+    });
+  }
+}
+```
+
+## Variables d'environement
+Dans /src/environments.
+
+Utilisation :
+```typescript
+import {environment} from "../environments/environment";
+
+if(environment.production)
+```
+
+### Utiliser les variables de production
+
+    ionic build --prod
 
 ## Emulation
 Cordova
@@ -55,44 +124,6 @@ Utiliser l'IDE (Android Studio) pour buil, run et deploy.
 Quand on effectue un build qui modifie le répertoire web :
 
     npx cap copy
-
-## Requêtes
-Utiliser HttpClient. En effet, Http ne fonctionne pas avec le browser.
-
-### Utilisation
-
-Dans `src/app/app.module.ts` :
-    
-```typescript
-import { HttpClientModule } from '@angular/common/http';
- 
-@NgModule({
-  imports: [
-    HttpClientModule,
-  ],
-})
-```
-    
-Exemple de page (`src/pages/films/films.ts`) :
-
-```typescript
-import { HttpClient } from '@angular/common/http';
- 
-export class FilmsPage {
-  films: Observable<any>;
- 
-  constructor(public navCtrl: NavController, public httpClient: HttpClient) { 
-    this.films = this.httpClient.get('https://swapi.co/api/films');
-    this.films.subscribe(data => {
-      console.log('my data: ', data);
-    })
-     
-      openDetails(film) {
-        this.navCtrl.push('FilmDetailsPage', {film: film});
-      }
-  }
-}
-```
 
 ## Storage
 https://capacitor.ionicframework.com/docs/getting-started/with-ionic/
