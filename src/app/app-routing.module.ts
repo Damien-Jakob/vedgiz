@@ -12,10 +12,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'vegetables',
-    loadChildren: () => import('./vegetables/vegetables.module').then( m => m.VegetablesPageModule)
-  },
-  {
     path: 'error/:errorCategory',
     loadChildren: () => import('./error/error.module').then( m => m.ErrorPageModule)
   },
@@ -23,6 +19,11 @@ const routes: Routes = [
     path: 'users/me',
     loadChildren: () => import('./users/me/me.module').then( m => m.MePageModule)
   },
+  {
+    path: 'vegetables',
+    loadChildren: () => import('./vegetables/vegetables-index/vegetables-index.module').then( m => m.VegetablesIndexPageModule)
+  },
+
 ];
 
 @NgModule({
