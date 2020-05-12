@@ -66,7 +66,7 @@ export class FilmsPage {
 ```
 
 ## Variables d'environement
-Dans /src/app/environments.
+Dans /src/environments.
 
 Utilisation :
 ```typescript
@@ -74,6 +74,10 @@ import {environment} from "../environments/environment";
 
 if(environment.production)
 ```
+
+### Utiliser les variables de production
+
+    ionic build --prod
 
 ## Emulation
 Cordova
