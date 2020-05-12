@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VegetablesPageRoutingModule } from './vegetables-routing.module';
+import { VegetablesIndexPageRoutingModule } from './vegetables-index-routing.module';
 
-import { VegetablesPage } from './vegetables.page';
+import { VegetablesIndexPage } from './vegetables-index.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VegetablesPageRoutingModule
+    VegetablesIndexPageRoutingModule
   ],
-  declarations: [VegetablesPage]
+  declarations: [VegetablesIndexPage]
 })
-export class VegetablesPageModule {}
+export class VegetablesIndexPageModule {}
