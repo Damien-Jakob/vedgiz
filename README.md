@@ -1,4 +1,4 @@
-# Vedgiz
+# Vedjiz
 
 Application developed dor the MOB1 module.
 
@@ -14,6 +14,7 @@ Sinon, le browser bloque les requêtes envers un autre serveur.
 
     ionic generate page myPageName
     ionic generate service myServiceName
+    ng generate class models/Student
 
 ## Navigation
 1. Générer la page : `ionic generate page myPageName`
