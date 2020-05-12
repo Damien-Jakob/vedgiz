@@ -16,6 +16,15 @@ Sinon, le browser bloque les requêtes envers un autre serveur.
     ionic generate service myServiceName
     ng generate class models/Student
 
+## Provider
+Permet de partager une seule instance d'un service entre toutes les pages.
+
+Dans le provider : `@injectable()`.
+
+Dans app.modules.ts : `providers: [myNewProvider]`
+
+Dans les pages : `constructor(prov: MyNewProvider)`
+
 ## Navigation
 1. Générer la page : `ionic generate page myPageName`
 1. Si besoin, modifier la route dans `/src/app/app-routing.module.ts`
