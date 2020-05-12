@@ -50,20 +50,17 @@ import { HttpClientModule } from '@angular/common/http';
 Exemple de page (`src/pages/films/films.ts`) :
 
 ```typescript
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http'; 
  
 export class FilmsPage {
   films: Observable<any>;
  
-  constructor(public navCtrl: NavController, public httpClient: HttpClient) { 
+  constructor(public httpClient: HttpClient) { 
     this.films = this.httpClient.get('https://swapi.co/api/films');
-    this.films.subscribe(data => {
-      console.log('my data: ', data);
-    })
-     
-      openDetails(film) {
-        this.navCtrl.push('FilmDetailsPage', {film: film});
-      }
+    this.films.subscribe(answer => {
+      console.log('my answer: ', answer);
+      console.log('my data: ', answer.data);
+    });
   }
 }
 ```
