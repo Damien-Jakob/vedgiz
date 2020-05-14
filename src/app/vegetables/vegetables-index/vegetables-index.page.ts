@@ -9,6 +9,8 @@ import {AlertController} from "@ionic/angular";
     styleUrls: ['./vegetables-index.page.scss'],
 })
 export class VegetablesIndexPage implements OnInit {
+    protected PICTURES_ROOT: string = "http://127.0.0.1:8000/storage/pictures/";
+
     protected vegetables: Array<Vegetable>;
 
     constructor(
@@ -29,7 +31,7 @@ export class VegetablesIndexPage implements OnInit {
             });
     }
 
-    private async alert(title: string, message: string) {
+    protected async alert(title: string, message: string) {
         const alert = await this.alertController.create({
             header: title,
             //subHeader: 'Subtitle',
@@ -38,5 +40,9 @@ export class VegetablesIndexPage implements OnInit {
         });
 
         await alert.present();
+    }
+
+    protected pictureUrl(pictureName: string): string {
+        return this.PICTURES_ROOT + pictureName;
     }
 }

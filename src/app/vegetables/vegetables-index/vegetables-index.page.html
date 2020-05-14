@@ -12,7 +12,7 @@
         <ion-grid>
             <ion-row class="ion-image-container">
                 <ion-col size="3">
-                    <ion-img [src]="'http://127.0.0.1:8000/storage/pictures/' + vegetable.picture"></ion-img>
+                    <ion-img [src]="pictureUrl(vegetable.picture)"></ion-img>
                 </ion-col>
                 <ion-col>
                     <p class="vege-title">{{vegetable.name}}</p>
