@@ -88,6 +88,9 @@ if(environment.production)
 
     ionic build --prod
 
+## Form
+Importer ReactiveFormsModule dans myPage.module.ts
+
 ## Emulation
 Cordova
 
@@ -106,7 +109,7 @@ Cordova
 * appName : nom de l'app
 * appId : domaine idantifiant l'app, ex : ch.cpnv.vedjiz
 
-### Initialisation
+### Build initial
 Le projet doit avoir été build au moins une fois pour ajouter des plateformes natives.
 
     ionic build
