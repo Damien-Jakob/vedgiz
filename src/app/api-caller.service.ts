@@ -10,6 +10,7 @@ import {environment} from "../environments/environment";
 export class ApiCallerService {
     protected APPLY_API: string = "user/apply";
     protected ME_API: string = "me";
+    protected PRODUCTS_API: string = "products";
 
     constructor(
         protected authentication: AuthenticationService,
@@ -31,6 +32,11 @@ export class ApiCallerService {
     public me(): Observable<any> {
         const headers: HttpHeaders = this.authentication.headers();
         return this.http.get(this.url(this.ME_API), {headers});
+    }
+
+    public getProducts(): Observable<any> {
+        const headers: HttpHeaders = this.authentication.headers();
+        return this.http.get(this.url(this.PRODUCTS_API), {headers});
     }
 
     protected url(api: string): string {
