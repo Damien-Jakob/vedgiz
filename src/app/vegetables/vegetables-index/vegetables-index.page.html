@@ -10,7 +10,7 @@
 <ion-content>
     <ion-card *ngFor="let vegetable of vegetables">
         <ion-grid>
-            <ion-row>
+            <ion-row class="ion-image-container">
                 <ion-col size="3">
                     <ion-img [src]="'http://127.0.0.1:8000/storage/pictures/' + vegetable.picture"></ion-img>
                 </ion-col>
@@ -18,7 +18,7 @@
                     <p class="vege-title">{{vegetable.name}}</p>
                     <p class="vege-detail">{{vegetable.price}} CHF/{{vegetable.unit}}</p>
                     <p class="vege-detail">Disponible : {{vegetable.stock}}</p>
-                    <p class="fineprints">Mise à jour : {{vegetable.updated_at}}</p>
+                    <p class="vege-fineprint">Mise à jour : {{vegetable.updated_at}}</p>
                 </ion-col>
             </ion-row>
         </ion-grid>

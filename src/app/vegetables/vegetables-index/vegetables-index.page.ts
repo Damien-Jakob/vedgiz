@@ -25,7 +25,7 @@ export class VegetablesIndexPage implements OnInit {
                 console.log(this.vegetables);
             },
             error => {
-                this.alert("Erreur", "La liste des légumes n'a pas pu être chargée");
+                this.alert("Erreur", "La liste des légumes n'a pas pu être chargée.");
             });
     }
 
