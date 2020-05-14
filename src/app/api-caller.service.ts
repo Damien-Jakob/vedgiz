@@ -43,7 +43,7 @@ export class ApiCallerService {
     // Rem : do not use this, just use a direct link
     public getPicture(pictureName: string): Observable<any> {
         const headers: HttpHeaders = this.authentication.headers();
-        return this.http.get(this.url(this.PRODUCTS_API) + pictureName, {headers});
+        return this.http.get(this.url(this.PICTURE_API) + pictureName, {headers});
     }
 
     protected url(api: string): string {
