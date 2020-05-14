@@ -9,7 +9,7 @@
 
 <ion-content>
     <!-- TODO find way to display the image only after loading -->
-    <ion-img *ngIf="vegetable.picture" [src]="pictureUrl(vegetable.picture)"></ion-img>
+    <ion-img *ngIf="vegetable.picture" [src]="data.pictureUrl(vegetable.picture)"></ion-img>
     <ion-list>
         <ion-item *ngIf="vegetable.details">
             {{vegetable.details}}

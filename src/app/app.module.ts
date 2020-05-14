@@ -12,6 +12,7 @@ import {AppRoutingModule} from './app-routing.module';
 // Manually added
 import {HttpClientModule} from '@angular/common/http';
 import {ApiCallerService} from "./api-caller.service";
+import {DataProvider} from "./data-provider.service";
 
 @NgModule({
     declarations: [AppComponent],
@@ -30,6 +31,7 @@ import {ApiCallerService} from "./api-caller.service";
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         // Manually added
         ApiCallerService,
+        DataProvider,
     ],
     bootstrap: [AppComponent]
 })

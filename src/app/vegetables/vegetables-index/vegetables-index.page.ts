@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ApiCallerService} from "../../api-caller.service";
 import {Vegetable} from "../../models/vegetable";
 import {AlertController} from "@ionic/angular";
-import {stringify} from "querystring";
 import {Router} from "@angular/router";
+import {DataProvider} from "../../data-provider.service";
 
 @Component({
     selector: 'app-vegetables-index',
@@ -11,14 +11,13 @@ import {Router} from "@angular/router";
     styleUrls: ['./vegetables-index.page.scss'],
 })
 export class VegetablesIndexPage implements OnInit {
-    protected PICTURES_ROOT: string = "http://127.0.0.1:8000/storage/pictures/";
-
     protected vegetables: Array<Vegetable>;
 
     constructor(
         protected api: ApiCallerService,
         protected alertController: AlertController,
         protected router: Router,
+        protected data: DataProvider,
     ) {
         this.vegetables = new Array<Vegetable>();
     }
@@ -32,10 +31,6 @@ export class VegetablesIndexPage implements OnInit {
             error => {
                 this.alert("Erreur", "La liste des légumes n'a pas pu être chargée.");
             });
-    }
-
-    protected pictureUrl(pictureName: string): string {
-        return this.PICTURES_ROOT + pictureName;
     }
 
     // We use the router instead of the href to navigate because the href reloads the app,
