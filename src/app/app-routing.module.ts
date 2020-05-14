@@ -23,6 +23,10 @@ const routes: Routes = [
         path: 'vegetables',
         loadChildren: () => import('./vegetables/vegetables-index/vegetables-index.module').then(m => m.VegetablesIndexPageModule)
     },
+    {
+        path: 'vegetables/:id',
+        loadChildren: () => import('./vegetables/vegetables-show/vegetables-show.module').then(m => m.VegetablesShowPageModule)
+    },
 ];
 
 @NgModule({
