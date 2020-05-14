@@ -3,27 +3,28 @@
         <ion-buttons slot="start">
             <ion-back-button></ion-back-button>
         </ion-buttons>
-        <ion-title>{{vegetable.name || "???"}}</ion-title>
+        <ion-title>{{vegetable.name}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-img [src]="pictureUrl(vegetable.picture)"></ion-img>
+    <!-- TODO find way to display the image only after loading -->
+    <ion-img *ngIf="vegetable.picture" [src]="pictureUrl(vegetable.picture)"></ion-img>
     <ion-list>
-        <ion-item>
-            {{vegetable.details || "???"}}
+        <ion-item *ngIf="vegetable.details">
+            {{vegetable.details}}
         </ion-item>
-        <ion-item>
-            <ion-label>{{vegetable.price || "???" }} CHF/{{vegetable.unit || "???" }}</ion-label>
+        <ion-item *ngIf="vegetable.price && vegetable.unit">
+            <ion-label>{{vegetable.price}} CHF/{{vegetable.unit}}</ion-label>
         </ion-item>
-        <ion-item>
-            <ion-label>Disponible : {{vegetable.stock || "???"}}</ion-label>
+        <ion-item *ngIf="vegetable.stock">
+            <ion-label>Disponible : {{vegetable.stock}}</ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="vegetable.suppliers">
             <ion-list>
                 <ion-list-header>Fournisseurs :</ion-list-header>
                 <ion-item *ngFor="let supplier of vegetable.suppliers">
-                    <ion-label>{{supplier.company_name || "???"}}, {{supplier.city || "???"}}</ion-label>
+                    <ion-label>{{supplier.company_name || "???"}}{{supplier.city ? ", " : ""}}{{supplier.city}}</ion-label>
                 </ion-item>
             </ion-list>
         </ion-item>
