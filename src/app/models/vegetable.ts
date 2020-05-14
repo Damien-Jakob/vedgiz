@@ -9,4 +9,7 @@ export class Vegetable {
     public price: number;
     public current: boolean;
     public suppliers: Array<Supplier>;
+    // TODO find better type
+    public created_at: string;
+    public updated_at: string;
 }
