@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {AlertController} from '@ionic/angular';
 import {AuthenticationService} from "../authentication.service";
@@ -10,7 +10,7 @@ import {ApiCallerService} from "../api-caller.service";
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private alertController: AlertController,
@@ -18,6 +18,12 @@ export class HomePage {
         private router: Router,
         private api: ApiCallerService,
     ) {
+    }
+
+    ngOnInit() {
+    }
+
+    ionViewWillEnter() {
         if (this.authentication.hasToken()) {
             console.log('Trying to validate the token.');
 
