@@ -1,6 +1,6 @@
 # Vedjiz
 
-Application developed dor the MOB1 module.
+Ionic exercise. Application developed for the MOB1 module. Managing orders and stock of a small market.
 
 ## Serve
 
