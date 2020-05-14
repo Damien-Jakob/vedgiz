@@ -3,6 +3,7 @@ import {Supplier} from "./supplier";
 export class Vegetable {
     public id: number;
     public name: string;
+    public details: string;
     public unit: string;
     public stock: number;
     public picture: string;
