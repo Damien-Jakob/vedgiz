@@ -1,11 +1,11 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
         <ion-title>Légumes</ion-title>
-        <!-- TODO find better way to display the button -->
-        <ion-back-button></ion-back-button>
     </ion-toolbar>
 </ion-header>
-
 
 <ion-content>
     <ion-card *ngFor="let vegetable of vegetables" href="/vegetables/{{vegetable.id}}">
