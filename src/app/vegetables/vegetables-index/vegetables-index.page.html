@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Légumes</ion-title>
+        <!-- TODO find better way to display the button -->
+        <ion-back-button></ion-back-button>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-card *ngFor="let vegetable of vegetables" href="/vegetables/{{vegetable.id}}">
+        <ion-grid>
+            <ion-row class="ion-image-container">
+                <ion-col size="3">
+                    <ion-img [src]="pictureUrl(vegetable.picture)"></ion-img>
+                </ion-col>
+                <ion-col>
+                    <p class="vege-title">{{vegetable.name || "???" }}</p>
+                    <p class="vege-detail">{{vegetable.price || "???" }} CHF/{{vegetable.unit || "???" }}</p>
+                    <p class="vege-detail">Disponible : {{vegetable.stock || "???"}}</p>
+                    <p class="vege-fineprint">
+                        Mise à jour : {{ convertUpdatedAt(vegetable) | date: 'dd.MM.yyyy' || "???"}}
+                    </p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-card>
+</ion-content>

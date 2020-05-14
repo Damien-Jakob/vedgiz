@@ -10,6 +10,8 @@ import {environment} from "../environments/environment";
 export class ApiCallerService {
     protected APPLY_API: string = "user/apply";
     protected ME_API: string = "me";
+    protected PRODUCTS_API: string = "products";
+    protected PICTURE_API: string = "product/picture/";
 
     constructor(
         protected authentication: AuthenticationService,
@@ -31,6 +33,17 @@ export class ApiCallerService {
     public me(): Observable<any> {
         const headers: HttpHeaders = this.authentication.headers();
         return this.http.get(this.url(this.ME_API), {headers});
+    }
+
+    public getProducts(): Observable<any> {
+        const headers: HttpHeaders = this.authentication.headers();
+        return this.http.get(this.url(this.PRODUCTS_API), {headers});
+    }
+
+    // Rem : do not use this, just use a direct link
+    public getPicture(pictureName: string): Observable<any> {
+        const headers: HttpHeaders = this.authentication.headers();
+        return this.http.get(this.url(this.PICTURE_API) + pictureName, {headers});
     }
 
     protected url(api: string): string {
