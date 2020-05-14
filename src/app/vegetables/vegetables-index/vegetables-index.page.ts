@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ApiCallerService} from "../../api-caller.service";
 import {Vegetable} from "../../models/vegetable";
 import {AlertController} from "@ionic/angular";
+import {stringify} from "querystring";
 
 @Component({
     selector: 'app-vegetables-index',
@@ -44,5 +45,9 @@ export class VegetablesIndexPage implements OnInit {
 
     protected pictureUrl(pictureName: string): string {
         return this.PICTURES_ROOT + pictureName;
+    }
+
+    protected convertUpdatedAt(vegetable: Vegetable): Date {
+        return new Date(vegetable.updated_at);
     }
 }

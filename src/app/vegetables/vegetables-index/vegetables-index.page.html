@@ -18,7 +18,7 @@
                     <p class="vege-title">{{vegetable.name || "???" }}</p>
                     <p class="vege-detail">{{vegetable.price || "???" }} CHF/{{vegetable.unit || "???" }}</p>
                     <p class="vege-detail">Disponible : {{vegetable.stock || "???"}}</p>
-                    <p class="vege-fineprint">Mise à jour : {{vegetable.updated_at || "???"}}</p>
+                    <p class="vege-fineprint">Mise à jour : {{ convertUpdatedAt(vegetable) | date: 'dd.MM.yyyy' || "???"}}</p>
                 </ion-col>
             </ion-row>
         </ion-grid>
