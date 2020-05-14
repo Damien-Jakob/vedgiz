@@ -1,30 +1,9 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>
-            Vedjiz - Accueil
+            Chargement...
         </ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <div id="container">
-        <form [formGroup]="applicationForm" (ngSubmit)="submitApplicationForm()">
-            <ion-item>
-                <ion-input type="text" formControlName="firstname" placeholder="Prénom"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-input type="text" formControlName="lastname" placeholder="Nom"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-input type="text" formControlName="phonenumber" placeholder="Téléphone"></ion-input>
-            </ion-item>
-            <ion-button type="submit" expand="block" [disabled]="!applicationForm.valid">Inscription</ion-button>
-        </form>
-        <form [formGroup]="connectionForm" (ngSubmit)="validateToken()">
-            <ion-item>
-                <ion-input type="text" formControlName="token" placeholder="Token" required=""></ion-input>
-            </ion-item>
-            <ion-button type="submit" expand="block" [disabled]="!connectionForm.valid">Connexion</ion-button>
-        </form>
-    </div>
-</ion-content>
+<ion-content></ion-content>
