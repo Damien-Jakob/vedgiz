@@ -3,6 +3,7 @@ import {ApiCallerService} from "../../api-caller.service";
 import {Vegetable} from "../../models/vegetable";
 import {AlertController} from "@ionic/angular";
 import {stringify} from "querystring";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-vegetables-index',
@@ -16,7 +17,8 @@ export class VegetablesIndexPage implements OnInit {
 
     constructor(
         protected api: ApiCallerService,
-        protected alertController: AlertController
+        protected alertController: AlertController,
+        protected router: Router,
     ) {
         this.vegetables = new Array<Vegetable>();
     }
@@ -32,6 +34,18 @@ export class VegetablesIndexPage implements OnInit {
             });
     }
 
+    protected pictureUrl(pictureName: string): string {
+        return this.PICTURES_ROOT + pictureName;
+    }
+
+    // We use the router instead of the href to navigate because the href reloads the app,
+    // and loses the previous page reference for the back button
+    // We still keep the href for styling reasons
+    protected toDetail(event: Event, vegetable: Vegetable): void {
+        event.preventDefault();
+        this.router.navigate(['/vegetables', vegetable.id])
+    }
+
     protected async alert(title: string, message: string) {
         const alert = await this.alertController.create({
             header: title,
@@ -41,13 +55,5 @@ export class VegetablesIndexPage implements OnInit {
         });
 
         await alert.present();
-    }
-
-    protected pictureUrl(pictureName: string): string {
-        return this.PICTURES_ROOT + pictureName;
-    }
-
-    protected convertUpdatedAt(vegetable: Vegetable): Date {
-        return new Date(vegetable.updated_at);
     }
 }
