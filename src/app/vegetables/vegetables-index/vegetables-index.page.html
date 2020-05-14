@@ -15,10 +15,10 @@
                     <ion-img [src]="pictureUrl(vegetable.picture)"></ion-img>
                 </ion-col>
                 <ion-col>
-                    <p class="vege-title">{{vegetable.name}}</p>
-                    <p class="vege-detail">{{vegetable.price}} CHF/{{vegetable.unit}}</p>
-                    <p class="vege-detail">Disponible : {{vegetable.stock}}</p>
-                    <p class="vege-fineprint">Mise à jour : {{vegetable.updated_at}}</p>
+                    <p class="vege-title">{{vegetable.name || "???" }}</p>
+                    <p class="vege-detail">{{vegetable.price || "???" }} CHF/{{vegetable.unit || "???" }}</p>
+                    <p class="vege-detail">Disponible : {{vegetable.stock || "???"}}</p>
+                    <p class="vege-fineprint">Mise à jour : {{vegetable.updated_at || "???"}}</p>
                 </ion-col>
             </ion-row>
         </ion-grid>
