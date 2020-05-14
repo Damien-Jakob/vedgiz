@@ -81,7 +81,7 @@ export class HomePage {
             answer => {
                 this.alert(
                     "Inscription réussie",
-                    `Vous devriez prochainement recevoir un token d'activation qui vous permettra d'accéder à l'application`
+                    `Vous devriez prochainement recevoir un token d'activation qui vous permettra d'accéder à l'application.`
                 );
                 this.applicationForm.reset();
             },
