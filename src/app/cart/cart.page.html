@@ -8,9 +8,11 @@
 </ion-header>
 
 <ion-content>
-    <ion-select placeholder="Nouveau légume">
-        <ion-select-option *ngFor="let vegetable of vegetables | unselectedVegetables:cart">
-            {{vegetable.name}}
-        </ion-select-option>
-    </ion-select>
+    <!-- TODO remplacer par une liste déroulante -->
+    <select placeholder="Nouveau légume">
+        <!-- TODO adapt the pipe to whatever cart structure is chose (probably {id: string, quantity: number}) -->
+        <option *ngFor="let vegetable of vegetables | unselectedVegetables:cart" value="{{vegetable.id}}">
+            {{vegetable.name}} : {{vegetable.price}} CHF/{{vegetable.unit}}
+        </option>
+    </select>
 </ion-content>
