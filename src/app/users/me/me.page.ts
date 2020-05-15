@@ -29,4 +29,8 @@ export class MePage implements OnInit {
         this.router.navigate(['/vegetables']);
     }
 
+    protected toCart() {
+        this.router.navigate(['/cart']);
+    }
+
 }
