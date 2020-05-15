@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {ApiCallerService} from "../api-caller.service";
 
 @Component({
-    selector: 'app-home',
+    selector: 'app-subscribe',
     templateUrl: 'subscribe.page.html',
     styleUrls: ['subscribe.page.scss'],
 })
