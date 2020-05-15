@@ -24,8 +24,7 @@ export class CartPage implements OnInit {
         this.api.getProducts().subscribe(
             answer => {
                 this.vegetables = answer.data;
-                // clone the vegetables
-                this.selectableVegetables = [...this.vegetables];
+                this.setSelectableVegetables();
             },
             error => {
                 this.alert("Erreur", "La liste des légumes n'a pas pu être chargée.");
@@ -33,6 +32,7 @@ export class CartPage implements OnInit {
 
         // TODO load cart from local storage, if there is one
         this.cart = new Array<string>();
+        this.setSelectableVegetables();
     }
 
     protected addSelectedToCart() {
@@ -41,7 +41,7 @@ export class CartPage implements OnInit {
             vegetable: this.vegetable(this.selectedVegetableId),
         });
         // remove the vegetable from selectable vegetables
-        this.selectableVegetables = this.selectableVegetables.filter(vegetable => vegetable.id != this.selectedVegetableId);
+        this.setSelectableVegetables();
         // Try to unselect the vegetable
         this.selectedVegetableId = null;
 
@@ -51,6 +51,14 @@ export class CartPage implements OnInit {
 
     protected vegetable(id: number): Vegetable {
         return this.vegetables.find(vegetable => vegetable.id == id);
+    }
+
+    // Set selectableVegetables to all vegetables not in the cart
+    protected setSelectableVegetables(): void {
+        this.selectableVegetables = this.vegetables.filter(vegetable =>
+            // Is the vegetable not in the cart ?
+            this.cart.find(cartItem => cartItem.vegetable.id == vegetable.id) == undefined
+        );
     }
 
     protected async alert(title: string, message: string) {
