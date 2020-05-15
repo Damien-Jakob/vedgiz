@@ -1,7 +1,7 @@
 import {Supplier} from "./supplier";
 
 export class Vegetable {
-    public id: string; // easier to keep it as a string tu use in url
+    public id: number;
     public name: string;
     public details: string;
     public unit: string;

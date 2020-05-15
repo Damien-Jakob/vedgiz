@@ -10,10 +10,13 @@ import {AlertController} from "@ionic/angular";
 })
 export class CartPage implements OnInit {
     protected vegetables: Array<Vegetable>;
+    protected selectableVegetables: Array<Vegetable>;
+    protected selectedVegetableId: number = null;
     protected cart: Array<any>;
 
     constructor(protected api: ApiCallerService, protected alertController: AlertController) {
         this.vegetables = new Array<Vegetable>();
+        this.selectableVegetables = new Array<Vegetable>();
         this.cart = new Array<any>();
     }
 
@@ -21,6 +24,8 @@ export class CartPage implements OnInit {
         this.api.getProducts().subscribe(
             answer => {
                 this.vegetables = answer.data;
+                // clone the vegetables
+                this.selectableVegetables = [...this.vegetables];
             },
             error => {
                 this.alert("Erreur", "La liste des légumes n'a pas pu être chargée.");
@@ -28,6 +33,24 @@ export class CartPage implements OnInit {
 
         // TODO load cart from local storage, if there is one
         this.cart = new Array<string>();
+    }
+
+    protected addSelectedToCart() {
+        console.log(this.selectedVegetableId);
+        this.cart.push({
+            vegetable: this.vegetable(this.selectedVegetableId),
+        });
+        // remove the vegetable from selectable vegetables
+        this.selectableVegetables = this.selectableVegetables.filter(vegetable => vegetable.id != this.selectedVegetableId);
+        // Try to unselect the vegetable
+        this.selectedVegetableId = null;
+
+        console.log(this.cart);
+        console.log(this.selectableVegetables);
+    }
+
+    protected vegetable(id: number): Vegetable {
+        return this.vegetables.find(vegetable => vegetable.id == id);
     }
 
     protected async alert(title: string, message: string) {
