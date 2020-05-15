@@ -12,13 +12,12 @@
                 placeholder="Nouveau légume" (ngModelChange)="addSelectedToCart()"
                 interface="popover">
         <ion-select-option *ngFor="let vegetable of selectableVegetables" value="{{vegetable.id}}">
-            {{vegetable.name}}<br/>
-            {{vegetable.price}} CHF/{{vegetable.unit}}
+            {{vegetable.name}} {{vegetable.price}} CHF/{{vegetable.unit}}
         </ion-select-option>
     </ion-select>
     <ion-list>
         <ion-item *ngFor="let cartItem of cart">
-            {{cartItem.vegetable.name}}
+            {{cartItem.vegetable.name}} {{cartItem.vegetable.price}} CHF/{{cartItem.vegetable.unit}}
         </ion-item>
     </ion-list>
 </ion-content>
