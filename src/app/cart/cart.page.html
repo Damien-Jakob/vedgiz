@@ -1,9 +1,16 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>cart</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Panier</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-select placeholder="Nouveau légume">
+        <ion-select-option *ngFor="let vegetable of vegetables | unselectedVegetables:cart">
+            {{vegetable.name}}
+        </ion-select-option>
+    </ion-select>
 </ion-content>

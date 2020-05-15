@@ -33,6 +33,7 @@ import {DataProvider} from "./data-provider.service";
         ApiCallerService,
         DataProvider,
     ],
+    exports: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {
