@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Storage} from "@ionic/storage";
 import {environment} from "../environments/environment";
 import {Observable} from "rxjs";
+import {User} from "./models/user";
 
 @Injectable({
     providedIn: 'root'
@@ -11,10 +12,14 @@ export class AuthenticationProvider {
     protected APPLY_API: string = "user/apply/";
     protected ME_API: string = "me/";
 
+    public user: User;
+
     constructor(
         protected storage: Storage,
         protected http: HttpClient,
     ) {
+        this.user = new User();
+        this.loadUser();
     }
 
     public getToken(): Promise<string> {
@@ -23,6 +28,14 @@ export class AuthenticationProvider {
 
     public storeToken(token: string): Promise<any> {
         return this.storage.set('token', token);
+    }
+
+    public loadUser(): void {
+        this.me().subscribe(
+            answer => {
+                this.user = answer.data;
+            }
+        );
     }
 
     public apply(applicationData: object): Observable<any> {
