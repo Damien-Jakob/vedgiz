@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
-import {AlertController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 import {AuthenticationService} from "../authentication.service";
 import {Router} from "@angular/router";
 import {ApiCallerService} from "../api-caller.service";
@@ -28,6 +28,7 @@ export class SubscribePage {
         private authentication: AuthenticationService,
         private router: Router,
         private api: ApiCallerService,
+        private toast: ToastController,
     ) {
         this.applicationForm = this.formBuilder.group({
             firstname: ['', SubscribePage.nameValidator],
@@ -80,6 +81,14 @@ export class SubscribePage {
                 console.log('Token validated');
 
                 this.authentication.storeToken(this.token);
+
+                this.toast.create({
+                    message: "Token enregistré.",
+                    duration: 2000,
+                    position: "bottom",
+                }).then( toast => {
+                    toast.present();
+                });
 
                 // TODO get it working again
                 //this.router.navigate(['/users/me']);
