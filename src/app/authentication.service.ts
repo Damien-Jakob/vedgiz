@@ -1,19 +1,20 @@
 import {Injectable} from '@angular/core';
 import {HttpHeaders} from "@angular/common/http";
 import {isNotNullOrUndefined} from "codelyzer/util/isNotNullOrUndefined";
+import {Storage} from "@ionic/storage";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
-    constructor() {
+    constructor(protected storage: Storage) {
     }
 
     public token(): string {
         // TODO get token from local storage
         //const token: string = "25inl4IfpxLqjXqQ39rx78f8Fk3cJVwRE2EWz6ekBBE9hdU5k5U4CVPyM6W6"; // valid
         //const token: string = "25inl4IfpxLqjXqQ39rx78f8Fk3cJVwRE2EWz6ekBBE9hdU5k5U4CVPyM6W7"; // invalid
-        const token : string = null; // no token
+        const token: string = null; // no token
         return token;
     }
 
@@ -22,7 +23,7 @@ export class AuthenticationService {
     }
 
     public storeToken(token: string): void {
-        console.log(token);
+        this.storage.set('token', token);
     }
 
     /*

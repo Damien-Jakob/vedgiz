@@ -4,7 +4,6 @@ import {AlertController, ToastController} from '@ionic/angular';
 import {AuthenticationService} from "../authentication.service";
 import {Router} from "@angular/router";
 import {ApiCallerService} from "../api-caller.service";
-import {Storage} from "@ionic/storage";
 
 @Component({
     selector: 'app-subscribe',
@@ -29,7 +28,6 @@ export class SubscribePage {
         private toast: ToastController,
         private authentication: AuthenticationService,
         private api: ApiCallerService,
-        private storage: Storage,
         private router: Router,
     ) {
         this.applicationForm = this.formBuilder.group({
@@ -93,7 +91,7 @@ export class SubscribePage {
                 });
 
                 // TODO get it working again
-                //this.router.navigate(['/users/me']);
+                this.router.navigate(['/users/me']);
             },
             error => {
                 console.log('Error : ', error.error);
