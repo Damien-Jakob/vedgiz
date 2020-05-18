@@ -15,7 +15,6 @@ export class VegetablesShowPage implements OnInit {
 
     constructor(
         protected route: ActivatedRoute,
-        protected api: ApiCallerService,
         protected alertController: AlertController,
         protected data: DataProvider,
     ) {
@@ -23,7 +22,9 @@ export class VegetablesShowPage implements OnInit {
     }
 
     ngOnInit() {
-        const vegetableId: string = this.route.snapshot.paramMap.get('id');
+        const vegetableId: number = Number(this.route.snapshot.paramMap.get('id'));
+        this.data.loadVegetable(vegetableId);
+        /*
         this.api.getProduct(vegetableId).subscribe(
             answer => {
                 this.vegetable = answer.data;
@@ -32,6 +33,8 @@ export class VegetablesShowPage implements OnInit {
                 this.alert("Erreur", "Le légume n'a pas pu être chargé.");
             }
         );
+
+         */
     }
 
     protected async alert(title: string, message: string) {

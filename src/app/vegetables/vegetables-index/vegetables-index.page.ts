@@ -22,16 +22,15 @@ export class VegetablesIndexPage implements OnInit {
     ngOnInit() {
     }
 
+    // We want to reload the vegetables every time we visit the page, in case there has been an update
     ionViewWillEnter() {
-        // TODO use alert in case of problem when loading the vegetables
         this.data.loadVegetables().then(
             answer => {
                 console.log('Vegetables loaded');
                 console.log(answer);
             },
             error => {
-                console.log('Failed to load vegetables');
-                console.log(error);
+                this.alert("Erreur", "La liste des légumes n'a pas pu être chargée.");
             }
         );
     }
