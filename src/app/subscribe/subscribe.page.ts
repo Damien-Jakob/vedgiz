@@ -13,6 +13,7 @@ import {ApiCallerService} from "../api-caller.service";
 export class SubscribePage {
     private applicationForm: FormGroup;
     private connectionForm: FormGroup;
+    private token: string;
 
     private static nameValidator = [
         Validators.compose([
@@ -78,9 +79,10 @@ export class SubscribePage {
             answer => {
                 console.log('Token validated');
 
-                // TODO save token
+                this.authentication.storeToken(this.token);
 
-                this.router.navigate(['/users/me']);
+                // TODO get it working again
+                //this.router.navigate(['/users/me']);
             },
             error => {
                 console.log('Error : ', error.error);

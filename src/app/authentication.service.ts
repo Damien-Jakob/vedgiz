@@ -11,14 +11,18 @@ export class AuthenticationService {
 
     public token(): string {
         // TODO get token from local storage
-        const token: string = "25inl4IfpxLqjXqQ39rx78f8Fk3cJVwRE2EWz6ekBBE9hdU5k5U4CVPyM6W6"; // valid
+        //const token: string = "25inl4IfpxLqjXqQ39rx78f8Fk3cJVwRE2EWz6ekBBE9hdU5k5U4CVPyM6W6"; // valid
         //const token: string = "25inl4IfpxLqjXqQ39rx78f8Fk3cJVwRE2EWz6ekBBE9hdU5k5U4CVPyM6W7"; // invalid
-        //const token : string = null; // no token
+        const token : string = null; // no token
         return token;
     }
 
     public hasToken(): boolean {
         return isNotNullOrUndefined(this.token());
+    }
+
+    public storeToken(token: string): void {
+        console.log(token);
     }
 
     /*

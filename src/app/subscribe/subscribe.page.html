@@ -21,7 +21,7 @@
     </form>
     <form [formGroup]="connectionForm" (ngSubmit)="validateToken()">
         <ion-item>
-            <ion-input type="text" formControlName="token" placeholder="Token" required=""></ion-input>
+            <ion-input type="text" [(ngModel)]="token" formControlName="token" placeholder="Token"></ion-input>
         </ion-item>
         <ion-button type="submit" expand="block" [disabled]="!connectionForm.valid">Connexion</ion-button>
     </form>
