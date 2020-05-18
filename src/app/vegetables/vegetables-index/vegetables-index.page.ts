@@ -11,26 +11,29 @@ import {DataProvider} from "../../data-provider.service";
     styleUrls: ['./vegetables-index.page.scss'],
 })
 export class VegetablesIndexPage implements OnInit {
-    protected vegetables: Array<Vegetable>;
 
     constructor(
-        protected api: ApiCallerService,
+        protected data: DataProvider,
         protected alertController: AlertController,
         protected router: Router,
-        protected data: DataProvider,
     ) {
-        this.vegetables = new Array<Vegetable>();
     }
 
     ngOnInit() {
-        this.api.getProducts().subscribe(
+    }
+
+    ionViewWillEnter() {
+        // TODO use alert in case of problem when loading the vegetables
+        this.data.loadVegetables().then(
             answer => {
-                this.vegetables = answer.data;
-                console.log(this.vegetables);
+                console.log('Vegetables loaded');
+                console.log(answer);
             },
             error => {
-                this.alert("Erreur", "La liste des légumes n'a pas pu être chargée.");
-            });
+                console.log('Failed to load vegetables');
+                console.log(error);
+            }
+        );
     }
 
     // We use the router instead of the href to navigate because the href reloads the app,
