@@ -13,6 +13,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {ApiCallerService} from "./api-caller.service";
 import {DataProvider} from "./data-provider.service";
+import {IonicStorageModule} from "@ionic/storage";
 
 @NgModule({
     declarations: [AppComponent],
@@ -23,6 +24,7 @@ import {DataProvider} from "./data-provider.service";
         AppRoutingModule,
         // Manually added
         HttpClientModule,
+        IonicStorageModule.forRoot(),
     ],
     // Use a single provider for all the app
     providers: [

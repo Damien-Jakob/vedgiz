@@ -4,6 +4,7 @@ import {AlertController, ToastController} from '@ionic/angular';
 import {AuthenticationService} from "../authentication.service";
 import {Router} from "@angular/router";
 import {ApiCallerService} from "../api-caller.service";
+import {Storage} from "@ionic/storage";
 
 @Component({
     selector: 'app-subscribe',
@@ -25,10 +26,11 @@ export class SubscribePage {
     constructor(
         private formBuilder: FormBuilder,
         private alertController: AlertController,
-        private authentication: AuthenticationService,
-        private router: Router,
-        private api: ApiCallerService,
         private toast: ToastController,
+        private authentication: AuthenticationService,
+        private api: ApiCallerService,
+        private storage: Storage,
+        private router: Router,
     ) {
         this.applicationForm = this.formBuilder.group({
             firstname: ['', SubscribePage.nameValidator],
@@ -86,7 +88,7 @@ export class SubscribePage {
                     message: "Token enregistré.",
                     duration: 2000,
                     position: "bottom",
-                }).then( toast => {
+                }).then(toast => {
                     toast.present();
                 });
 
