@@ -165,8 +165,10 @@ import {Storage} from "@ionic/storage";
 constructor(private storage: Storage);
 ```
 
-ATTENTION, parfois l'IDE oublie d'ajouter l'import.
+ATTENTION, parfois l'IDE oublie d'ajouter l'import. Redémarrer ionic lab peut aussi être nécessaire.
 
+### Inspection sous Chrome
+F12 -> Application -> Storage -> IndexedDB -> _ionicstorage
 
 
 
