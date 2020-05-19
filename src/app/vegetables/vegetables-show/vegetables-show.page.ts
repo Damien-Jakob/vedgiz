@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Vegetable} from "../../models/vegetable";
-import {ApiCallerService} from "../../api-caller.service";
 import {AlertController} from "@ionic/angular";
 import {DataProvider} from "../../data-provider.service";
 
@@ -11,30 +9,31 @@ import {DataProvider} from "../../data-provider.service";
     styleUrls: ['./vegetables-show.page.scss'],
 })
 export class VegetablesShowPage implements OnInit {
-    protected vegetable: Vegetable;
-
     constructor(
         protected route: ActivatedRoute,
-        protected alertController: AlertController,
         protected data: DataProvider,
+        protected alertController: AlertController,
     ) {
-        this.vegetable = new Vegetable();
     }
 
     ngOnInit() {
+    }
+
+    // We want to reload the vegetables every time we visit the page, in case there has been an update
+    ionViewWillEnter() {
+        // We don't want to display the previous vegetable
+        this.data.clearVegetable();
+
         const vegetableId: number = Number(this.route.snapshot.paramMap.get('id'));
-        this.data.loadVegetable(vegetableId);
-        /*
-        this.api.getProduct(vegetableId).subscribe(
+        this.data.loadVegetable(vegetableId).then(
             answer => {
-                this.vegetable = answer.data;
+                console.log('Vegetable loaded');
+                console.log(answer);
             },
             error => {
                 this.alert("Erreur", "Le légume n'a pas pu être chargé.");
             }
         );
-
-         */
     }
 
     protected async alert(title: string, message: string) {

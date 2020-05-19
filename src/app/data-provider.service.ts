@@ -16,6 +16,7 @@ export class DataProvider {
 
     constructor(protected http: HttpClient) {
         this.vegetables = new Array<Vegetable>();
+        this.vegetable = new Vegetable();
         this.loadVegetables();
     }
 
@@ -34,6 +35,10 @@ export class DataProvider {
                 }
             );
         });
+    }
+
+    public clearVegetable(): void {
+        this.vegetable = new Vegetable();
     }
 
     public loadVegetable(id: number): Promise<any> {
