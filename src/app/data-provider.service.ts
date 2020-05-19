@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Vegetable} from "./models/vegetable";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../environments/environment";
+import {Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,7 @@ export class DataProvider {
     public loadVegetables(): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             this.http.get(this.url(this.VEGETABLES_API)).subscribe(
-                response => {
+                (response: any) => {
                     console.log(response);
                     this.vegetables = response.data;
                     resolve(this.vegetables);
@@ -38,9 +39,12 @@ export class DataProvider {
     public loadVegetable(id: number): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             this.http.get(this.url(this.VEGETABLES_API + id)).subscribe(
-                response => {
+                (response: any) => {
+                    console.log('response');
                     console.log(response);
                     this.vegetable = response.data;
+                    console.log('vegetable');
+                    console.log(this.vegetable);
                 },
                 error => {
                     // TODO deal with error
