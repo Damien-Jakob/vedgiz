@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
     // We want to have to redirect again if the user to this page
     ionViewWillEnter() {
         console.log('Checking the token.');
-        this.authentication.getToken().then(
+        this.authentication.loadToken().then(
             answer => {
                 console.log('There is a token.');
                 console.log('Checking the validity of the token');

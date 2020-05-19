@@ -4,6 +4,7 @@ import {Storage} from "@ionic/storage";
 import {environment} from "../environments/environment";
 import {Observable} from "rxjs";
 import {User} from "./models/user";
+import {ApiTokenInterceptor} from "./interceptors/ApiTokenInterceptor";
 
 @Injectable({
     providedIn: 'root'
@@ -14,19 +15,35 @@ export class AuthenticationProvider {
 
     public user: User;
 
+    protected token: string = null;
+
     constructor(
         protected storage: Storage,
         protected http: HttpClient,
     ) {
         this.user = new User();
         this.loadUser();
+        this.loadToken();
     }
 
-    public getToken(): Promise<string> {
-        return this.storage.get('token');
+    public getToken(): string {
+        return this.token;
+    }
+
+    public loadToken(): Promise<string> {
+        // We shouldn't use this in a callback, so we use a workaround
+        const self: AuthenticationProvider = this;
+        return this.storage.get('token').then(
+            function (token) {
+                self.token = token;
+                ApiTokenInterceptor.setToken(token);
+                return token;
+            }
+        );
     }
 
     public storeToken(token: string): Promise<any> {
+        // TODO set token (this + ApiTokenInterceptor)
         return this.storage.set('token', token);
     }
 

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../models/user";
 import {Router} from "@angular/router";
 import {AuthenticationProvider} from "../../authentication-provider.service";
 
@@ -15,6 +14,11 @@ export class MePage implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    // Load the data every time the page is visited in case there has been an update
+    ionViewWillEnter() {
+        this.authentication.loadUser();
     }
 
     protected toVegetables() {
