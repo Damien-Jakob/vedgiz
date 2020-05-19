@@ -51,6 +51,12 @@ export class AuthenticationProvider {
         return this.storage.set('token', token);
     }
 
+    public deleteToken(): Promise<any> {
+        this.token = null;
+        ApiTokenInterceptor.setToken(null);
+        return this.storage.remove('token');
+    }
+
     public loadUser(): void {
         this.me().subscribe(
             answer => {

@@ -97,11 +97,12 @@ export class SubscribePage {
                     },
 
                     error => {
-
-                        // TODO delete invalid token
-
+                        
                         console.log('Error : ', error.error);
                         console.log(error);
+
+                        this.authentication.deleteToken();
+
                         // Note that error.error is a string or an object depending on the error
                         this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.error})`);
                     }
