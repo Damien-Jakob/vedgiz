@@ -22,8 +22,11 @@ export class AuthenticationProvider {
         protected http: HttpClient,
     ) {
         this.user = new User();
-        this.loadUser();
-        this.loadToken();
+        this.loadToken().then(
+            answer => {
+                this.loadUser();
+            }
+        );
     }
 
     public getToken(): string {
