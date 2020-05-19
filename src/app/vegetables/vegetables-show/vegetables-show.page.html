@@ -24,7 +24,7 @@
             <ion-list>
                 <ion-list-header>Fournisseurs :</ion-list-header>
                 <ion-item *ngFor="let supplier of data.vegetable.suppliers">
-                    <ion-label>{{supplier.company_name || "???"}}{{supplier.city ? ", " + supplier.city : ""}}</ion-label>
+                    {{supplier.company_name || "???"}}{{supplier.city ? ", " + supplier.city : ""}}
                 </ion-item>
             </ion-list>
         </ion-item>
