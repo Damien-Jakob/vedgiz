@@ -46,7 +46,8 @@ export class AuthenticationProvider {
     }
 
     public storeToken(token: string): Promise<any> {
-        // TODO set token (this + ApiTokenInterceptor)
+        this.token = token;
+        ApiTokenInterceptor.setToken(token);
         return this.storage.set('token', token);
     }
 

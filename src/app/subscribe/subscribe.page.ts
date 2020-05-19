@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {AlertController, ToastController} from '@ionic/angular';
-import {AuthenticationService} from "../authentication.service";
+import {AuthenticationProvider} from "../authentication-provider.service";
 import {Router} from "@angular/router";
 import {ApiCallerService} from "../api-caller.service";
+import {Storage} from "@ionic/storage";
 
 @Component({
     selector: 'app-subscribe',
@@ -26,8 +27,8 @@ export class SubscribePage {
         private formBuilder: FormBuilder,
         private alertController: AlertController,
         private toast: ToastController,
-        private authentication: AuthenticationService,
-        private api: ApiCallerService,
+        private authentication: AuthenticationProvider,
+        private storage: Storage,
         private router: Router,
     ) {
         this.applicationForm = this.formBuilder.group({
@@ -57,7 +58,7 @@ export class SubscribePage {
         console.log('Click on the app form');
         console.log('Data sent : ', this.applicationForm.value);
 
-        this.api.apply(this.applicationForm.value).subscribe(
+        this.authentication.apply(this.applicationForm.value).subscribe(
             answer => {
                 this.alert(
                     "Inscription réussie",
@@ -76,29 +77,37 @@ export class SubscribePage {
     private validateToken(): void {
         console.log('Trying to validate the token');
 
-        this.api.validateToken(this.connectionForm.value.token).subscribe(
+        this.authentication.storeToken(this.connectionForm.value.token).then(
             answer => {
-                console.log('Token validated');
+                this.authentication.me().subscribe(
+                    answer => {
+                        console.log('Token validated');
 
-                this.authentication.storeToken(this.token);
+                        this.authentication.storeToken(this.token);
 
-                this.toast.create({
-                    message: "Token enregistré.",
-                    duration: 2000,
-                    position: "bottom",
-                }).then(toast => {
-                    toast.present();
-                });
+                        this.toast.create({
+                            message: "Token enregistré.",
+                            duration: 2000,
+                            position: "bottom",
+                        }).then(toast => {
+                            toast.present();
+                        });
 
-                // TODO get it working again
-                this.router.navigate(['/users/me']);
-            },
-            error => {
-                console.log('Error : ', error.error);
-                console.log(error);
-                // Note that error.error is a string or an object depending on the error
-                this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.error})`);
-            });
+                        this.router.navigate(['/users/me']);
+                    },
+
+                    error => {
+
+                        // TODO delete invalid token
+
+                        console.log('Error : ', error.error);
+                        console.log(error);
+                        // Note that error.error is a string or an object depending on the error
+                        this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.error})`);
+                    }
+                )
+            }
+        );
     }
 
     private async alert(title: string, message: string) {

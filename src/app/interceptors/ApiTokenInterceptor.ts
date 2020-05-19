@@ -1,11 +1,10 @@
 import {Injectable} from "@angular/core";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {AuthenticationProvider} from "../authentication-provider.service";
 
 @Injectable()
 export class ApiTokenInterceptor implements HttpInterceptor {
-    // TODO find a way to use the authentication-provider
+    // TODO find a way to use the authentication-provider, or to have a non static token
     protected static token = null;
 
     constructor() {
@@ -22,7 +21,7 @@ export class ApiTokenInterceptor implements HttpInterceptor {
                 Accept: 'application/json',
                 Authorization: `Bearer ${ApiTokenInterceptor.token}`,
                 //Authorization: 'Bearer 25inl4IfpxLqjXqQ39rx78f8Fk3cJVwRE2EWz6ekBBE9hdU5k5U4CVPyM6W6', // valid
-                //Authorization: 'Bearer 25inl4IfpxLqjXqQ39rx78f8Fk3cJVwRE2EWz6ekBBE9hdU5k5U4CVPyM6W6', // invalid
+                //Authorization: 'Bearer 25inl4IfpxLqjXqQ39rx78f8Fk3cJVwRE2EWz6ekBBE9hdU5k5U4CVPyM6W7', // invalid
                 //Authorization: null, // no token
             }
         });
