@@ -12,6 +12,10 @@ export class ApiTokenInterceptor implements HttpInterceptor {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        /*
+        console.log('Requete http :');
+        console.log(request);
+         */
         request = request.clone({
             setHeaders: {
                 'Content-Type': 'application/json charset=utf-8',
