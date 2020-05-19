@@ -3,8 +3,6 @@ import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {AlertController, ToastController} from '@ionic/angular';
 import {AuthenticationProvider} from "../authentication-provider.service";
 import {Router} from "@angular/router";
-import {ApiCallerService} from "../api-caller.service";
-import {Storage} from "@ionic/storage";
 
 @Component({
     selector: 'app-subscribe',
@@ -28,7 +26,6 @@ export class SubscribePage {
         private alertController: AlertController,
         private toast: ToastController,
         private authentication: AuthenticationProvider,
-        private storage: Storage,
         private router: Router,
     ) {
         this.applicationForm = this.formBuilder.group({
@@ -97,7 +94,7 @@ export class SubscribePage {
                     },
 
                     error => {
-                        
+
                         console.log('Error : ', error.error);
                         console.log(error);
 
