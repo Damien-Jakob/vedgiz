@@ -11,7 +11,6 @@ import {AppRoutingModule} from './app-routing.module';
 
 // Manually added
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {ApiCallerService} from "./api-caller.service";
 import {DataProvider} from "./data-provider.service";
 import {IonicStorageModule} from "@ionic/storage";
 import {ApiTokenInterceptor} from "./interceptors/ApiTokenInterceptor";
@@ -33,7 +32,6 @@ import {ApiTokenInterceptor} from "./interceptors/ApiTokenInterceptor";
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         // Manually added
-        ApiCallerService,
         DataProvider,
         {provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi: true},
     ],

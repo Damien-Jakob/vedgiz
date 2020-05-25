@@ -99,7 +99,7 @@ export class SubscribePage {
                         console.log(error);
 
                         this.authentication.deleteToken();
-                        
+
                         this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.message})`);
                     }
                 )
