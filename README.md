@@ -1,6 +1,6 @@
 # Vedjiz
 
-Application developed dor the MOB1 module.
+Ionic exercise. Application developed for the MOB1 module. Managing orders and stock of a small market.
 
 ## Serve
 
@@ -88,6 +88,9 @@ if(environment.production)
 
     ionic build --prod
 
+## Form
+Importer ReactiveFormsModule dans myPage.module.ts
+
 ## Emulation
 Cordova
 
@@ -106,7 +109,7 @@ Cordova
 * appName : nom de l'app
 * appId : domaine idantifiant l'app, ex : ch.cpnv.vedjiz
 
-### Initialisation
+### Build initial
 Le projet doit avoir été build au moins une fois pour ajouter des plateformes natives.
 
     ionic build
@@ -139,24 +142,33 @@ https://capacitor.ionicframework.com/docs/getting-started/with-ionic/
 
 ### Install
 
-    npm install @ionic-enterprise/offline-storage
-    npx cap sync
+    npm install --save @ionic/storage
     
 ### Utilisation
-Remarque : ne marche pas avec dans le browser.
-
 Dans `src/app/app.module.ts` :
     
 ```typescript
-import { SQLite } from '@ionic-enterprise/offline-storage/ngx';
+import {IonicStorageModule} from "@ionic/storage";
  
 @NgModule({
-  providers: [
-      SQLite
+  imports: [
+      IonicStorageModule.forRoot(),
     ],
 })
 ```
 
+Dans la page / le service utilisant le storage :
+    
+```typescript
+import {Storage} from "@ionic/storage";
+ 
+constructor(private storage: Storage);
+```
+
+ATTENTION, parfois l'IDE oublie d'ajouter l'import. Redémarrer ionic lab peut aussi être nécessaire.
+
+### Inspection sous Chrome
+F12 -> Application -> Storage -> IndexedDB -> _ionicstorage
 
 
 

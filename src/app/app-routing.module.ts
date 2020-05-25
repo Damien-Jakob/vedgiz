@@ -27,6 +27,15 @@ const routes: Routes = [
         path: 'vegetables/:id',
         loadChildren: () => import('./vegetables/vegetables-show/vegetables-show.module').then(m => m.VegetablesShowPageModule)
     },
+    {
+        path: 'subscribe',
+        loadChildren: () => import('./subscribe/subscribe.module').then(m => m.SubscribePageModule)
+    },
+    {
+        path: 'cart',
+        loadChildren: () => import('./cart/cart.module').then(m => m.CartPageModule)
+    },
+
 ];
 
 @NgModule({

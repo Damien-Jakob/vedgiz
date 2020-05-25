@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Panier</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-select [(ngModel)]="selectedVegetableId"
+                (ngModelChange)="addSelectedToCart()"
+                interface="popover"
+                placeholder="Nouveau légume"
+    >
+        <ion-select-option *ngFor="let vegetable of selectableVegetables" value="{{vegetable.id}}">
+            {{vegetable.name}} {{vegetable.price}} CHF/{{vegetable.unit}}
+        </ion-select-option>
+    </ion-select>
+    <form [formGroup]="cartForm" >
+        <ion-list formArrayName="cartItems">
+            <ion-item *ngFor="let cartItem of cart">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-label><strong>{{cartItem.vegetable.name}}</strong></ion-label>
+                            <ion-label>{{cartItem.vegetable.price}} CHF/{{cartItem.vegetable.unit}}</ion-label>
+                        </ion-col>
+                        <ion-col>
+                            <form [formGroup]="cartItem.vegetable.id">
+                                <ion-input type="number" formControlName="vegetableQuantity" min="1"></ion-input>
+                            </form>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-list>
+    </form>
+</ion-content>

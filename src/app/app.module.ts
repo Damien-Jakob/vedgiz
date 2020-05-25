@@ -10,8 +10,11 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 
 // Manually added
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ApiCallerService} from "./api-caller.service";
+import {DataProvider} from "./data-provider.service";
+import {IonicStorageModule} from "@ionic/storage";
+import {ApiTokenInterceptor} from "./interceptors/ApiTokenInterceptor";
 
 @NgModule({
     declarations: [AppComponent],
@@ -22,6 +25,7 @@ import {ApiCallerService} from "./api-caller.service";
         AppRoutingModule,
         // Manually added
         HttpClientModule,
+        IonicStorageModule.forRoot(),
     ],
     // Use a single provider for all the app
     providers: [
@@ -30,7 +34,10 @@ import {ApiCallerService} from "./api-caller.service";
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         // Manually added
         ApiCallerService,
+        DataProvider,
+        {provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi: true},
     ],
+    exports: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {

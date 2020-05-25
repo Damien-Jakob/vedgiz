@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiCallerService} from "../../api-caller.service";
-import {User} from "../../models/user";
 import {Router} from "@angular/router";
+import {AuthenticationProvider} from "../../authentication-provider.service";
 
 // TODO display more informations -> look what the apis can do
 
@@ -11,22 +10,23 @@ import {Router} from "@angular/router";
     styleUrls: ['./me.page.scss'],
 })
 export class MePage implements OnInit {
-    protected user: User;
-
-    constructor(protected api: ApiCallerService, protected router: Router) {
-        this.user = new User();
+    constructor(protected authentication: AuthenticationProvider, protected router: Router) {
     }
 
     ngOnInit() {
-        this.api.me().subscribe(
-            answer => {
-                this.user = answer.data;
-            }
-        );
+    }
+
+    // Load the data every time the page is visited in case there has been an update
+    ionViewWillEnter() {
+        this.authentication.loadUser();
     }
 
     protected toVegetables() {
         this.router.navigate(['/vegetables']);
+    }
+
+    protected toCart() {
+        this.router.navigate(['/cart']);
     }
 
 }

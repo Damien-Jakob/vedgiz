@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   api_root: "http://127.0.0.1:8000/api/",
+  picture_root: "http://127.0.0.1:8000/storage/pictures/",
 };
 
 /*
