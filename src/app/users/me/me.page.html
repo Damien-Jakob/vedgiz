@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Mon profil</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>{{authentication.user.firstname}} {{authentication.user.lastname}}</ion-item>
+    <ion-button expand="block" (click)="toVegetables()">Légumes</ion-button>
+    <ion-button expand="block" (click)="toCart()">Panier</ion-button>
+</ion-content>
