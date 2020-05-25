@@ -99,9 +99,8 @@ export class SubscribePage {
                         console.log(error);
 
                         this.authentication.deleteToken();
-
-                        // Note that error.error is a string or an object depending on the error
-                        this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.error})`);
+                        
+                        this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.message})`);
                     }
                 )
             }
