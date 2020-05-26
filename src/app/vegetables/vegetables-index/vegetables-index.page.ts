@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiCallerService} from "../../api-caller.service";
 import {Vegetable} from "../../models/vegetable";
 import {AlertController} from "@ionic/angular";
 import {Router} from "@angular/router";
