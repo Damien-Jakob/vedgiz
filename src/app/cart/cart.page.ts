@@ -61,17 +61,13 @@ export class CartPage implements OnInit {
     // TODO move logic to cart provider
     protected addSelectedToCart() {
         this.cart.content.push({
-            vegetable: this.vegetable(this.selectedVegetableId),
+            vegetable: this.data.find(this.selectedVegetableId),
         });
+
         // remove the vegetable from selectable vegetables
         this.setSelectableVegetables();
         // Try to unselect the vegetable
         this.selectedVegetableId = null;
-    }
-
-    // TODO move logic to data provider
-    protected vegetable(id: number): Vegetable {
-        return this.data.vegetables.find(vegetable => vegetable.id == id);
     }
 
     // Set selectableVegetables to all vegetables not in the cart

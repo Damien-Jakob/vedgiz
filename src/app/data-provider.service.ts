@@ -59,15 +59,9 @@ export class DataProvider {
         });
     }
 
-    public find(id: number): Promise<Vegetable> {
-        return new Promise<Vegetable>((resolve, reject) => {
-                resolve(
-                    this.vegetables.find(
-                        vegetable => vegetable.id == id
-                    )
-                );
-                reject();
-            }
+    public find(id: number): Vegetable {
+        return this.vegetables.find(
+            vegetable => vegetable.id == id
         );
     }
 
