@@ -19,7 +19,7 @@
     </ion-select>
     <form [formGroup]="cartForm" >
         <ion-list formArrayName="cartItems">
-            <ion-item *ngFor="let cartItem of cart">
+            <ion-item *ngFor="let cartItem of cart.content">
                 <ion-grid>
                     <ion-row>
                         <ion-col>

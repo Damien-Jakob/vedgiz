@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Vegetable} from "../models/vegetable";
-import {ApiCallerService} from "../api-caller.service";
 import {AlertController} from "@ionic/angular";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {CartProvider} from "../cart-provider.service";
+import {DataProvider} from "../data-provider.service";
+
 
 @Component({
     selector: 'app-cart',
@@ -10,41 +12,36 @@ import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
     styleUrls: ['./cart.page.scss'],
 })
 export class CartPage implements OnInit {
-    protected vegetables: Array<Vegetable>;
     protected selectableVegetables: Array<Vegetable>;
     protected selectedVegetableId: number = null;
-    protected cart: Array<any>;
 
     protected cartForm: FormGroup;
     protected cartItemsForms: FormArray;
 
     constructor(
-        protected api: ApiCallerService,
+        protected data: DataProvider,
+        protected cart: CartProvider,
         protected alertController: AlertController,
         protected formBuilder: FormBuilder,
     ) {
-        this.vegetables = new Array<Vegetable>();
         this.selectableVegetables = new Array<Vegetable>();
-        this.cart = new Array<any>();
     }
 
     ngOnInit() {
         this.cartForm = this.formBuilder.group({
-            cartItems: this.formBuilder.array([ this.createCartItemForm() ])
+            cartItems: this.formBuilder.array([this.createCartItemForm()])
         });
+    }
 
-        this.api.getProducts().subscribe(
+    ionViewWillEnter() {
+        this.data.loadVegetables().then(
             answer => {
-                this.vegetables = answer.data;
                 this.setSelectableVegetables();
             },
             error => {
                 this.alert("Erreur", "La liste des légumes n'a pas pu être chargée.");
-            });
-
-        // TODO load cart from local storage, if there is one
-        this.cart = new Array<string>();
-        this.setSelectableVegetables();
+            }
+        )
     }
 
     protected createCartItemForm(): FormGroup {
@@ -61,29 +58,27 @@ export class CartPage implements OnInit {
         this.cartItemsForms.push(this.createCartItemForm());
     }
 
+    // TODO move logic to cart provider
     protected addSelectedToCart() {
-        console.log(this.selectedVegetableId);
-        this.cart.push({
+        this.cart.content.push({
             vegetable: this.vegetable(this.selectedVegetableId),
         });
         // remove the vegetable from selectable vegetables
         this.setSelectableVegetables();
         // Try to unselect the vegetable
         this.selectedVegetableId = null;
-
-        console.log(this.cart);
-        console.log(this.selectableVegetables);
     }
 
+    // TODO move logic to data provider
     protected vegetable(id: number): Vegetable {
-        return this.vegetables.find(vegetable => vegetable.id == id);
+        return this.data.vegetables.find(vegetable => vegetable.id == id);
     }
 
     // Set selectableVegetables to all vegetables not in the cart
     protected setSelectableVegetables(): void {
-        this.selectableVegetables = this.vegetables.filter(vegetable =>
+        this.selectableVegetables = this.data.vegetables.filter(vegetable =>
             // Is the vegetable not in the cart ?
-            this.cart.find(cartItem => cartItem.vegetable.id == vegetable.id) == undefined
+            this.cart.content.find(cartItem => cartItem.vegetable.id == vegetable.id) == undefined
         );
     }
 
