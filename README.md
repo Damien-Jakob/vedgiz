@@ -170,5 +170,57 @@ ATTENTION, parfois l'IDE oublie d'ajouter l'import. Redémarrer ionic lab peut a
 ### Inspection sous Chrome
 F12 -> Application -> Storage -> IndexedDB -> _ionicstorage
 
+## Authentification avec token
+### Avec Ionic
+Créer un intercepteur, dans interceptors/ApiTokenInterceptor.ts :
+
+```typescript
+import {Injectable} from "@angular/core";
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {Observable} from "rxjs";
+
+@Injectable()
+export class ApiTokenInterceptor implements HttpInterceptor {
+    protected static token = null;
+
+    constructor() {
+    }
+
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        request = request.clone({
+            setHeaders: {
+                'Content-Type': 'application/json charset=utf-8',
+                Accept: 'application/json',
+                Authorization: `Bearer ${ApiTokenInterceptor.token}`,
+                //Authorization: 'Bearer 25inl4IfpxLqjXqQ39rx78f8Fk3cJVwRE2EWz6ekBBE9hdU5k5U4CVPyM6W6',
+            }
+        });
+        return next.handle(request);
+    }
+
+    public static setToken(token): void {
+        ApiTokenInterceptor.token = token;
+    }
+}
+```
+
+Dans app.module.ts :
+
+```typescript
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {ApiTokenInterceptor} from "./interceptors/ApiTokenInterceptor";
+
+@NgModule({
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi: true},
+    ],
+})
+export class AppModule {
+}
+
+```
+
+### Avec Postman
+Headers -> Authorization: 'Bearer 25inl4IfpxLqjXqQ39rx78f8Fk3cJVwRE2EWz6ekBBE9hdU5k5U4CVPyM6W6'
 
 
