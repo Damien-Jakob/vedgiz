@@ -64,11 +64,7 @@ export class CartPage implements OnInit {
         // We have to add a new entry to the form array in order to display the vegetable correctly
         this.cartItemsForms.push(this.createCartItemForm());
 
-        // TODO move logic to cart provider
-        this.cart.content.push({
-            vegetable: this.data.find(this.selectedVegetableId),
-        });
-        console.log(this.data.find(this.selectedVegetableId));
+        this.cart.addVegetable(this.selectedVegetableId);
 
         // remove the vegetable from selectable vegetables
         this.setSelectableVegetables();
