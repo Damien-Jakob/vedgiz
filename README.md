@@ -12,7 +12,6 @@ Réalisation du panier.
 
 Améliorer le contenu du panier :
 * Mettre à jour les données du panier :
-    * Ajouter la quantité, et lier la quantité dans le formulaire
     * Il serait mieux de n'enregistrer que l'id du vege, cela permettrait d'éviter d'avoir des données dans le panier erronées 
     (par exemple si les données du vege ont changé entre-temps)
 

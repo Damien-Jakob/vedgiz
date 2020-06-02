@@ -15,9 +15,17 @@ export class CartProvider {
 
     public addVegetable(vegetableId): void {
         this.content.push({
+            vegetableId: vegetableId,
+            quantity: 1,
+            // TODO find way to not need to store the vegetable anymore
             vegetable: this.data.find(vegetableId),
         });
-        console.log(this.data.find(vegetableId));
+    }
+
+    public updateQuantity(vegetableId, quantity) {
+        this.content.find(contentItem =>
+          contentItem.vegetableId == vegetableId
+        ).quantity = quantity;
     }
 
     // Get all vegetables not in the cart

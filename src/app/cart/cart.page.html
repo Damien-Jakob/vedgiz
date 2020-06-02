@@ -17,7 +17,7 @@
             {{vegetable.name}} {{vegetable.price}} CHF/{{vegetable.unit}}
         </ion-select-option>
     </ion-select>
-    <form [formGroup]="cartForm" >
+    <form [formGroup]="cartForm">
         <ion-list formArrayName="cartItems">
             <ion-item *ngFor="let cartItem of cart.content; let i = index">
                 <ion-grid>
@@ -28,7 +28,11 @@
                         </ion-col>
                         <ion-col>
                             <form [formGroupName]="i.toString()">
-                                <ion-input type="number" formControlName="vegetableQuantity" min="1"></ion-input>
+                                <ion-input (ionChange)="onQuantityChange(cartItem.vegetableId, $event)"
+                                           type="number"
+                                           formControlName="vegetableQuantity"
+                                           min="1"
+                                ></ion-input>
                             </form>
                         </ion-col>
                     </ion-row>

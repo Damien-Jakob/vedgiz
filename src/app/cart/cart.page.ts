@@ -71,6 +71,12 @@ export class CartPage implements OnInit {
         this.selectedVegetableId = null;
     }
 
+    protected onQuantityChange(vegetableId: number, $event) {
+        this.cart.updateQuantity(vegetableId, $event.target.value);
+
+        console.log(this.cart.content);
+    }
+
     protected setSelectableVegetables(): void {
         this.selectableVegetables = this.cart.selectableVegetables();
     }
