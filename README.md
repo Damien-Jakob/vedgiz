@@ -2,9 +2,29 @@
 
 Ionic exercise. Application developed for the MOB1 module. Managing orders and stock of a small market.
 
+## Cahier des charges
+
+    https://eva.mycpnv.ch
+    
+### Avancement
+
+Réalisation du panier.
+
+Améliorer le contenu du panier :
+* Mettre la fonction pour ajouter un légume dans le cart provider
+* Déplacer la mise à jour de la liste des légumes sélectionables dans le panier
+* Mettre à jour les données du panier :
+    * Ajouter la quantité
+    * Il serait mieux de n'enregistrer que l'id du vege, cela permettrait d'éviter d'avoir des données dans le panier erronées 
+    (par exemple si les données du vege ont changé entre-temps)
+
 ## Serve
 
     ionic lab
+
+### Problème de refus de requêtes CORS
+
+Normalement la problème a été réglé, mais si jamais :
     
 Ouvrir l'application dans Chrome, et utiliser l'extension 
 [Allow CORS: Access-Control-Allow-Origin](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf). 
@@ -89,53 +109,12 @@ if(environment.production)
     ionic build --prod
 
 ## Form
-Importer ReactiveFormsModule dans myPage.module.ts
+Ionic propose des solutions pour faciliter la création de formulaires.
 
-## Emulation
-Cordova
+Voir la page d'inscription pour un bon exemple d'un formulaire simple avec de la validation des données.
 
-### Nouvelle app
-
-    ionic start myApp tabs --capacitor
-
-### Ajouter à une app existante
-
-    ionic integrations enable capacitor
-
-### Initialisation
-
-    npx cap init [appName] [appId]
-
-* appName : nom de l'app
-* appId : domaine idantifiant l'app, ex : ch.cpnv.vedjiz
-
-### Build initial
-Le projet doit avoir été build au moins une fois pour ajouter des plateformes natives.
-
-    ionic build
-    
-### Ajout de plateformes
-
-    npx cap add android
-    npx cap add ios
-    
-### Lancer l'émulation
-
-    npx cap open android
-
-Utilise Android Studio.
-
-    npx cap open ios
-    
-Xcode.
-
-### Utilisation
-Utiliser l'IDE (Android Studio) pour buil, run et deploy.
-
-### Synchronisation
-Quand on effectue un build qui modifie le répertoire web :
-
-    npx cap copy
+Voir la page du panier pour un exemple de formulaire nécessitant un formArray, 
+puisque le nombre de champ du formulaire varie au cours de la vie de l'application.
 
 ## Storage
 https://capacitor.ionicframework.com/docs/getting-started/with-ionic/
@@ -223,4 +202,48 @@ export class AppModule {
 ### Avec Postman
 Headers -> Authorization: 'Bearer 25inl4IfpxLqjXqQ39rx78f8Fk3cJVwRE2EWz6ekBBE9hdU5k5U4CVPyM6W6'
 
+## Emulation
+Cordova
 
+### Nouvelle app
+
+    ionic start myApp tabs --capacitor
+
+### Ajouter à une app existante
+
+    ionic integrations enable capacitor
+
+### Initialisation
+
+    npx cap init [appName] [appId]
+
+* appName : nom de l'app
+* appId : domaine idantifiant l'app, ex : ch.cpnv.vedjiz
+
+### Build initial
+Le projet doit avoir été build au moins une fois pour ajouter des plateformes natives.
+
+    ionic build
+    
+### Ajout de plateformes
+
+    npx cap add android
+    npx cap add ios
+    
+### Lancer l'émulation
+
+    npx cap open android
+
+Utilise Android Studio.
+
+    npx cap open ios
+    
+Xcode.
+
+### Utilisation
+Utiliser l'IDE (Android Studio) pour buil, run et deploy.
+
+### Synchronisation
+Quand on effectue un build qui modifie le répertoire web :
+
+    npx cap copy
