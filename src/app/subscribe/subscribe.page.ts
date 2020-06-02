@@ -66,7 +66,6 @@ export class SubscribePage {
             error => {
                 console.log('Error : ', error.error);
                 console.log(error);
-                // Note that error.error is a string or an object depending on the error
                 this.alert("Erreur", `Inscription refusée. Détail : ${error.error}`);
             });
     }
