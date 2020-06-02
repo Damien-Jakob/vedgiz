@@ -5,7 +5,6 @@ import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CartProvider} from "../cart-provider.service";
 import {DataProvider} from "../data-provider.service";
 
-
 @Component({
     selector: 'app-cart',
     templateUrl: './cart.page.html',
@@ -55,7 +54,7 @@ export class CartPage implements OnInit {
         });
     }
 
-    addCartItem(): void {
+    protected addCartItem(): void {
         this.cartItemsForms = this.cartForm.get('cartitems') as FormArray;
         this.cartItemsForms.push(this.createCartItemForm());
     }
@@ -72,12 +71,8 @@ export class CartPage implements OnInit {
         this.selectedVegetableId = null;
     }
 
-    // Set selectableVegetables to all vegetables not in the cart
     protected setSelectableVegetables(): void {
-        this.selectableVegetables = this.data.vegetables.filter(vegetable =>
-            // Is the vegetable not in the cart ?
-            this.cart.content.find(cartItem => cartItem.vegetable.id == vegetable.id) == undefined
-        );
+        this.selectableVegetables = this.cart.selectableVegetables();
     }
 
     protected async alert(title: string, message: string) {

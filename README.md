@@ -11,10 +11,8 @@ Ionic exercise. Application developed for the MOB1 module. Managing orders and s
 Réalisation du panier.
 
 Améliorer le contenu du panier :
-* Mettre la fonction pour ajouter un légume dans le cart provider
-* Déplacer la mise à jour de la liste des légumes sélectionables dans le panier
 * Mettre à jour les données du panier :
-    * Ajouter la quantité
+    * Ajouter la quantité, et lier la quantité dans le formulaire
     * Il serait mieux de n'enregistrer que l'id du vege, cela permettrait d'éviter d'avoir des données dans le panier erronées 
     (par exemple si les données du vege ont changé entre-temps)
 
