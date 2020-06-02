@@ -28,8 +28,10 @@ export class CartPage implements OnInit {
     }
 
     ngOnInit() {
+        this.cartItemsForms = this.formBuilder.array([this.createCartItemForm()]);
+
         this.cartForm = this.formBuilder.group({
-            cartItems: this.formBuilder.array([this.createCartItemForm()])
+            cartItems: this.cartItemsForms,
         });
     }
 
@@ -58,11 +60,15 @@ export class CartPage implements OnInit {
         this.cartItemsForms.push(this.createCartItemForm());
     }
 
-    // TODO move logic to cart provider
     protected addSelectedToCart() {
+        // We have to add a new entry to the form array in order to display the vegetable correctly
+        this.cartItemsForms.push(this.createCartItemForm());
+
+        // TODO move logic to cart provider
         this.cart.content.push({
             vegetable: this.data.find(this.selectedVegetableId),
         });
+        console.log(this.data.find(this.selectedVegetableId));
 
         // remove the vegetable from selectable vegetables
         this.setSelectableVegetables();
