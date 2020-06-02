@@ -67,7 +67,7 @@ export class SubscribePage {
                 console.log('Error : ', error.error);
                 console.log(error);
                 // Note that error.error is a string or an object depending on the error
-                this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.error})`);
+                this.alert("Erreur", `Inscription refusée. Détail : ${error.error}`);
             });
     }
 
@@ -100,7 +100,7 @@ export class SubscribePage {
 
                         this.authentication.deleteToken();
 
-                        this.alert("Erreur", `Erreur ${error.status} ${error.statusText} (Détail : ${error.message})`);
+                        this.alert("Erreur", `Token invalide`);
                     }
                 )
             }
