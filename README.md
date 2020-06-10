@@ -10,9 +10,12 @@ Ionic exercise. Application developed for the MOB1 module. Managing orders and s
 
 Réalisation du panier.
 
+Prochaine tâche : 
+* On peut ajouter des produits au panier à partir de la liste des contenus des cagettes
+
 Améliorer le contenu du panier :
 * Mettre à jour les données du panier :
-    * Il serait mieux de n'enregistrer que l'id du vege, cela permettrait d'éviter d'avoir des données dans le panier erronées 
+    * (Pas urgent) Il serait mieux de n'enregistrer que l'id du vege, cela permettrait d'éviter d'avoir des données dans le panier erronées 
     (par exemple si les données du vege ont changé entre-temps)
 
 ## Serve
