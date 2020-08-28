@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Vegetable} from "../models/vegetable";
-import {AlertController} from "@ionic/angular";
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CartProvider} from "../cart-provider.service";
-import {DataProvider} from "../data-provider.service";
+import {Vegetable} from '../models/vegetable';
+import {AlertController} from '@ionic/angular';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CartProvider} from '../cart-provider.service';
+import {DataProvider} from '../data-provider.service';
 
 @Component({
     selector: 'app-cart',
@@ -40,9 +40,9 @@ export class CartPage implements OnInit {
                 this.setSelectableVegetables();
             },
             error => {
-                this.alert("Erreur", "La liste des légumes n'a pas pu être chargée.");
+                this.alert('Erreur', 'La liste des légumes n\'a pas pu être chargée.');
             }
-        )
+        );
     }
 
     protected createCartItemForm(): FormGroup {
@@ -84,8 +84,8 @@ export class CartPage implements OnInit {
     protected async alert(title: string, message: string) {
         const alert = await this.alertController.create({
             header: title,
-            //subHeader: 'Subtitle',
-            message: message,
+            // subHeader: 'Subtitle',
+            message,
             buttons: ['OK'],
         });
 
