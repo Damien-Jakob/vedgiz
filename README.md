@@ -8,10 +8,15 @@ Ionic exercise. Application developed for the MOB1 module. Managing orders and s
     
 ### Avancement
 
+Bug :
+* Avec le backend de prod, le POST pour s'enregistrer a l'air d'être interprété comme un GET
+* Back button does very weird things
+
 Réalisation du panier.
 
-Prochaine tâche : 
+Prochaine tâche :
 * On peut ajouter des produits au panier à partir de la liste des contenus des cagettes
+* Vérifier consistance de la quantité dans le pannier
 
 Améliorer le contenu du panier :
 * Mettre à jour les données du panier :
@@ -114,7 +119,7 @@ Ionic propose des solutions pour faciliter la création de formulaires.
 Voir la page d'inscription pour un bon exemple d'un formulaire simple avec de la validation des données.
 
 Voir la page du panier pour un exemple de formulaire nécessitant un formArray, 
-puisque le nombre de champ du formulaire varie au cours de la vie de l'application.
+puisque le nombre de champs du formulaire varie au cours de la vie de l'application.
 
 ## Storage
 https://capacitor.ionicframework.com/docs/getting-started/with-ionic/
