@@ -31,7 +31,8 @@
                                 <ion-input (ionChange)="onQuantityChange(cartItem.vegetableId, $event)"
                                            type="number"
                                            formControlName="vegetableQuantity"
-                                           min="1"
+                                           min="0"
+                                           value="{{cartItem.quantity}}"
                                 ></ion-input>
                             </form>
                         </ion-col>
