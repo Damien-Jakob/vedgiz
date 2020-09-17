@@ -10,7 +10,7 @@ Ionic exercise. Application developed for the MOB1 module. Managing orders and s
 
 Bug :
 * Avec le backend de prod, le POST pour s'enregistrer a l'air d'être interprété comme un GET
-* Back button does very weird things
+* Passage Profil - Panier fait des trucs bizarres
 
 Réalisation du panier.
 
