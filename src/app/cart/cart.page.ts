@@ -23,10 +23,12 @@ export class CartPage implements OnInit {
         protected alertController: AlertController,
         protected formBuilder: FormBuilder,
     ) {
+        console.log('Cart page constructed');
         this.selectableVegetables = new Array<Vegetable>();
     }
 
     ngOnInit() {
+        console.log('Cart page ngOnInit');
         this.cartItemsForms = this.formBuilder.array([this.createCartItemForm()]);
 
         this.cartForm = this.formBuilder.group({
@@ -35,9 +37,12 @@ export class CartPage implements OnInit {
     }
 
     ionViewWillEnter() {
+        console.log('Cart page ionViewWillEnter');
         this.data.loadVegetables().then(
             answer => {
                 this.setSelectableVegetables();
+
+                console.log(this.cart.content);
             },
             error => {
                 this.alert('Erreur', 'La liste des légumes n\'a pas pu être chargée.');
@@ -46,6 +51,7 @@ export class CartPage implements OnInit {
     }
 
     protected createCartItemForm(): FormGroup {
+        console.log('createCartItemForm');
         return this.formBuilder.group({
             vegetableQuantity: [1, Validators.compose([
                 Validators.required,
@@ -55,11 +61,13 @@ export class CartPage implements OnInit {
     }
 
     protected addCartItem(): void {
+        console.log('addCartItem');
         this.cartItemsForms = this.cartForm.get('cartitems') as FormArray;
         this.cartItemsForms.push(this.createCartItemForm());
     }
 
     protected addSelectedToCart() {
+        console.log('addSelectedToCart');
         // We have to add a new entry to the form array in order to display the vegetable correctly
         this.cartItemsForms.push(this.createCartItemForm());
 
@@ -69,15 +77,19 @@ export class CartPage implements OnInit {
         this.setSelectableVegetables();
         // Try to unselect the vegetable
         this.selectedVegetableId = null;
+
+        console.log(this.cart.content);
     }
 
     protected onQuantityChange(vegetableId: number, $event) {
+        console.log('onQuantityChange');
         this.cart.updateQuantity(vegetableId, $event.target.value);
 
         console.log(this.cart.content);
     }
 
     protected setSelectableVegetables(): void {
+        console.log('setSelectableVegetable');
         this.selectableVegetables = this.cart.selectableVegetables();
     }
 
