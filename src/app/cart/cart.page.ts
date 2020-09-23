@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Vegetable} from '../models/vegetable';
 import {AlertController} from '@ionic/angular';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CartProvider} from '../cart-provider.service';
 import {DataProvider} from '../data-provider.service';
+
 
 @Component({
     selector: 'app-cart',
@@ -14,14 +14,10 @@ export class CartPage implements OnInit {
     protected selectableVegetables: Array<Vegetable>;
     protected selectedVegetableId: number = null;
 
-    protected cartForm: FormGroup;
-    protected cartItemsForms: FormArray;
-
     constructor(
         protected data: DataProvider,
         protected cart: CartProvider,
         protected alertController: AlertController,
-        protected formBuilder: FormBuilder,
     ) {
         console.log('Cart page constructed');
         this.selectableVegetables = new Array<Vegetable>();
@@ -32,7 +28,6 @@ export class CartPage implements OnInit {
     }
 
     ionViewWillEnter() {
-
         console.log('Cart page ionViewWillEnter');
         this.data.loadVegetables().then(
             answer => {
@@ -46,24 +41,6 @@ export class CartPage implements OnInit {
         );
     }
 
-    protected createCartItemForm(): FormGroup {
-        // in http
-        // formControlName="vegetableQuantity"
-        console.log('createCartItemForm');
-        return this.formBuilder.group({
-            vegetableQuantity: [1, Validators.compose([
-                Validators.required,
-                Validators.min(1),
-            ])],
-        });
-    }
-
-    protected addCartItem(): void {
-        console.log('addCartItem');
-        this.cartItemsForms = this.cartForm.get('cartitems') as FormArray;
-        this.cartItemsForms.push(this.createCartItemForm());
-    }
-
     protected addSelectedToCart() {
         this.cart.addVegetable(this.selectedVegetableId);
         // remove the vegetable from selectable vegetables
@@ -74,9 +51,11 @@ export class CartPage implements OnInit {
         console.log(this.cart.content);
     }
 
+    // TODO add input validation
     protected onQuantityChange(vegetableId: number, $event) {
         console.log('onQuantityChange');
-        this.cart.updateQuantity(vegetableId, $event.target.value);
+
+        this.cart.save();
 
         console.log(this.cart.content);
     }
@@ -96,5 +75,4 @@ export class CartPage implements OnInit {
 
         await alert.present();
     }
-
 }
