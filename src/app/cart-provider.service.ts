@@ -14,7 +14,7 @@ export class CartProvider {
         protected storage: Storage
     ) {
         // TODO load cart from local storage, if there is one
-        this.content = new Array<any>();
+        this.load();
     }
 
     public addVegetable(vegetableId): void {
@@ -25,12 +25,14 @@ export class CartProvider {
             // TODO find way to not need to store the vegetable anymore
             vegetable: this.data.find(vegetableId),
         });
+        this.save();
     }
 
     public updateQuantity(vegetableId, quantity) {
         this.content.find(contentItem =>
             contentItem.vegetableId === vegetableId
         ).quantity = quantity;
+        this.save();
     }
 
     // Get all vegetables not in the cart
