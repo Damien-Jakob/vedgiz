@@ -29,14 +29,10 @@ export class CartPage implements OnInit {
 
     ngOnInit() {
         console.log('Cart page ngOnInit');
-        this.cartItemsForms = this.formBuilder.array([this.createCartItemForm()]);
-
-        this.cartForm = this.formBuilder.group({
-            cartItems: this.cartItemsForms,
-        });
     }
 
     ionViewWillEnter() {
+
         console.log('Cart page ionViewWillEnter');
         this.data.loadVegetables().then(
             answer => {
@@ -51,6 +47,8 @@ export class CartPage implements OnInit {
     }
 
     protected createCartItemForm(): FormGroup {
+        // in http
+        // formControlName="vegetableQuantity"
         console.log('createCartItemForm');
         return this.formBuilder.group({
             vegetableQuantity: [1, Validators.compose([
@@ -67,12 +65,7 @@ export class CartPage implements OnInit {
     }
 
     protected addSelectedToCart() {
-        console.log('addSelectedToCart');
-        // We have to add a new entry to the form array in order to display the vegetable correctly
-        this.cartItemsForms.push(this.createCartItemForm());
-
         this.cart.addVegetable(this.selectedVegetableId);
-
         // remove the vegetable from selectable vegetables
         this.setSelectableVegetables();
         // Try to unselect the vegetable

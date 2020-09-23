@@ -59,6 +59,7 @@ export class CartProvider {
                 } else {
                     self.content = new Array<any>();
                 }
+                console.log(self.content);
                 return self.content;
             }
         );
