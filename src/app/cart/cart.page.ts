@@ -87,7 +87,7 @@ export class CartPage implements OnInit {
 
         await alert.present();
     }
-    
+
     addFormInput(cartItem: CartItem) {
         this.formGroup.addControl(
             cartItem.vegetable.id.toString(),
