@@ -4,6 +4,7 @@ import {AlertController} from '@ionic/angular';
 import {CartProvider} from '../cart-provider.service';
 import {DataProvider} from '../data-provider.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {CartItem} from '../models/cartItem';
 
 
 @Component({
@@ -88,9 +89,9 @@ export class CartPage implements OnInit {
     }
 
     // TODO add better input validation
-    addFormInput(cartItem: any) {
+    addFormInput(cartItem: CartItem) {
         this.formGroup.addControl(
-            cartItem.vegetable.id,
+            cartItem.vegetable.id.toString(),
             new FormControl(cartItem.quantity, Validators.required));
     }
 }

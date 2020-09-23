@@ -2,22 +2,22 @@ import {Injectable} from '@angular/core';
 import {DataProvider} from './data-provider.service';
 import {Vegetable} from './models/vegetable';
 import {Storage} from '@ionic/storage';
+import {CartItem} from './models/cartItem';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CartProvider {
-    public content: Array<any>;
+    public content: Array<CartItem>;
 
     constructor(
         protected data: DataProvider,
         protected storage: Storage
     ) {
-        // TODO load cart from local storage, if there is one
         this.load();
     }
 
-    public addVegetable(vegetableId): void {
+    public addVegetable(vegetableId: number): void {
         this.content.push({
             // vegetableId: vegetableId,
             vegetableId,
@@ -28,7 +28,7 @@ export class CartProvider {
         this.save();
     }
 
-    public updateQuantity(vegetableId, quantity) {
+    public updateQuantity(vegetableId, quantity): void {
         this.content.find(contentItem =>
             contentItem.vegetableId === vegetableId
         ).quantity = quantity;
@@ -43,13 +43,11 @@ export class CartProvider {
         );
     }
 
-    // TODO
     public save(): Promise<any> {
         console.log('saving cart');
         return this.storage.set('cart', this.content);
     }
 
-    // TODO
     public load(): Promise<any> {
         const self: CartProvider = this;
         return this.storage.get('cart').then(
