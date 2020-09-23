@@ -46,9 +46,7 @@ export class CartPage implements OnInit {
             }
         );
 
-        this.cart.content.forEach(cartItem => {
-            this.addFormInput(cartItem);
-        });
+        this.loadForm();
     }
 
     protected addSelectedToCart() {
@@ -64,9 +62,10 @@ export class CartPage implements OnInit {
         console.log(this.cart.content);
     }
 
-    // TODO implementation
     protected deleteCartItem(vegetableid: number): void {
         console.log('Deleting cart item : ' + vegetableid);
+        this.cart.removeVegetable(vegetableid);
+        this.formGroup.removeControl(vegetableid.toString());
     }
 
     protected onQuantityChange(vegetableId: number, newQuantity: number) {
@@ -93,7 +92,13 @@ export class CartPage implements OnInit {
         await alert.present();
     }
 
-    addFormInput(cartItem: CartItem) {
+    protected loadForm() {
+        this.cart.content.forEach(cartItem => {
+            this.addFormInput(cartItem);
+        });
+    }
+
+    protected addFormInput(cartItem: CartItem) {
         this.formGroup.addControl(
             cartItem.vegetable.id.toString(),
             new FormControl(cartItem.quantity, [

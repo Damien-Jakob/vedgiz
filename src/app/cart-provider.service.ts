@@ -28,6 +28,14 @@ export class CartProvider {
         this.save();
     }
 
+    public removeVegetable(vegetableId: number): void {
+        const vegetableIndex: number = this.content.findIndex(cartItem => cartItem.vegetable.id === vegetableId);
+        if (vegetableIndex > -1) {
+            this.content.splice(vegetableIndex, 1);
+            this.save();
+        }
+    }
+
     public updateQuantity(vegetableId, quantity): void {
         this.content.find(contentItem =>
             contentItem.vegetableId === vegetableId
