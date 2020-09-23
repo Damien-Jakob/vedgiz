@@ -3,6 +3,7 @@ import {Vegetable} from '../models/vegetable';
 import {AlertController} from '@ionic/angular';
 import {CartProvider} from '../cart-provider.service';
 import {DataProvider} from '../data-provider.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -14,13 +15,17 @@ export class CartPage implements OnInit {
     protected selectableVegetables: Array<Vegetable>;
     protected selectedVegetableId: number = null;
 
+    protected formGroup: FormGroup;
+
     constructor(
         protected data: DataProvider,
         protected cart: CartProvider,
         protected alertController: AlertController,
+        protected formBuilder: FormBuilder
     ) {
         console.log('Cart page constructed');
         this.selectableVegetables = new Array<Vegetable>();
+        this.formGroup = formBuilder.group({});
     }
 
     ngOnInit() {
@@ -39,10 +44,17 @@ export class CartPage implements OnInit {
                 this.alert('Erreur', 'La liste des légumes n\'a pas pu être chargée.');
             }
         );
+
+        this.cart.content.forEach(cartItem => {
+            this.addFormInput(cartItem);
+        });
     }
 
     protected addSelectedToCart() {
         this.cart.addVegetable(this.selectedVegetableId);
+
+        this.addFormInput(this.cart.content[this.cart.content.length - 1]);
+
         // remove the vegetable from selectable vegetables
         this.setSelectableVegetables();
         // Try to unselect the vegetable
@@ -51,11 +63,10 @@ export class CartPage implements OnInit {
         console.log(this.cart.content);
     }
 
-    // TODO add input validation
-    protected onQuantityChange(vegetableId: number, $event) {
+    protected onQuantityChange(vegetableId: number, newQuantity: number) {
         console.log('onQuantityChange');
 
-        this.cart.save();
+        this.cart.updateQuantity(vegetableId, newQuantity);
 
         console.log(this.cart.content);
     }
@@ -74,5 +85,12 @@ export class CartPage implements OnInit {
         });
 
         await alert.present();
+    }
+
+    // TODO add better input validation
+    addFormInput(cartItem: any) {
+        this.formGroup.addControl(
+            cartItem.vegetable.id,
+            new FormControl(cartItem.quantity, Validators.required));
     }
 }
