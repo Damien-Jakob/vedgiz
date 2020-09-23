@@ -64,6 +64,11 @@ export class CartPage implements OnInit {
         console.log(this.cart.content);
     }
 
+    // TODO implementation
+    protected deleteCartItem(vegetableid: number): void {
+        console.log('Deleting cart item : ' + vegetableid);
+    }
+
     protected onQuantityChange(vegetableId: number, newQuantity: number) {
         console.log('onQuantityChange');
 
