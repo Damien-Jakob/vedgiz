@@ -87,11 +87,15 @@ export class CartPage implements OnInit {
 
         await alert.present();
     }
-
-    // TODO add better input validation
+    
     addFormInput(cartItem: CartItem) {
         this.formGroup.addControl(
             cartItem.vegetable.id.toString(),
-            new FormControl(cartItem.quantity, Validators.required));
+            new FormControl(cartItem.quantity, [
+                    Validators.min(0.01),
+                    Validators.required,
+                ]
+            )
+        );
     }
 }
