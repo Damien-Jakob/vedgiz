@@ -64,8 +64,17 @@ export class CartPage implements OnInit {
 
     protected deleteCartItem(vegetableid: number): void {
         console.log('Deleting cart item : ' + vegetableid);
-        this.cart.removeVegetable(vegetableid);
         this.formGroup.removeControl(vegetableid.toString());
+        this.cart.removeVegetable(vegetableid);
+        this.setSelectableVegetables();
+    }
+
+    protected  deleteAllCartItems() {
+        while (this.cart.content.length > 0) {
+            console.log('delete all cart items');
+            const cartItem: CartItem = this.cart.content[0];
+            this.deleteCartItem(+cartItem.vegetableId);
+        }
     }
 
     protected onQuantityChange(vegetableId: number, newQuantity: number) {

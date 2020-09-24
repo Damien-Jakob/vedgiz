@@ -20,11 +20,16 @@
     <form [formGroup]="formGroup">
         <ion-list>
             <ion-grid>
+                <ion-row>
+                    <ion-col size="3"></ion-col>
+                    <ion-button size="6" color="danger" expand="block" (click)="deleteAllCartItems()">
+                        Vider le panier
+                    </ion-button>
+                    <ion-col size="3"></ion-col>
+                </ion-row>
                 <ion-row *ngFor="let inputControl of formGroup.controls | keyvalue; let i = index">
                     <!-- inputControl.key : id of the vegetable -->
                     <ion-item>
-
-
                         <ion-col size="2">
                             <ion-button color="danger"
                                         (click)="deleteCartItem(+inputControl.key)"
