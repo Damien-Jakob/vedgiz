@@ -70,4 +70,16 @@ export class CartProvider {
             }
         );
     }
+
+    public totalPrice() {
+        try {
+            return this.content.reduce(
+                (sum, cartItem) => sum += cartItem.vegetable.price * cartItem.quantity, 0
+            );
+        } catch (error) {
+            // We don't want to have "this.content is undefined" error because the view tries to call it too soon
+        }
+
+
+    }
 }

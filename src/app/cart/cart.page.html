@@ -21,11 +21,19 @@
         <ion-list>
             <ion-grid>
                 <ion-row>
-                    <ion-col size="3"></ion-col>
-                    <ion-button size="6" color="danger" expand="block" (click)="deleteAllCartItems()">
-                        Vider le panier
-                    </ion-button>
-                    <ion-col size="3"></ion-col>
+                    <ion-col size="4">
+                        <ion-button color="danger" expand="block" (click)="deleteAllCartItems()">
+                            Vider
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="4" class="total">
+                        <strong> Total : {{this.cart.totalPrice()}}</strong>
+                    </ion-col>
+                    <ion-col size="4" class="total">
+                        <ion-button type="submit" expand="block">
+                            Payer
+                        </ion-button>
+                    </ion-col>
                 </ion-row>
                 <ion-row *ngFor="let inputControl of formGroup.controls | keyvalue; let i = index">
                     <!-- inputControl.key : id of the vegetable -->

@@ -6,7 +6,6 @@ import {DataProvider} from '../data-provider.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CartItem} from '../models/cartItem';
 
-
 @Component({
     selector: 'app-cart',
     templateUrl: './cart.page.html',
