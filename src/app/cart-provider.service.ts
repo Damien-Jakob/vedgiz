@@ -3,18 +3,24 @@ import {DataProvider} from './data-provider.service';
 import {Vegetable} from './models/vegetable';
 import {Storage} from '@ionic/storage';
 import {CartItem} from './models/cartItem';
-import {PurchaseSent} from "./models/purchaseSent";
-import {PurchaseSentItem} from "./models/purchaseSentItem";
+import {PurchaseSent} from './models/purchaseSent';
+import {PurchaseSentItem} from './models/purchaseSentItem';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CartProvider {
+    protected readonly POST_CART_API = 'baskets/';
+
     public content: Array<CartItem>;
 
     constructor(
         protected data: DataProvider,
-        protected storage: Storage
+        protected storage: Storage,
+        protected http: HttpClient,
     ) {
         this.load();
     }
@@ -54,7 +60,6 @@ export class CartProvider {
     }
 
     public save(): Promise<any> {
-        console.log('saving cart');
         return this.storage.set('cart', this.content);
     }
 
@@ -67,7 +72,6 @@ export class CartProvider {
                 } else {
                     self.content = new Array<any>();
                 }
-                console.log(self.content);
                 return self.content;
             }
         );
@@ -83,10 +87,20 @@ export class CartProvider {
         }
     }
 
-    public toPurchaseSent(): PurchaseSent {
+    public send(): Observable<any> {
+        const data = this.toPurchaseSent();
+        console.log('Data sent : ', data);
+        return this.http.post(this.url(this.POST_CART_API), data);
+    }
+
+    protected toPurchaseSent(): PurchaseSent {
         const purchaseSentItems: PurchaseSentItem[] = this.content.map(cartItem =>
             new PurchaseSentItem(cartItem.vegetableId, cartItem.quantity)
         );
         return new PurchaseSent(purchaseSentItems);
+    }
+
+    protected url(api: string): string {
+        return environment.api_root + api;
     }
 }

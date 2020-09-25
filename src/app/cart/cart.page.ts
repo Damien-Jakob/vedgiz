@@ -34,8 +34,6 @@ export class CartPage implements OnInit {
         this.data.loadVegetables().then(
             answer => {
                 this.setSelectableVegetables();
-
-                console.log(this.cart.content);
             },
             error => {
                 this.alert('Erreur', 'La liste des légumes n\'a pas pu être chargée.');
@@ -54,35 +52,26 @@ export class CartPage implements OnInit {
         this.setSelectableVegetables();
         // Try to unselect the vegetable
         this.selectedVegetableId = null;
-
-        console.log(this.cart.content);
     }
 
     protected deleteCartItem(vegetableid: number): void {
-        console.log('Deleting cart item : ' + vegetableid);
         this.formGroup.removeControl(vegetableid.toString());
         this.cart.removeVegetable(vegetableid);
         this.setSelectableVegetables();
     }
 
-    protected  deleteAllCartItems() {
+    protected deleteAllCartItems() {
         while (this.cart.content.length > 0) {
-            console.log('delete all cart items');
             const cartItem: CartItem = this.cart.content[0];
             this.deleteCartItem(+cartItem.vegetableId);
         }
     }
 
     protected onQuantityChange(vegetableId: number, newQuantity: number) {
-        console.log('onQuantityChange');
-
         this.cart.updateQuantity(vegetableId, newQuantity);
-
-        console.log(this.cart.content);
     }
 
     protected setSelectableVegetables(): void {
-        console.log('setSelectableVegetable');
         this.selectableVegetables = this.cart.selectableVegetables();
     }
 
@@ -122,6 +111,21 @@ export class CartPage implements OnInit {
 
     protected submit(): void {
         console.log('submit');
-        console.log(this.cart.toPurchaseSent());
+        this.cart.send().subscribe(
+            answer => {
+                // TODO does not work :
+
+                console.log('Cart stored in db');
+                console.log(answer);
+                this.deleteAllCartItems();
+                // TODO go to last purchase page
+            },
+            error => {
+                console.log('Error : ', error.error);
+                console.log(error);
+
+                this.alert('Erreur', 'Produit non trouvé');
+            }
+        );
     }
 }

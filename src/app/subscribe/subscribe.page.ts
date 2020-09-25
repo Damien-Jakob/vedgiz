@@ -27,7 +27,7 @@ export class SubscribePage {
                 // Can use . - / ' ' after a number
                 // Min 9 numbers
                 // Note : for some reason, \s does not work for matching whitespaces
-                Validators.pattern("^[+]?([0-9][-\/\. ]?){9,}$"),
+                Validators.pattern('^[+]?([0-9][-\/\. ]?){9,}$'),
             ]],
         });
 
@@ -36,7 +36,7 @@ export class SubscribePage {
                 Validators.required,
                 // 60 chars, letters and numbers only
                 // Note that some inacurate requirements want only downcase letters
-                Validators.pattern("^[a-zA-Z0-9]{60}$")
+                Validators.pattern('^[a-zA-Z0-9]{60}$')
             ]],
         });
     }
@@ -82,9 +82,9 @@ export class SubscribePage {
                         this.authentication.storeToken(this.token);
 
                         this.toast.create({
-                            message: "Token enregistré.",
+                            message: 'Token enregistré.',
                             duration: 2000,
-                            position: "bottom",
+                            position: 'bottom',
                         }).then(toast => {
                             toast.present();
                         });
@@ -99,9 +99,9 @@ export class SubscribePage {
 
                         this.authentication.deleteToken();
 
-                        this.alert("Erreur", `Token invalide`);
+                        this.alert('Erreur', `Token invalide`);
                     }
-                )
+                );
             }
         );
     }
@@ -109,8 +109,8 @@ export class SubscribePage {
     private async alert(title: string, message: string) {
         const alert = await this.alertController.create({
             header: title,
-            //subHeader: 'Subtitle',
-            message: message,
+            // subHeader: 'Subtitle',
+            message,
             buttons: ['OK'],
         });
 
