@@ -21,17 +21,19 @@
         <ion-list>
             <ion-grid>
                 <ion-row>
-                    <ion-col size="4">
-                        <ion-button color="danger" expand="block" (click)="deleteAllCartItems()">
-                            Vider
-                        </ion-button>
+                    <ion-col class="total">
+                        <strong> Total : {{this.cart.totalPrice() | number:"1.2-2" }}</strong>
                     </ion-col>
-                    <ion-col size="4" class="total">
-                        <strong> Total : {{this.cart.totalPrice()}}</strong>
-                    </ion-col>
-                    <ion-col size="4" class="total">
+                    <ion-col class="total">
                         <ion-button type="submit" expand="block">
                             Payer
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-button color="danger" (click)="deleteAllCartItems()">
+                            Vider
                         </ion-button>
                     </ion-col>
                 </ion-row>
