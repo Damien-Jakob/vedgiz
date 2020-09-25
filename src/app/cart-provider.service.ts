@@ -3,6 +3,8 @@ import {DataProvider} from './data-provider.service';
 import {Vegetable} from './models/vegetable';
 import {Storage} from '@ionic/storage';
 import {CartItem} from './models/cartItem';
+import {PurchaseSent} from "./models/purchaseSent";
+import {PurchaseSentItem} from "./models/purchaseSentItem";
 
 @Injectable({
     providedIn: 'root'
@@ -79,7 +81,12 @@ export class CartProvider {
         } catch (error) {
             // We don't want to have "this.content is undefined" error because the view tries to call it too soon
         }
+    }
 
-
+    public toPurchaseSent(): PurchaseSent {
+        const purchaseSentItems: PurchaseSentItem[] = this.content.map(cartItem =>
+            new PurchaseSentItem(cartItem.vegetableId, cartItem.quantity)
+        );
+        return new PurchaseSent(purchaseSentItems);
     }
 }

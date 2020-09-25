@@ -119,4 +119,9 @@ export class CartPage implements OnInit {
             && this.cart.content !== undefined
             && this.cart.content.length > 0;
     }
+
+    protected submit(): void {
+        console.log('submit');
+        console.log(this.cart.toPurchaseSent());
+    }
 }

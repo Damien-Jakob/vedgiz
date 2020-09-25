@@ -17,7 +17,7 @@
             {{vegetable.name}} {{vegetable.price}} CHF/{{vegetable.unit}}
         </ion-select-option>
     </ion-select>
-    <form [formGroup]="formGroup">
+    <form [formGroup]="formGroup" (ngSubmit)="this.submit()">
         <ion-list>
             <ion-grid>
                 <ion-row>
@@ -25,7 +25,8 @@
                         <strong> Total : {{this.cart.totalPrice() | number:"1.2-2" }}</strong>
                     </ion-col>
                     <ion-col class="total">
-                        <ion-button type="submit" expand="block" disabled="{{!this.isValid()}}">
+                        <ion-button type="submit" expand="block"
+                                    disabled="{{!this.isValid()}}">
                             Acheter
                         </ion-button>
                     </ion-col>
