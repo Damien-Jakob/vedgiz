@@ -25,8 +25,8 @@
                         <strong> Total : {{this.cart.totalPrice() | number:"1.2-2" }}</strong>
                     </ion-col>
                     <ion-col class="total">
-                        <ion-button type="submit" expand="block">
-                            Payer
+                        <ion-button type="submit" expand="block" disabled="{{!this.isValid()}}">
+                            Acheter
                         </ion-button>
                     </ion-col>
                 </ion-row>

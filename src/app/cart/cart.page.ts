@@ -23,17 +23,14 @@ export class CartPage implements OnInit {
         protected alertController: AlertController,
         protected formBuilder: FormBuilder
     ) {
-        console.log('Cart page constructed');
         this.selectableVegetables = new Array<Vegetable>();
         this.formGroup = formBuilder.group({});
     }
 
     ngOnInit() {
-        console.log('Cart page ngOnInit');
     }
 
     ionViewWillEnter() {
-        console.log('Cart page ionViewWillEnter');
         this.data.loadVegetables().then(
             answer => {
                 this.setSelectableVegetables();
@@ -115,5 +112,11 @@ export class CartPage implements OnInit {
                 ]
             )
         );
+    }
+
+    protected isValid(): boolean {
+        return this.formGroup.valid
+            && this.cart.content !== undefined
+            && this.cart.content.length > 0;
     }
 }
