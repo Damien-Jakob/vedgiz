@@ -1,10 +1,9 @@
 import {PurchaseSentItem} from './purchaseSentItem';
 
 export class PurchaseSent {
-    purchases: PurchaseSentItem[][];
+    purchases: PurchaseSentItem[];
 
     constructor(purchase: PurchaseSentItem[]) {
-        this.purchases = [];
-        this.purchases.push(purchase);
+        this.purchases = purchase;
     }
 }
