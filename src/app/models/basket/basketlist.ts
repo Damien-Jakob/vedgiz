@@ -1,5 +1,4 @@
 import {Basket} from './basket';
 
-export class BasketList {
-    'data': Array<Basket>;
+export class BasketList extends Array<Basket> {
 }

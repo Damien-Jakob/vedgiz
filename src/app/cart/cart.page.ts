@@ -109,16 +109,22 @@ export class CartPage implements OnInit {
             && this.cart.content.length > 0;
     }
 
+    // TODO move to cart provider
     protected submit(): void {
         console.log('submit');
         this.cart.send().subscribe(
             answer => {
-                // TODO does not work :
-
                 console.log('Cart stored in db');
                 console.log(answer);
                 this.deleteAllCartItems();
+
+                this.data.latestBasket().then(answer => {
+                        console.log(answer);
+                    }
+                );
+
                 // TODO go to last purchase page
+
             },
             error => {
                 console.log('Error : ', error.error);
