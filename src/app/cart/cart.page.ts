@@ -5,6 +5,7 @@ import {CartProvider} from '../cart-provider.service';
 import {DataProvider} from '../data-provider.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CartItem} from '../models/cartItem';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-cart',
@@ -21,7 +22,8 @@ export class CartPage implements OnInit {
         protected data: DataProvider,
         protected cart: CartProvider,
         protected alertController: AlertController,
-        protected formBuilder: FormBuilder
+        protected formBuilder: FormBuilder,
+        protected router: Router,
     ) {
         this.selectableVegetables = new Array<Vegetable>();
         this.formGroup = formBuilder.group({});
@@ -120,11 +122,10 @@ export class CartPage implements OnInit {
 
                 this.data.latestBasket().then(answer => {
                         console.log(answer);
+                        // TODO go to last purchase page
+                        this.router.navigate(['/basket', answer.id]);
                     }
                 );
-
-                // TODO go to last purchase page
-
             },
             error => {
                 console.log('Error : ', error.error);
