@@ -24,10 +24,10 @@
             </ion-col>
         </ion-row>
         <ion-list *ngIf="data.basket.purchases">
+            <!-- TODO better presentation -->
             <ion-row *ngFor="let purchase of data.basket.purchases">
                 <ion-col size="8">
                     <ion-item>
-                        <!-- TODO better presentation -->
                         {{purchase.quantity}} x {{purchase.product.name}}
                     </ion-item>
                 </ion-col>

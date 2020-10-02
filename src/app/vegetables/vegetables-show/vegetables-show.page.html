@@ -8,8 +8,23 @@
 </ion-header>
 
 <ion-content>
-    <!-- TODO find way to display the image only after loading -->
+    <!-- TODO find better way to display the image only after loading -->
     <ion-img *ngIf="data.vegetable.picture" [src]="data.pictureUrl(data.vegetable.picture)"></ion-img>
+
+    <div *ngIf="cart.content">
+        <ion-button *ngIf="!cart.hasVegetable(data.vegetable.id); else alreadyInCart"
+                    (click)="addToCart()" expand="block">
+            Ajouter au panier
+        </ion-button>
+
+        <ng-template #alreadyInCart>
+            <ion-item>
+                <i> Déjà dans le panier </i>
+            </ion-item>
+        </ng-template>
+    </div>
+
+    <div *nge></div>
     <ion-list>
         <ion-item *ngIf="data.vegetable.details">
             {{data.vegetable.details}}

@@ -116,13 +116,9 @@ export class CartPage implements OnInit {
         console.log('submit');
         this.cart.send().subscribe(
             answer => {
-                console.log('Cart stored in db');
-                console.log(answer);
                 this.deleteAllCartItems();
 
                 this.data.latestBasket().then(answer => {
-                        console.log(answer);
-                        // TODO go to last purchase page
                         this.router.navigate(['/basket', answer.id]);
                     }
                 );
