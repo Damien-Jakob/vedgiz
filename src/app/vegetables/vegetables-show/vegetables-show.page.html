@@ -12,7 +12,8 @@
     <ion-img *ngIf="data.vegetable.picture" [src]="data.pictureUrl(data.vegetable.picture)"></ion-img>
 
     <div *ngIf="cart.content">
-        <ion-button *ngIf="!cart.hasVegetable(data.vegetable.id); else alreadyInCart" expand="block">
+        <ion-button *ngIf="!cart.hasVegetable(data.vegetable.id); else alreadyInCart"
+                    (click)="addToCart()" expand="block">
             Ajouter au panier
         </ion-button>
 
