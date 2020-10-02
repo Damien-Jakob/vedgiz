@@ -111,7 +111,7 @@ export class CartPage implements OnInit {
             && this.cart.content.length > 0;
     }
 
-    // TODO submission to cart provider (keep redirection here)
+    // TODO move submission to cart provider (keep redirection here)
     protected submit(): void {
         console.log('submit');
         this.cart.send().subscribe(

@@ -31,7 +31,7 @@ export class CartProvider {
             vegetableId,
             quantity: 1,
             // TODO find way to not need to store the vegetable anymore
-            vegetable: this.data.find(vegetableId),
+            vegetable: this.data.findVegetable(vegetableId),
         });
         this.save();
     }

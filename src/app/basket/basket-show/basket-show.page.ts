@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {DataProvider} from '../../data-provider.service';
 
 @Component({
-  selector: 'app-basket-show',
-  templateUrl: './basket-show.page.html',
-  styleUrls: ['./basket-show.page.scss'],
+    selector: 'app-basket-show',
+    templateUrl: './basket-show.page.html',
+    styleUrls: ['./basket-show.page.scss'],
 })
 export class BasketShowPage implements OnInit {
 
-  constructor() { }
+    constructor(
+        protected route: ActivatedRoute,
+        protected data: DataProvider,
+    ) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
+
+    ionViewWillEnter() {
+        this.data.clearBasket();
+
+        const basketId: number = Number(this.route.snapshot.paramMap.get('id'));
+        this.data.loadBasket(basketId);
+        console.log('basket');
+        console.log(this.data.basket);
+    }
 
 }
