@@ -23,12 +23,20 @@
                 </ion-button>
             </ion-col>
         </ion-row>
+        <ion-list *ngIf="data.basket.purchases">
+            <ion-row *ngFor="let purchase of data.basket.purchases">
+                <ion-col size="8">
+                    <ion-item>
+                        <!-- TODO better presentation -->
+                        {{purchase.quantity}} x {{purchase.product.name}}
+                    </ion-item>
+                </ion-col>
+                <ion-col size="4">
+                    <ion-item>
+                        {{purchase.quantity * purchase.price | number:"1.2-2"}}
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-list>
     </ion-grid>
-    <ion-list *ngIf="data.basket.purchases">
-        <ion-item *ngFor="let purchase of data.basket.purchases">
-            <!-- TODO better presentation -->
-            {{purchase.quantity}} x {{purchase.product.name}} :
-            {{purchase.quantity * purchase.price | number:"1.2-2"}}
-        </ion-item>
-    </ion-list>
 </ion-content>
