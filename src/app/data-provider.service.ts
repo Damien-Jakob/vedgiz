@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Vegetable} from "./models/vegetable";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../environments/environment";
-import {Observable} from "rxjs";
+import {Vegetable} from './models/vegetable';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../environments/environment';
+import {Observable} from 'rxjs';
+import {BasketList} from './models/basket/basketlist';
+import {Basket} from './models/basket/basket';
 
 @Injectable({
     providedIn: 'root'
@@ -10,14 +12,19 @@ import {Observable} from "rxjs";
 export class DataProvider {
     public vegetables: Array<Vegetable>;
     public vegetable: Vegetable;
+    public baskets: BasketList;
+    public basket: Basket;
 
-    protected VEGETABLES_API: string = "products/";
-    protected PICTURE_API: string = "product/picture/";
+    protected VEGETABLES_API = 'products/';
+    protected BASKETS_API = 'baskets/';
+    protected PICTURE_API = 'product/picture/';
 
     constructor(protected http: HttpClient) {
         this.vegetables = new Array<Vegetable>();
-        this.vegetable = new Vegetable();
+        this.clearVegetable();
+        this.clearBasket();
         this.loadVegetables();
+        this.latestBasket();
     }
 
     public loadVegetables(): Promise<any> {
@@ -59,9 +66,63 @@ export class DataProvider {
         });
     }
 
-    public find(id: number): Vegetable {
+    public findVegetable(id: number): Vegetable {
         return this.vegetables.find(
             vegetable => vegetable.id == id
+        );
+    }
+
+    public loadBaskets(): Promise<Array<Basket>> {
+        return new Promise<any>((resolve, reject) => {
+            this.http.get(this.url(this.BASKETS_API)).subscribe(
+                (response: any) => {
+                    console.log(response);
+                    this.baskets = response.data;
+                    resolve(this.baskets);
+                },
+                error => {
+                    // TODO deal with error
+                    console.log(error);
+                    reject();
+                }
+            );
+        });
+    }
+
+    public latestBasket(): Promise<any> {
+        return this.loadBaskets().then(
+            answer => {
+                console.log(answer);
+                // TODO do it by checking the created_at value
+                this.basket = answer[answer.length - 1];
+                return this.basket;
+            }
+        );
+    }
+
+    public clearBasket(): void {
+        this.basket = new Basket();
+    }
+
+    public loadBasket(id: number): Promise<Basket> {
+        return new Promise<any>((resolve, reject) => {
+            this.loadBaskets().then(answer => {
+                    this.basket = this.findBasket(id);
+                    return this.basket;
+                }
+            );
+        });
+    }
+
+    public findBasket(id: number): Basket {
+        return this.baskets.find(
+            basket => basket.id == id
+        );
+    }
+
+    public basketTotal(): number {
+        return this.basket.purchases.reduce(
+            (sum, basketItem) => sum += basketItem.price * basketItem.quantity, 0
         );
     }
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationProvider} from "../authentication-provider.service";
-import {Router} from "@angular/router";
-import {isNull} from "util";
+import {AuthenticationProvider} from '../authentication-provider.service';
+import {Router} from '@angular/router';
+import {isNull} from 'util';
 
 @Component({
     selector: 'app-home',
@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
                         error => {
                             console.log('Token invalid');
                             console.log(error);
-                            this.router.navigate(['/error', "invalid-token"]);
+                            this.router.navigate(['/error', 'invalid-token']);
                         }
                     );
                 } else {

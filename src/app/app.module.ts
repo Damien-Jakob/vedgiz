@@ -11,10 +11,10 @@ import {AppRoutingModule} from './app-routing.module';
 
 // Manually added
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {DataProvider} from "./data-provider.service";
-import {IonicStorageModule} from "@ionic/storage";
-import {ApiTokenInterceptor} from "./interceptors/ApiTokenInterceptor";
-import {CartProvider} from "./cart-provider.service";
+import {DataProvider} from './data-provider.service';
+import {IonicStorageModule} from '@ionic/storage';
+import {ApiTokenInterceptor} from './interceptors/ApiTokenInterceptor';
+import {CartProvider} from './cart-provider.service';
 
 @NgModule({
     declarations: [AppComponent],

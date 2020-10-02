@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {AlertController} from "@ionic/angular";
-import {DataProvider} from "../../data-provider.service";
+import {ActivatedRoute} from '@angular/router';
+import {AlertController} from '@ionic/angular';
+import {DataProvider} from '../../data-provider.service';
 
 @Component({
     selector: 'app-vegetables-show',
@@ -31,7 +31,7 @@ export class VegetablesShowPage implements OnInit {
                 console.log(answer);
             },
             error => {
-                this.alert("Erreur", "Le légume n'a pas pu être chargé.");
+                this.alert('Erreur', 'Le légume n\'a pas pu être chargé.');
             }
         );
     }
@@ -39,7 +39,7 @@ export class VegetablesShowPage implements OnInit {
     protected async alert(title: string, message: string) {
         const alert = await this.alertController.create({
             header: title,
-            //subHeader: 'Subtitle',
+            // subHeader: 'Subtitle',
             message: message,
             buttons: ['OK'],
         });

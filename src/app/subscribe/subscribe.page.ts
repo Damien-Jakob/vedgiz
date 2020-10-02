@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {AlertController, ToastController} from '@ionic/angular';
-import {AuthenticationProvider} from "../authentication-provider.service";
-import {Router} from "@angular/router";
+import {AuthenticationProvider} from '../authentication-provider.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-subscribe',
@@ -10,16 +10,6 @@ import {Router} from "@angular/router";
     styleUrls: ['subscribe.page.scss'],
 })
 export class SubscribePage {
-    private applicationForm: FormGroup;
-    private connectionForm: FormGroup;
-    private token: string;
-
-    private static nameValidator = [
-        Validators.compose([
-            Validators.required,
-            Validators.minLength(2)]),
-        Validators.pattern('^[a-zA-Zàâäãèéêëėįîïùûü ,.\'-]*'), // conform to the API
-    ];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -36,8 +26,8 @@ export class SubscribePage {
                 // Can start by +
                 // Can use . - / ' ' after a number
                 // Min 9 numbers
-                // Note : for some reason, \s does not work for matching whitspaces
-                Validators.pattern("^[+]?([0-9][-\/\. ]?){9,}$"),
+                // Note : for some reason, \s does not work for matching whitespaces
+                Validators.pattern('^[+]?([0-9][-\/\. ]?){9,}$'),
             ]],
         });
 
@@ -46,10 +36,20 @@ export class SubscribePage {
                 Validators.required,
                 // 60 chars, letters and numbers only
                 // Note that some inacurate requirements want only downcase letters
-                Validators.pattern("^[a-zA-Z0-9]{60}$")
+                Validators.pattern('^[a-zA-Z0-9]{60}$')
             ]],
-        })
+        });
     }
+
+    private static nameValidator = [
+        Validators.compose([
+            Validators.required,
+            Validators.minLength(2)]),
+        Validators.pattern('^[a-zA-Zàâäãèéêëėįîïùûü ,.\'-]*'), // conform to the API
+    ];
+    private applicationForm: FormGroup;
+    private connectionForm: FormGroup;
+    private token: string;
 
     private submitApplicationForm(): void {
         console.log('Click on the app form');
@@ -58,7 +58,7 @@ export class SubscribePage {
         this.authentication.apply(this.applicationForm.value).subscribe(
             answer => {
                 this.alert(
-                    "Inscription réussie",
+                    'Inscription réussie',
                     `Vous devriez prochainement recevoir un token d'activation qui vous permettra d'accéder à l'application.`
                 );
                 this.applicationForm.reset();
@@ -66,7 +66,7 @@ export class SubscribePage {
             error => {
                 console.log('Error : ', error.error);
                 console.log(error);
-                this.alert("Erreur", `Inscription refusée. Détail : ${error.error}`);
+                this.alert('Erreur', `Inscription refusée.`);
             });
     }
 
@@ -82,9 +82,9 @@ export class SubscribePage {
                         this.authentication.storeToken(this.token);
 
                         this.toast.create({
-                            message: "Token enregistré.",
+                            message: 'Token enregistré.',
                             duration: 2000,
-                            position: "bottom",
+                            position: 'bottom',
                         }).then(toast => {
                             toast.present();
                         });
@@ -99,9 +99,9 @@ export class SubscribePage {
 
                         this.authentication.deleteToken();
 
-                        this.alert("Erreur", `Token invalide`);
+                        this.alert('Erreur', `Token invalide`);
                     }
-                )
+                );
             }
         );
     }
@@ -109,8 +109,8 @@ export class SubscribePage {
     private async alert(title: string, message: string) {
         const alert = await this.alertController.create({
             header: title,
-            //subHeader: 'Subtitle',
-            message: message,
+            // subHeader: 'Subtitle',
+            message,
             buttons: ['OK'],
         });
 
