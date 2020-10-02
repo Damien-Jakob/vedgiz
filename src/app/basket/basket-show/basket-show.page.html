@@ -1,12 +1,21 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Achat</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Achat</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <div *ngIf="data.basket.purchases">
+        Total : {{data.basketTotal() | number:"1.2-2"}}
+    </div>
+    <ion-list *ngIf="data.basket.purchases">
+        <ion-item *ngFor="let purchase of data.basket.purchases">
+            <!-- TODO better presentation -->
+            {{purchase.quantity}} x {{purchase.product.name}} :
+            {{purchase.quantity * purchase.price | number:"1.2-2"}}
+        </ion-item>
+    </ion-list>
 </ion-content>

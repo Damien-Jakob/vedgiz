@@ -72,7 +72,7 @@ export class DataProvider {
         );
     }
 
-    public loadBaskets(): Promise<any> {
+    public loadBaskets(): Promise<Array<Basket>> {
         return new Promise<any>((resolve, reject) => {
             this.http.get(this.url(this.BASKETS_API)).subscribe(
                 (response: any) => {
@@ -107,8 +107,8 @@ export class DataProvider {
     public loadBasket(id: number): Promise<Basket> {
         return new Promise<any>((resolve, reject) => {
             this.loadBaskets().then(answer => {
-                    console.log(this.findBasket(id));
-                    return this.findBasket(id);
+                    this.basket = this.findBasket(id);
+                    return this.basket;
                 }
             );
         });
@@ -117,6 +117,12 @@ export class DataProvider {
     public findBasket(id: number): Basket {
         return this.baskets.find(
             basket => basket.id == id
+        );
+    }
+
+    public basketTotal(): number {
+        return this.basket.purchases.reduce(
+            (sum, basketItem) => sum += basketItem.price * basketItem.quantity, 0
         );
     }
 
