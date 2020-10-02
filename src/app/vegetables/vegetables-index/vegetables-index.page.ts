@@ -4,8 +4,6 @@ import {AlertController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {DataProvider} from '../../data-provider.service';
 
-// TODO Permettre d'ajouter au panier depuis cette page (non prioritaire)
-
 @Component({
     selector: 'app-vegetables-index',
     templateUrl: './vegetables-index.page.html',
