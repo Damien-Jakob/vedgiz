@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content>
-    <div *ngIf="data.basket.purchases">
-        Total : {{data.basketTotal() | number:"1.2-2"}}
+    <div class="total" *ngIf="data.basket.purchases">
+        <strong> Total : {{data.basketTotal() | number:"1.2-2"}} </strong>
     </div>
     <ion-list *ngIf="data.basket.purchases">
         <ion-item *ngFor="let purchase of data.basket.purchases">
