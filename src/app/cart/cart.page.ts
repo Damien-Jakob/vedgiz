@@ -56,9 +56,9 @@ export class CartPage implements OnInit {
         this.selectedVegetableId = null;
     }
 
-    protected deleteCartItem(vegetableid: number): void {
-        this.formGroup.removeControl(vegetableid.toString());
-        this.cart.removeVegetable(vegetableid);
+    protected deleteCartItem(vegetableId: number): void {
+        this.formGroup.removeControl(vegetableId.toString());
+        this.cart.removeVegetable(vegetableId);
         this.setSelectableVegetables();
     }
 
