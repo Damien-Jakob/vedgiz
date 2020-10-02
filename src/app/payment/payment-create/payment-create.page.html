@@ -8,5 +8,24 @@
 </ion-header>
 
 <ion-content>
-    Page en construction
+    <i>Pas d'API disponible pour valider le numéro d'une envelope</i>
+    <form [formGroup]="paymentForm" (ngSubmit)="submitPaymentForm()">
+        <ion-item>
+            <ion-input formControlName="envelopeKey"
+                       placeholder="Numéro d'envelope"
+                       type="text"
+                       required
+            ></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input formControlName="amount"
+                       placeholder="montant"
+                       inputmode="decimal"
+                       type="number"
+                       min="0"
+                       required>
+            </ion-input>
+        </ion-item>
+        <ion-button type="submit" expand="block" [disabled]="!paymentForm.valid">Inscription</ion-button>
+    </form>
 </ion-content>
