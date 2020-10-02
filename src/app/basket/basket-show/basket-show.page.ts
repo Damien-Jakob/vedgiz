@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DataProvider} from '../../data-provider.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class BasketShowPage implements OnInit {
     constructor(
         protected route: ActivatedRoute,
         protected data: DataProvider,
+        protected router: Router,
     ) {
     }
 
