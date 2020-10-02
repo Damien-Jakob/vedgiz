@@ -100,6 +100,12 @@ export class CartProvider {
         return new PurchaseSent(purchaseSentItems);
     }
 
+    public hasVegetable(vegetableId: number): boolean {
+        return this.content.find(
+            cartItem => cartItem.vegetableId == vegetableId
+        ) !== undefined;
+    }
+
     protected url(api: string): string {
         return environment.api_root + api;
     }

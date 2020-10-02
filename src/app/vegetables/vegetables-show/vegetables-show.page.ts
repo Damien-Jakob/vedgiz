@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AlertController} from '@ionic/angular';
 import {DataProvider} from '../../data-provider.service';
+import {CartProvider} from '../../cart-provider.service';
 
 @Component({
     selector: 'app-vegetables-show',
@@ -12,6 +13,7 @@ export class VegetablesShowPage implements OnInit {
     constructor(
         protected route: ActivatedRoute,
         protected data: DataProvider,
+        protected cart: CartProvider,
         protected alertController: AlertController,
     ) {
     }
