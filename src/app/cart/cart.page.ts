@@ -116,10 +116,9 @@ export class CartPage implements OnInit {
         console.log('submit');
         this.cart.send().subscribe(
             answer => {
-                this.deleteAllCartItems();
-
-                this.data.latestBasket().then(answer => {
-                        this.router.navigate(['/basket', answer.id]);
+                this.data.latestBasket().then(basket => {
+                        this.router.navigate(['/basket', basket.id]);
+                        this.deleteAllCartItems();
                     }
                 );
             },
