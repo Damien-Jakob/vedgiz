@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Storage} from "@ionic/storage";
-import {environment} from "../environments/environment";
-import {Observable} from "rxjs";
-import {User} from "./models/user";
-import {ApiTokenInterceptor} from "./interceptors/ApiTokenInterceptor";
+import {HttpClient} from '@angular/common/http';
+import {Storage} from '@ionic/storage';
+import {environment} from '../environments/environment';
+import {Observable} from 'rxjs';
+import {User} from './models/user';
+import {ApiTokenInterceptor} from './interceptors/ApiTokenInterceptor';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationProvider {
-    protected APPLY_API: string = "user/apply/";
-    protected ME_API: string = "me/";
+    protected APPLY_API = 'user/apply/';
+    protected ME_API = 'me/';
 
     public user: User;
 
@@ -37,7 +37,7 @@ export class AuthenticationProvider {
         // We shouldn't use this in a callback, so we use a workaround
         const self: AuthenticationProvider = this;
         return this.storage.get('token').then(
-            function (token) {
+            (token) => {
                 self.token = token;
                 ApiTokenInterceptor.setToken(token);
                 return token;

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Vegetable} from "../../models/vegetable";
-import {AlertController} from "@ionic/angular";
-import {Router} from "@angular/router";
-import {DataProvider} from "../../data-provider.service";
+import {Vegetable} from '../../models/vegetable';
+import {AlertController} from '@ionic/angular';
+import {Router} from '@angular/router';
+import {DataProvider} from '../../data-provider.service';
 
 @Component({
     selector: 'app-vegetables-index',
@@ -29,7 +29,7 @@ export class VegetablesIndexPage implements OnInit {
                 console.log(answer);
             },
             error => {
-                this.alert("Erreur", "La liste des légumes n'a pas pu être chargée.");
+                this.alert('Erreur', 'La liste des légumes n\'a pas pu être chargée.');
             }
         );
     }
@@ -39,14 +39,14 @@ export class VegetablesIndexPage implements OnInit {
     // We still keep the href for styling reasons
     protected toVegetable(event: Event, vegetable: Vegetable): void {
         event.preventDefault();
-        this.router.navigate(['/vegetables', vegetable.id])
+        this.router.navigate(['/vegetables', vegetable.id]);
     }
 
     protected async alert(title: string, message: string) {
         const alert = await this.alertController.create({
             header: title,
-            //subHeader: 'Subtitle',
-            message: message,
+            // subHeader: 'Subtitle',
+            message,
             buttons: ['OK'],
         });
 

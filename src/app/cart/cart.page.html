@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>Panier</ion-title>
     </ion-toolbar>
@@ -14,26 +14,57 @@
                 placeholder="Nouveau légume"
     >
         <ion-select-option *ngFor="let vegetable of selectableVegetables" value="{{vegetable.id}}">
-            {{vegetable.name}} {{vegetable.price}} CHF/{{vegetable.unit}}
+            {{vegetable.name}} {{vegetable.price | number:"1.2-2"}} CHF/{{vegetable.unit}}
         </ion-select-option>
     </ion-select>
-    <form [formGroup]="cartForm" >
-        <ion-list formArrayName="cartItems">
-            <ion-item *ngFor="let cartItem of cart.content; let i = index">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col>
-                            <ion-label><strong>{{cartItem.vegetable.name}}</strong></ion-label>
-                            <ion-label>{{cartItem.vegetable.price}} CHF/{{cartItem.vegetable.unit}}</ion-label>
+    <form [formGroup]="formGroup" (ngSubmit)="this.submit()">
+        <ion-list>
+            <ion-grid>
+                <ion-row>
+                    <ion-col class="total">
+                        <strong> Total : {{this.cart.totalPrice() | number:"1.2-2" }}</strong>
+                    </ion-col>
+                    <ion-col class="total">
+                        <ion-button type="submit" expand="block"
+                                    disabled="{{!this.isValid()}}">
+                            Acheter
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-button color="danger" (click)="deleteAllCartItems()">
+                            Vider
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let inputControl of formGroup.controls | keyvalue; let i = index">
+                    <!-- inputControl.key : id of the vegetable -->
+                    <ion-item>
+                        <ion-col size="2">
+                            <ion-button color="danger"
+                                        (click)="deleteCartItem(+inputControl.key)"
+                            >X
+                            </ion-button>
                         </ion-col>
-                        <ion-col>
-                            <form [formGroupName]="i.toString()">
-                                <ion-input type="number" formControlName="vegetableQuantity" min="1"></ion-input>
-                            </form>
+                        <ion-col size="6">
+                            <ion-label><strong>{{cart.content[i].vegetable.name}}</strong></ion-label>
+                            <ion-label>{{cart.content[i].vegetable.price | number:"1.2-2"}}
+                                CHF/{{cart.content[i].vegetable.unit}}</ion-label>
                         </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-item>
+                        <ion-col size="4">
+                            <ion-input name="{{inputControl.key}}"
+                                       formControlName="{{inputControl.key}}"
+                                       (ngModelChange)="onQuantityChange(cart.content[i].vegetableId, $event)"
+                                       inputmode="decimal"
+                                       type="number"
+                                       min="0"
+                                       required
+                            ></ion-input>
+                        </ion-col>
+                    </ion-item>
+                </ion-row>
+            </ion-grid>
         </ion-list>
     </form>
 </ion-content>

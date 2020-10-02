@@ -1,4 +1,4 @@
-import {Supplier} from "./supplier";
+import {Supplier} from './supplier';
 
 export class Vegetable {
     public id: number;
