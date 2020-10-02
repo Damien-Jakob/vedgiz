@@ -11,19 +11,23 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent {
     menuContent: any = [
-            {
-                title: 'Légumes',
-                url: '/vegetables',
-            },
-            {
-                title: 'Panier',
-                url: '/cart',
-            },
-            {
-                title: 'Profil',
-                url: '/users/me',
-            },
-        ];
+        {
+            title: 'Légumes',
+            url: '/vegetables',
+        },
+        {
+            title: 'Panier',
+            url: '/cart',
+        },
+        {
+            title: 'Paiement',
+            url: '/payment/create',
+        },
+        {
+            title: 'Profil',
+            url: '/users/me',
+        },
+    ];
 
     constructor(
         private platform: Platform,
