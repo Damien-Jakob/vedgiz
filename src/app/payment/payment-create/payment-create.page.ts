@@ -7,9 +7,16 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
     styleUrls: ['./payment-create.page.scss'],
 })
 export class PaymentCreatePage implements OnInit {
-    // TODO init
-    private static envelopeKeyValidator;
-    private static amountValidator;
+    // TODO better validation envelope key
+    private static envelopeKeyValidator = [
+        Validators.required,
+        Validators.minLength(2)
+    ];
+    // TODO better validation of amount
+    private static amountValidator = [
+        Validators.required,
+        Validators.min(0.00)
+    ];
 
     private paymentForm: FormGroup;
 
