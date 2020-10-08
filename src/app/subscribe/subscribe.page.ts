@@ -76,7 +76,7 @@ export class SubscribePage {
         this.authentication.storeToken(this.connectionForm.value.token).then(
             answer => {
                 this.authentication.me().subscribe(
-                    answer => {
+                    success => {
                         console.log('Token validated');
 
                         this.authentication.storeToken(this.token);
