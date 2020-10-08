@@ -1,5 +1,10 @@
-ion-content {
+.cameracontent {
   --ion-background-color: transparent;
+}
+
+ion-icon {
+  min-height: 20px;
+  min-width: 20px;
 }
 
 .frame {
