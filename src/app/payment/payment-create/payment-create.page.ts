@@ -45,7 +45,6 @@ export class PaymentCreatePage implements OnInit {
 
     private validateEnvelope(): void {
         this.envelopeVerified = true;
-        // TODO small message in case of success, big in case of error
     }
 
     private resetEnvelopValidation() {
@@ -70,7 +69,7 @@ export class PaymentCreatePage implements OnInit {
                                 console.log('Payment accepted');
                                 this.router.navigate(['/users/me']);
                                 this.paymentForm.reset();
-                                this.resetEnvelopValidation()
+                                this.resetEnvelopValidation();
                             },
                             error => {
                                 console.log(error);
