@@ -1,35 +1,47 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Paiement</ion-title>
-    </ion-toolbar>
-</ion-header>
+<div *ngIf="!showCamera">
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+            <ion-title>Paiement</ion-title>
+        </ion-toolbar>
+    </ion-header>
 
-<ion-content>
-    <form [formGroup]="paymentForm" (ngSubmit)="submitPaymentForm()">
-        <ion-item>
-            <ion-input (ionChange)="resetEnvelopValidation()"
-                       formControlName="key"
-                       placeholder="Numéro d'envelope"
-                       type="text"
-                       required
-            ></ion-input>
-        </ion-item>
-        <ion-button (click)="validateEnvelope()" expand="block"
-                    [disabled]="envelopeVerified"
-        >Vérifier
-        </ion-button>
-        <div [hidden]="!envelopeVerified">
+    <ion-content>
+        <form [formGroup]="paymentForm" (ngSubmit)="submitPaymentForm()">
+            <ion-button (click)="scancode()" expand="block"
+            >QRCode
+            </ion-button>
             <ion-item>
-                <ion-input formControlName="amount"
-                           placeholder="montant"
-                           type="number"
-                           required>
-                </ion-input>
+                <ion-input (ionChange)="resetEnvelopValidation()"
+                           formControlName="key"
+                           placeholder="Numéro d'envelope"
+                           type="text"
+                           required
+                ></ion-input>
             </ion-item>
-            <ion-button type="submit" expand="block" [disabled]="!paymentForm.valid">Envoyer</ion-button>
-        </div>
-    </form>
-</ion-content>
+            <ion-button (click)="validateEnvelope()" expand="block"
+                        [disabled]="envelopeVerified"
+            >Vérifier
+            </ion-button>
+            <div [hidden]="!envelopeVerified">
+                <ion-item>
+                    <ion-input formControlName="amount"
+                               placeholder="montant"
+                               type="number"
+                               required>
+                    </ion-input>
+                </ion-item>
+                <ion-button type="submit" expand="block" [disabled]="!paymentForm.valid">Envoyer</ion-button>
+            </div>
+        </form>
+    </ion-content>
+</div>
+
+<div *ngIf="showCamera" (click)="closeCamera()">
+    <ion-button >
+        <ion-icon name="close"></ion-icon>
+    </ion-button>
+    <ion-icon *ngIf="showCamera" class="frame" name="qr-scanner"></ion-icon>
+</div>
