@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PaymentProviderService} from '../../payment-provider.service';
 import {AlertController} from '@ionic/angular';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-payment-create',
@@ -26,9 +27,10 @@ export class PaymentCreatePage implements OnInit {
     private paymentForm: FormGroup;
 
     constructor(
-        private  payment: PaymentProviderService,
+        private payment: PaymentProviderService,
         private formBuilder: FormBuilder,
         private alertController: AlertController,
+        private router: Router,
     ) {
         this.paymentForm = this.formBuilder.group({
             key: ['', PaymentCreatePage.envelopeKeyValidator],
@@ -40,9 +42,6 @@ export class PaymentCreatePage implements OnInit {
     }
 
     private async submitPaymentForm() {
-        console.log(this.paymentForm.value);
-        console.log(this.paymentForm.value.amount);
-        console.log(this.paymentForm);
         const alert = await this.alertController.create({
             header: 'Confirmation',
             message: `Confirmez-vous que vous voulez payer ${this.paymentForm.value.amount} CHF ?`,
@@ -58,6 +57,8 @@ export class PaymentCreatePage implements OnInit {
                         this.payment.submitPayment(this.paymentForm.value).subscribe(
                             success => {
                                 console.log('Payment accepted');
+                                this.router.navigate(['/users/me']);
+                                this.paymentForm.reset();
                             },
                             error => {
                                 console.log(error);
