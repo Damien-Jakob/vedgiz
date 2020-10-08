@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PaymentProviderService} from '../../payment-provider.service';
-import {AlertController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 import {Router} from '@angular/router';
 
 @Component({
@@ -32,6 +32,7 @@ export class PaymentCreatePage implements OnInit {
         private payment: PaymentProviderService,
         private formBuilder: FormBuilder,
         private alertController: AlertController,
+        private toast: ToastController,
         private router: Router,
     ) {
         this.paymentForm = this.formBuilder.group({
@@ -45,6 +46,13 @@ export class PaymentCreatePage implements OnInit {
 
     private validateEnvelope(): void {
         this.envelopeVerified = true;
+        this.toast.create({
+            message: 'API pas encore implémentée',
+            duration: 2000,
+            position: 'bottom',
+        }).then(toast => {
+            toast.present();
+        });
     }
 
     private resetEnvelopValidation() {
@@ -75,10 +83,12 @@ export class PaymentCreatePage implements OnInit {
                                 console.log(error);
                                 if (error.status === 404) {
                                     this.alert('Erreur', `Numéro d'enveloppe inconnu`);
+                                    this.resetEnvelopValidation();
                                 } else if (error.status === 400) {
                                     this.alert('Erreur', `Montant invalide`);
                                 } else if (error.status === 403) {
                                     this.alert('Erreur', `Envelope déjà utilisée`);
+                                    this.resetEnvelopValidation();
                                 }
                             });
                     }
