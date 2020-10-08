@@ -39,28 +39,46 @@ export class PaymentCreatePage implements OnInit {
     ngOnInit() {
     }
 
-    // TODO logic
-    private submitPaymentForm() {
-        this.payment.submitPayment(this.paymentForm.value).subscribe(
-            success => {
-                console.log('Payment accepted');
-            },
-            error => {
-                console.log(error);
-                if (error.status === 404) {
-                    this.alert('Erreur', `Numéro d'enveloppe inconnu`);
-                } else if (error.status === 400) {
-                    this.alert('Erreur', `Montant invalide`);
-                } else if (error.status === 403) {
-                    this.alert('Erreur', `Envelope déjà utilisée`);
+    private async submitPaymentForm() {
+        console.log(this.paymentForm.value);
+        console.log(this.paymentForm.value.amount);
+        console.log(this.paymentForm);
+        const alert = await this.alertController.create({
+            header: 'Confirmation',
+            message: `Confirmez-vous que vous voulez payer ${this.paymentForm.value.amount} CHF ?`,
+            buttons: [{
+                text: 'Annuler',
+                handler: () => {
+                    this.paymentForm.controls.amount.reset();
                 }
-            });
+            },
+                {
+                    text: 'Confirmer',
+                    handler: () => {
+                        this.payment.submitPayment(this.paymentForm.value).subscribe(
+                            success => {
+                                console.log('Payment accepted');
+                            },
+                            error => {
+                                console.log(error);
+                                if (error.status === 404) {
+                                    this.alert('Erreur', `Numéro d'enveloppe inconnu`);
+                                } else if (error.status === 400) {
+                                    this.alert('Erreur', `Montant invalide`);
+                                } else if (error.status === 403) {
+                                    this.alert('Erreur', `Envelope déjà utilisée`);
+                                }
+                            });
+                    }
+                }],
+        });
+
+        await alert.present();
     }
 
     private async alert(title: string, message: string) {
         const alert = await this.alertController.create({
             header: title,
-            // subHeader: 'Subtitle',
             message,
             buttons: ['OK'],
         });
