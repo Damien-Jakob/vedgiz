@@ -24,6 +24,8 @@ export class PaymentCreatePage implements OnInit {
         Validators.pattern('^[1-9][0-9]*$'),
     ];
 
+    private envelopeVerified = false;
+
     private paymentForm: FormGroup;
 
     constructor(
@@ -41,6 +43,15 @@ export class PaymentCreatePage implements OnInit {
     ngOnInit() {
     }
 
+    private validateEnvelope(): void {
+        this.envelopeVerified = true;
+        // TODO small message in case of success, big in case of error
+    }
+
+    private resetEnvelopValidation() {
+        this.envelopeVerified = false;
+    }
+
     private async submitPaymentForm() {
         const alert = await this.alertController.create({
             header: 'Confirmation',
@@ -54,11 +65,12 @@ export class PaymentCreatePage implements OnInit {
                 {
                     text: 'Confirmer',
                     handler: () => {
-                        this.payment.submitPayment(this.paymentForm.value).subscribe(
+                        this.payment.submit(this.paymentForm.value).subscribe(
                             success => {
                                 console.log('Payment accepted');
                                 this.router.navigate(['/users/me']);
                                 this.paymentForm.reset();
+                                this.resetEnvelopValidation()
                             },
                             error => {
                                 console.log(error);
