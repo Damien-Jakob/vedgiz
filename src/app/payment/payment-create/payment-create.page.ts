@@ -10,8 +10,6 @@ import {Router} from '@angular/router';
     styleUrls: ['./payment-create.page.scss'],
 })
 export class PaymentCreatePage implements OnInit {
-    // TODO validate envelope (use invalid amount)
-
     // TODO better validation of envelope key
     private static envelopeKeyValidator = [
         Validators.required,
@@ -46,6 +44,7 @@ export class PaymentCreatePage implements OnInit {
 
     private validateEnvelope(): void {
         this.envelopeVerified = true;
+        // TODO use API validation when it is used
         this.toast.create({
             message: 'API pas encore implémentée',
             duration: 2000,
@@ -75,6 +74,13 @@ export class PaymentCreatePage implements OnInit {
                         this.payment.submit(this.paymentForm.value).subscribe(
                             success => {
                                 console.log('Payment accepted');
+                                this.toast.create({
+                                    message: 'Paiement accepté',
+                                    duration: 2000,
+                                    position: 'bottom',
+                                }).then(toast => {
+                                    toast.present();
+                                });
                                 this.router.navigate(['/users/me']);
                                 this.paymentForm.reset();
                                 this.resetEnvelopValidation();
