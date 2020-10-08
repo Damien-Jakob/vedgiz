@@ -120,6 +120,8 @@ export class PaymentCreatePage implements OnInit {
                     // camera permission was granted
                     // start scanning
                     const scanSub = this.qrScanner.scan().subscribe((text: string) => {
+                        // TODO put qr-text into the form
+
                         console.log('Scanned something', text);
                         this.qrScanner.hide(); // hide camera preview
                         scanSub.unsubscribe(); // stop scanning
