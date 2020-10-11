@@ -3,7 +3,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PaymentProviderService} from '../../payment-provider.service';
 import {AlertController, ToastController} from '@ionic/angular';
 import {Router} from '@angular/router';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import {QRScanner, QRScannerStatus} from '@ionic-native/qr-scanner/ngx';
+
+// TODO find way to test qr-scan
 
 // TODO follow tuto : https://drissas.com/ionic-qr-code/
 
@@ -120,12 +122,16 @@ export class PaymentCreatePage implements OnInit {
                     // camera permission was granted
                     // start scanning
                     const scanSub = this.qrScanner.scan().subscribe((text: string) => {
-                        // TODO put qr-text into the form
+                        // put the text into the qr-code
+                        this.paymentForm.controls.key.setValue(text);
+                        this.resetEnvelopValidation();
 
                         console.log('Scanned something', text);
                         this.qrScanner.hide(); // hide camera preview
                         scanSub.unsubscribe(); // stop scanning
                         this.showCamera = false;
+
+                        this.validateEnvelope();
                     });
 
                 } else if (status.denied) {
