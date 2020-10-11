@@ -26,6 +26,8 @@ Améliorer le contenu du panier :
 ## Serve
 
     ionic lab
+    
+    ionic cordova run browser -- --port=8300
 
 ### Problème de refus de requêtes CORS
 

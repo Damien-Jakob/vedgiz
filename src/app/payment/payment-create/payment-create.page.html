@@ -7,8 +7,11 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!showCamera">
     <form [formGroup]="paymentForm" (ngSubmit)="submitPaymentForm()">
+        <ion-button (click)="scancode()" expand="block"
+        >QRCode
+        </ion-button>
         <ion-item>
             <ion-input (ionChange)="resetEnvelopValidation()"
                        formControlName="key"
@@ -32,4 +35,10 @@
             <ion-button type="submit" expand="block" [disabled]="!paymentForm.valid">Envoyer</ion-button>
         </div>
     </form>
+</ion-content>
+
+<ion-content class="cameracontent" *ngIf="showCamera" (click)="closeCamera()">
+    <ion-button>
+        <ion-icon name="close"></ion-icon>
+    </ion-button>
 </ion-content>

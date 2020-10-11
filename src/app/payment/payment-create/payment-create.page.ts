@@ -3,6 +3,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PaymentProviderService} from '../../payment-provider.service';
 import {AlertController, ToastController} from '@ionic/angular';
 import {Router} from '@angular/router';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+
+// TODO follow tuto : https://drissas.com/ionic-qr-code/
 
 @Component({
     selector: 'app-payment-create',
@@ -26,8 +29,12 @@ export class PaymentCreatePage implements OnInit {
 
     private paymentForm: FormGroup;
 
+    private showCamera = false;
+    private scan = '';
+
     constructor(
         private payment: PaymentProviderService,
+        private qrScanner: QRScanner,
         private formBuilder: FormBuilder,
         private alertController: AlertController,
         private toast: ToastController,
@@ -102,6 +109,40 @@ export class PaymentCreatePage implements OnInit {
         });
 
         await alert.present();
+    }
+
+    private scancode() {
+        this.showCamera = true;
+
+        this.qrScanner.prepare()
+            .then((status: QRScannerStatus) => {
+                if (status.authorized) {
+                    // camera permission was granted
+                    // start scanning
+                    const scanSub = this.qrScanner.scan().subscribe((text: string) => {
+                        // TODO put qr-text into the form
+
+                        console.log('Scanned something', text);
+                        this.qrScanner.hide(); // hide camera preview
+                        scanSub.unsubscribe(); // stop scanning
+                        this.showCamera = false;
+                    });
+
+                } else if (status.denied) {
+                    // camera permission was permanently denied
+                    // you must use QRScanner.openSettings() method to guide the user to the settings page
+                    // then they can grant the permission from there
+                } else {
+                    // permission was denied, but not permanently. You can ask for permission again at a later time.
+                }
+            })
+            .catch((error: any) => console.log('Error : ', error));
+    }
+
+    private closeCamera() {
+        this.showCamera = false;
+        this.qrScanner.hide(); // hide camera preview
+        this.qrScanner.destroy();
     }
 
     private async alert(title: string, message: string) {
