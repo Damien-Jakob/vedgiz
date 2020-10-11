@@ -31,7 +31,7 @@
             Balance :&nbsp;
             <span *ngIf="data.balance; else loading">
                 <span class="{{ data.balance.credit - data.balance.debit < 0 ? 'negative' : ''}}">
-                    {{data.balance ? data.balance.credit - data.balance.debit : "" | number:"1.2-2" }}
+                    {{data.balance.credit - data.balance.debit | number:"1.2-2" }}
                     {{data.balance ? " CHF" : "Chargement" }}
                 </span>
             </span>
