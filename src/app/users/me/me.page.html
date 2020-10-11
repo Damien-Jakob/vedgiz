@@ -8,7 +8,39 @@
 </ion-header>
 
 <ion-content>
-    <ion-item>{{authentication.user.firstname}} {{authentication.user.lastname}}</ion-item>
+    <ion-item>
+        <strong>
+            {{authentication.user ? authentication.user.firstname : "Nom" }}
+            {{authentication.user ? authentication.user.lastname : "Prénom"}}
+        </strong>
+    </ion-item>
+    <ion-item>
+        Crédit :&nbsp;
+        <span *ngIf="data.balance; else loading">
+            {{data.balance.credit | number:"1.2-2" }} CHF
+        </span>
+    </ion-item>
+    <ion-item>
+        Débit :&nbsp;
+        <span *ngIf="data.balance; else loading">
+            {{data.balance.debit | number:"1.2-2" }} CHF
+        </span>
+    </ion-item>
+    <ion-item>
+        <strong>
+            Balance :&nbsp;
+            <span *ngIf="data.balance; else loading">
+                <span class="{{ data.balance.credit - data.balance.debit < 0 ? 'negative' : ''}}">
+                    {{data.balance.credit - data.balance.debit | number:"1.2-2" }}
+                    {{data.balance ? " CHF" : "Chargement" }}
+                </span>
+            </span>
+        </strong>
+    </ion-item>
     <ion-button expand="block" (click)="toVegetables()">Légumes</ion-button>
     <ion-button expand="block" (click)="toCart()">Panier</ion-button>
 </ion-content>
+
+<ng-template #loading>
+    Chargement
+</ng-template>

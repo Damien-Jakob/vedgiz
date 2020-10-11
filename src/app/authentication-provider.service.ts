@@ -21,7 +21,6 @@ export class AuthenticationProvider {
         protected storage: Storage,
         protected http: HttpClient,
     ) {
-        this.user = new User();
         this.loadToken().then(
             answer => {
                 this.loadUser();
