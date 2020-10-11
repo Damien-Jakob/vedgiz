@@ -9,9 +9,21 @@
 
 <ion-content>
     <ion-item>{{authentication.user.firstname}} {{authentication.user.lastname}}</ion-item>
-    <ion-item *ngIf="data.balance">Crédit : {{data.balance.credit}}</ion-item>
-    <ion-item *ngIf="data.balance">Débit : {{data.balance.debit}}</ion-item>
-    <ion-item *ngIf="data.balance">Balance : {{data.balance.credit - data.balance.debit}}</ion-item>
+    <ion-item>
+        Crédit :
+        {{data.balance ? data.balance.credit : "" | number:"1.2-2" }}
+        {{data.balance ? "" : "chargement" }}
+    </ion-item>
+    <ion-item>
+        Débit :
+        {{data.balance ? data.balance.debit : "" | number:"1.2-2" }}
+        {{data.balance ? "" : "chargement" }}
+    </ion-item>
+    <ion-item>
+        Balance :
+        {{data.balance ? data.balance.credit - data.balance.debit : "" | number:"1.2-2" }}
+        {{data.balance ? "" : "chargement" }}
+    </ion-item>
     <ion-button expand="block" (click)="toVegetables()">Légumes</ion-button>
     <ion-button expand="block" (click)="toCart()">Panier</ion-button>
 </ion-content>
