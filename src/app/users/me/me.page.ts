@@ -17,11 +17,11 @@ export class MePage implements OnInit {
     }
 
     ngOnInit() {
+        this.authentication.loadUser();
     }
 
     // Load the data every time the page is visited in case there has been an update
     ionViewWillEnter() {
-        this.authentication.loadUser();
         this.data.loadBalance().then(answer => {
             console.log(this.data.balance);
         });
