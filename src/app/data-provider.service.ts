@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {Vegetable} from './models/vegetable';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../environments/environment';
-import {Observable} from 'rxjs';
 import {BasketList} from './models/basket/basketlist';
 import {Basket} from './models/basket/basket';
+import {Balance} from './models/balance';
 
 @Injectable({
     providedIn: 'root'
@@ -14,10 +14,12 @@ export class DataProvider {
     public vegetable: Vegetable;
     public baskets: BasketList;
     public basket: Basket;
+    public balance: Balance;
 
     protected VEGETABLES_API = 'products/';
     protected BASKETS_API = 'baskets/';
     protected PICTURE_API = 'product/picture/';
+    protected BALANCE_API = 'me/balance/';
 
     constructor(protected http: HttpClient) {
         this.vegetables = new Array<Vegetable>();
@@ -25,6 +27,7 @@ export class DataProvider {
         this.clearBasket();
         this.loadVegetables();
         this.latestBasket();
+        this.loadBalance();
     }
 
     public loadVegetables(): Promise<any> {
@@ -109,6 +112,24 @@ export class DataProvider {
             this.loadBaskets().then(answer => {
                     this.basket = this.findBasket(id);
                     return this.basket;
+                }
+            );
+        });
+    }
+
+    public loadBalance(): Promise<Balance> {
+        return new Promise<Balance>((resolve, reject) => {
+            this.http.get(this.url(this.BALANCE_API)).subscribe(
+                (response: any) => {
+                    console.log('balance loaded');
+                    console.log(response);
+                    this.balance = response;
+                    resolve(response);
+                },
+                error => {
+                    // TODO deal with error
+                    console.log(error);
+                    reject();
                 }
             );
         });
