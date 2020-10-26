@@ -51,16 +51,31 @@ export class PaymentCreatePage implements OnInit {
     ngOnInit() {
     }
 
-    private validateEnvelope(): void {
-        this.envelopeVerified = true;
-        // TODO use API validation when it is used
-        this.toast.create({
-            message: 'API pas encore implémentée',
-            duration: 2000,
-            position: 'bottom',
-        }).then(toast => {
-            toast.present();
-        });
+    private async validateEnvelope() {
+        this.payment.validateKey(this.paymentForm.controls.key.value).subscribe(
+            answer => {
+                if (answer.isValid) {
+                    this.envelopeVerified = true;
+                } else {
+                    this.toast.create({
+                        message: 'Code invalide',
+                        duration: 2000,
+                        position: 'bottom',
+                    }).then(toast => {
+                        toast.present();
+                    });
+                }
+            },
+            error => {
+                this.toast.create({
+                    message: 'Erreur lors de la validation du code',
+                    duration: 2000,
+                    position: 'bottom',
+                }).then(toast => {
+                    toast.present();
+                });
+            }
+        );
     }
 
     private resetEnvelopValidation() {

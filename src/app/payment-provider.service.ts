@@ -8,6 +8,7 @@ import {environment} from '../environments/environment';
 })
 export class PaymentProviderService {
     protected PAYMENT_API = 'payments/';
+    protected VALIDATE_KEY_API = this.PAYMENT_API + 'valkey/';
 
     constructor(
         protected http: HttpClient,
@@ -16,6 +17,10 @@ export class PaymentProviderService {
 
     public submit(paymentData: object): Observable<any> {
         return this.http.post(this.url(this.PAYMENT_API), paymentData);
+    }
+
+    public validateKey(key: string): Observable<any> {
+        return this.http.get(this.url(this.VALIDATE_KEY_API) + key);
     }
 
     protected url(api: string): string {
