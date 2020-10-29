@@ -40,6 +40,7 @@ export class VegetablesIndexPage implements OnInit {
     // and loses the previous page reference for the back button
     // We still keep the href for styling reasons
     protected toVegetable(event: Event, vegetable: Vegetable): void {
+        console.log('To vegetable');
         event.preventDefault();
         this.router.navigate(['/vegetables', vegetable.id]);
     }
