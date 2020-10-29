@@ -3,6 +3,7 @@ import {Vegetable} from '../../models/vegetable';
 import {AlertController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {DataProvider} from '../../data-provider.service';
+import {CartProvider} from '../../cart-provider.service';
 
 @Component({
     selector: 'app-vegetables-index',
@@ -13,6 +14,7 @@ export class VegetablesIndexPage implements OnInit {
 
     constructor(
         protected data: DataProvider,
+        protected cart: CartProvider,
         protected alertController: AlertController,
         protected router: Router,
     ) {
@@ -51,5 +53,9 @@ export class VegetablesIndexPage implements OnInit {
         });
 
         await alert.present();
+    }
+
+    protected addToCart(vegetable: Vegetable) {
+        this.cart.addVegetable(vegetable.id);
     }
 }
