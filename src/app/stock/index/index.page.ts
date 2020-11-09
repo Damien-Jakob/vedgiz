@@ -11,12 +11,6 @@ import {ToastController} from '@ionic/angular';
     styleUrls: ['./index.page.scss'],
 })
 export class IndexPage implements OnInit {
-    // TODO find why validator is not applied
-    private static quantityValidator = [
-        Validators.required,
-        Validators.min(0.01),
-    ];
-
     private quantityForm: FormGroup;
 
     protected vegetablesToUpdate = new Array<Vegetable>();
@@ -30,7 +24,10 @@ export class IndexPage implements OnInit {
         private toast: ToastController,
     ) {
         this.quantityForm = this.formBuilder.group({
-            quantity: ['', IndexPage.quantityValidator],
+            quantity: ['',
+                Validators.compose([
+                    Validators.required,
+                ])]
         });
     }
 
@@ -132,5 +129,14 @@ export class IndexPage implements OnInit {
                 this.router.navigate(['/users/me']);
             }
         );
+    }
+
+    protected testValidation() {
+        console.log(this.quantityForm.controls.quantity.value);
+        if (this.quantityForm.controls.quantity.valid) {
+            console.log('valid');
+        } else {
+            console.log('invalid');
+        }
     }
 }

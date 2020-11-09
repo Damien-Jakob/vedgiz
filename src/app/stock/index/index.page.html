@@ -16,13 +16,13 @@
         </ion-card-title>
         <form *ngIf="displayedVegetableIndex != null"
               [formGroup]="quantityForm" (ngSubmit)="submitQuantity()">
-            <ion-input
-                    name="quantity"
-                    formControlName="quantity"
-                    placeholder="Quantité"
-                    type="number"
-                    min="0"
-                    required
+            <ion-input (ionChange)="testValidation()"
+                       name="quantity"
+                       formControlName="quantity"
+                       placeholder="Quantité"
+                       type="number"
+                       min="0"
+                       required
             ></ion-input>
             {{vegetablesToUpdate[displayedVegetableIndex].unit}}
             <ion-button type="submit">Quittancer</ion-button>
