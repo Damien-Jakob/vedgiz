@@ -18,6 +18,7 @@ export class IndexPage implements OnInit {
     private quantityForm: FormGroup;
 
     protected vegetablesToUpdate = new Array<Vegetable>();
+    protected validatedQuantities;
     protected displayedVegetableIndex: number;
 
     constructor(
@@ -43,6 +44,7 @@ export class IndexPage implements OnInit {
                 }
                 this.displayedVegetableIndex = 0;
                 this.quantityForm.controls.quantity.setValue(this.vegetablesToUpdate[this.displayedVegetableIndex].stock);
+                this.validatedQuantities = [];
                 console.log(this.vegetablesToUpdate);
                 console.log(this.vegetablesToUpdate[this.displayedVegetableIndex]);
             },
@@ -50,7 +52,24 @@ export class IndexPage implements OnInit {
     }
 
     protected submitQuantity(): void {
-
+        this.validatedQuantities[this.validatedQuantities.length] = ({
+            id: this.vegetablesToUpdate[this.displayedVegetableIndex].id,
+            quantity: this.quantityForm.controls.quantity.value
+        });
+        const vegetables = this.vegetablesToUpdate;
+        this.vegetablesToUpdate = new Array<Vegetable>();
+        for (let i = 0; i < vegetables.length; i++) {
+            if (i < this.displayedVegetableIndex) {
+                this.vegetablesToUpdate[i] = (vegetables[i]);
+            } else if (i > this.displayedVegetableIndex) {
+                this.vegetablesToUpdate[i - 1] = (vegetables[i]);
+            }
+        }
+        if (this.displayedVegetableIndex >= this.vegetablesToUpdate.length) {
+            this.displayedVegetableIndex = 0;
+        }
+        this.quantityForm.controls.quantity.setValue(this.vegetablesToUpdate[this.displayedVegetableIndex].stock)
+        console.log(this.validatedQuantities);
     }
 
     protected incrementDisplayedVegetableIndex(): void {
