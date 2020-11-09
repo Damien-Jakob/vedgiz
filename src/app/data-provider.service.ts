@@ -5,6 +5,7 @@ import {environment} from '../environments/environment';
 import {BasketList} from './models/basket/basketlist';
 import {Basket} from './models/basket/basket';
 import {Balance} from './models/balance';
+import {Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +21,7 @@ export class DataProvider {
     protected BASKETS_API = 'baskets/';
     protected PICTURE_API = 'product/picture/';
     protected BALANCE_API = 'me/balance/';
+    protected STOCK_API = 'products/stock/';
 
     constructor(protected http: HttpClient) {
         this.vegetables = new Array<Vegetable>();
@@ -153,5 +155,9 @@ export class DataProvider {
 
     protected url(api: string): string {
         return environment.api_root + api;
+    }
+
+    public postStock(data): Observable<any> {
+        return this.http.post(this.url(this.STOCK_API), data);
     }
 }

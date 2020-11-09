@@ -6,11 +6,13 @@
             </ion-toolbar>
         </ion-header>
         <ion-content>
-            <ion-list *ngFor="let content of menuContent">
+            <ion-list>
                 <ion-menu-toggle>
-                    <ion-item [routerLink]="content.url" routerDirection="forward">
-                        {{content.title}}
-                    </ion-item>
+                    <div *ngFor="let content of menuContent">
+                        <ion-item [routerLink]="content.url" routerDirection="forward">
+                            {{content.title}}
+                        </ion-item>
+                    </div>
                 </ion-menu-toggle>
             </ion-list>
         </ion-content>
