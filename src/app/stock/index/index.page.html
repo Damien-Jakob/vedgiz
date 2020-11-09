@@ -10,9 +10,16 @@
     <ion-card-title *ngIf="displayedVegetableIndex != null">
         {{vegetablesToUpdate[displayedVegetableIndex].name}}
     </ion-card-title>
-    <ion-card-content *ngIf="displayedVegetableIndex != null">
-        <div>{{vegetablesToUpdate[displayedVegetableIndex].stock}} {{vegetablesToUpdate[displayedVegetableIndex].unit}}</div>
-    </ion-card-content>
-  <ion-button (click)="decrementDisplayedVegetableIndex()">Gauche</ion-button>
-  <ion-button (click)="incrementDisplayedVegetableIndex()">Droite</ion-button>
+    <form *ngIf="displayedVegetableIndex != null"
+          [formGroup]="quantityForm" (ngSubmit)="submitQuantity()">
+        <ion-input
+                formControlName="quantity"
+                placeholder="Quantité"
+                type="number"
+                required
+        ></ion-input>
+        {{vegetablesToUpdate[displayedVegetableIndex].unit}}
+    </form>
+    <ion-button (click)="decrementDisplayedVegetableIndex()">Gauche</ion-button>
+    <ion-button (click)="incrementDisplayedVegetableIndex()">Droite</ion-button>
 </ion-content>

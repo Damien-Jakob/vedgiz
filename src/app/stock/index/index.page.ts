@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DataProvider} from '../../data-provider.service';
 import {Vegetable} from '../../models/vegetable';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-index',
@@ -8,12 +9,24 @@ import {Vegetable} from '../../models/vegetable';
     styleUrls: ['./index.page.scss'],
 })
 export class IndexPage implements OnInit {
+    private static quantityValidator = [
+        Validators.required,
+        Validators.min(1),
+        Validators.pattern('^[1-9][0-9]*$'),
+    ];
+
+    private quantityForm: FormGroup;
+
     protected vegetablesToUpdate = new Array<Vegetable>();
     protected displayedVegetableIndex: number;
 
     constructor(
         protected data: DataProvider,
+        private formBuilder: FormBuilder,
     ) {
+        this.quantityForm = this.formBuilder.group({
+            quantity: ['', IndexPage.quantityValidator],
+        });
     }
 
     ngOnInit() {
@@ -29,10 +42,15 @@ export class IndexPage implements OnInit {
                     this.vegetablesToUpdate[i] = answer[i];
                 }
                 this.displayedVegetableIndex = 0;
+                this.quantityForm.controls.quantity.setValue(this.vegetablesToUpdate[this.displayedVegetableIndex].stock);
                 console.log(this.vegetablesToUpdate);
                 console.log(this.vegetablesToUpdate[this.displayedVegetableIndex]);
             },
         );
+    }
+
+    protected submitQuantity(): void {
+
     }
 
     protected incrementDisplayedVegetableIndex(): void {
