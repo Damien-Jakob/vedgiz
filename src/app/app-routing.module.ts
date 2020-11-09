@@ -43,6 +43,11 @@ const routes: Routes = [
         path: 'payment/create',
         loadChildren: () => import('./payment/payment-create/payment-create.module').then(m => m.PaymentCreatePageModule)
     },
+    {
+        path: 'stock',
+        loadChildren: () => import('./stock/index/index.module').then(m => m.IndexPageModule)
+    },
+
 ];
 
 @NgModule({

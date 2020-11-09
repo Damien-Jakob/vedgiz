@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Validation du stock</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="vegetablesToUpdate.length > 0; else summary">
+        <ion-img *ngIf="displayedVegetableIndex != null"
+                 [src]="data.pictureUrl(vegetablesToUpdate[displayedVegetableIndex].picture)"></ion-img>
+        <ion-item *ngIf="displayedVegetableIndex != null">
+            {{vegetablesToUpdate[displayedVegetableIndex].name}}
+        </ion-item>
+        <form *ngIf="displayedVegetableIndex != null"
+              [formGroup]="quantityForm" (ngSubmit)="submitQuantity()">
+            <ion-item>
+                <ion-input (ionChange)="testValidation()"
+                           name="quantity"
+                           formControlName="quantity"
+                           placeholder="Quantité"
+                           type="number"
+                           min="0"
+                           required
+                ></ion-input>
+                {{vegetablesToUpdate[displayedVegetableIndex].unit}}
+            </ion-item>
+            <ion-button type="submit" [disabled]="quantityForm.controls.quantity.invalid">Quittancer</ion-button>
+        </form>
+        <ion-button (click)="decrementDisplayedVegetableIndex()">Gauche</ion-button>
+        <ion-button (click)="incrementDisplayedVegetableIndex()">Droite</ion-button>
+    </div>
+</ion-content>
+
+<ng-template #summary>
+    <ion-item *ngFor="let validatedVegetable of validatedVegetables">
+        {{validatedVegetable.vegetable.name}}
+        : {{validatedVegetable.vegetable.stock}} {{validatedVegetable.vegetable.unit}}
+    </ion-item>
+    <ion-button (click)="reset()">Recommencer</ion-button>
+    <ion-button (click)="submit()">Enregistrer</ion-button>
+</ng-template>
