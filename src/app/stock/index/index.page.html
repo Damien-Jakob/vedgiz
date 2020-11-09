@@ -13,9 +13,11 @@
     <form *ngIf="displayedVegetableIndex != null"
           [formGroup]="quantityForm" (ngSubmit)="submitQuantity()">
         <ion-input
+                name="quantity"
                 formControlName="quantity"
                 placeholder="Quantité"
                 type="number"
+                min="0"
                 required
         ></ion-input>
         {{vegetablesToUpdate[displayedVegetableIndex].unit}}

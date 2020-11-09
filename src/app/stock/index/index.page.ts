@@ -9,10 +9,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
     styleUrls: ['./index.page.scss'],
 })
 export class IndexPage implements OnInit {
+    // TODO find why validator is not applied
     private static quantityValidator = [
         Validators.required,
-        Validators.min(1),
-        Validators.pattern('^[1-9][0-9]*$'),
+        Validators.min(0.01),
     ];
 
     private quantityForm: FormGroup;
@@ -58,6 +58,7 @@ export class IndexPage implements OnInit {
         if (this.displayedVegetableIndex >= this.vegetablesToUpdate.length) {
             this.displayedVegetableIndex = 0;
         }
+        this.quantityForm.controls.quantity.setValue(this.vegetablesToUpdate[this.displayedVegetableIndex].stock);
     }
 
     protected decrementDisplayedVegetableIndex(): void {
@@ -65,5 +66,6 @@ export class IndexPage implements OnInit {
         if (this.displayedVegetableIndex < 0) {
             this.displayedVegetableIndex = this.vegetablesToUpdate.length - 1;
         }
+        this.quantityForm.controls.quantity.setValue(this.vegetablesToUpdate[this.displayedVegetableIndex].stock);
     }
 }
