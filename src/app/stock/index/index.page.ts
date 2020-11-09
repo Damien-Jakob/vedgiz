@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DataProvider} from '../../data-provider.service';
-import {Vegetable} from "../../models/vegetable";
+import {Vegetable} from '../../models/vegetable';
 
 @Component({
     selector: 'app-index',
@@ -30,6 +30,7 @@ export class IndexPage implements OnInit {
                 }
                 this.displayedVegetableIndex = 0;
                 console.log(this.vegetablesToUpdate);
+                console.log(this.vegetablesToUpdate[this.displayedVegetableIndex]);
             },
         );
     }

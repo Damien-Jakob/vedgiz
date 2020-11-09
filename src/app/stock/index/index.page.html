@@ -1,9 +1,16 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Stock</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Stock</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-img *ngIf="displayedVegetableIndex != null"
+             [src]="data.pictureUrl(vegetablesToUpdate[displayedVegetableIndex].picture)"></ion-img>
+    <ion-card-title *ngIf="displayedVegetableIndex != null">
+        {{vegetablesToUpdate[displayedVegetableIndex].name}}
+    </ion-card-title>
+    <ion-card-content *ngIf="displayedVegetableIndex != null">
+        <div>{{vegetablesToUpdate[displayedVegetableIndex].stock}} {{vegetablesToUpdate[displayedVegetableIndex].unit}}</div>
+    </ion-card-content>
 </ion-content>
