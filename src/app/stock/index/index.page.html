@@ -5,24 +5,36 @@
 </ion-header>
 
 <ion-content>
-    <ion-img *ngIf="displayedVegetableIndex != null"
-             [src]="data.pictureUrl(vegetablesToUpdate[displayedVegetableIndex].picture)"></ion-img>
-    <ion-card-title *ngIf="displayedVegetableIndex != null">
-        {{vegetablesToUpdate[displayedVegetableIndex].name}}
-    </ion-card-title>
-    <form *ngIf="displayedVegetableIndex != null"
-          [formGroup]="quantityForm" (ngSubmit)="submitQuantity()">
-        <ion-input
-                name="quantity"
-                formControlName="quantity"
-                placeholder="Quantité"
-                type="number"
-                min="0"
-                required
-        ></ion-input>
-        {{vegetablesToUpdate[displayedVegetableIndex].unit}}
-        <ion-button type="submit">Quittancer</ion-button>
-    </form>
-    <ion-button (click)="decrementDisplayedVegetableIndex()">Gauche</ion-button>
-    <ion-button (click)="incrementDisplayedVegetableIndex()">Droite</ion-button>
+    <div *ngIf="vegetablesToUpdate.length > 0; else summary">
+        <ion-img *ngIf="displayedVegetableIndex != null"
+                 [src]="data.pictureUrl(vegetablesToUpdate[displayedVegetableIndex].picture)"></ion-img>
+        <ion-card-title *ngIf="displayedVegetableIndex != null">
+            {{vegetablesToUpdate[displayedVegetableIndex].name}}
+        </ion-card-title>
+        <form *ngIf="displayedVegetableIndex != null"
+              [formGroup]="quantityForm" (ngSubmit)="submitQuantity()">
+            <ion-input
+                    name="quantity"
+                    formControlName="quantity"
+                    placeholder="Quantité"
+                    type="number"
+                    min="0"
+                    required
+            ></ion-input>
+            {{vegetablesToUpdate[displayedVegetableIndex].unit}}
+            <ion-button type="submit">Quittancer</ion-button>
+        </form>
+        <ion-button (click)="decrementDisplayedVegetableIndex()">Gauche</ion-button>
+        <ion-button (click)="incrementDisplayedVegetableIndex()">Droite</ion-button>
+    </div>
 </ion-content>
+
+<ng-template #summary>
+    <ion-card *ngFor="let validatedVegetable of validatedVegetables">
+        <ion-card-title>{{validatedVegetable.vegetable.name}}</ion-card-title>
+        <ion-card-content>
+            <div>{{validatedVegetable.vegetable.stock}} {{validatedVegetable.vegetable.unit}}</div>
+            <div>Disponibles :</div>
+        </ion-card-content>
+    </ion-card>
+</ng-template>
