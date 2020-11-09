@@ -105,5 +105,6 @@ export class IndexPage implements OnInit {
                 quantity: this.validatedVegetables[i].quantity,
             };
         }
+        this.data.postStock(submitData);
     }
 }
