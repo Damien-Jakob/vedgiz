@@ -34,4 +34,18 @@ export class IndexPage implements OnInit {
             },
         );
     }
+
+    protected incrementDisplayedVegetableIndex(): void {
+        this.displayedVegetableIndex++;
+        if (this.displayedVegetableIndex >= this.vegetablesToUpdate.length) {
+            this.displayedVegetableIndex = 0;
+        }
+    }
+
+    protected decrementDisplayedVegetableIndex(): void {
+        this.displayedVegetableIndex--;
+        if (this.displayedVegetableIndex < 0) {
+            this.displayedVegetableIndex = this.vegetablesToUpdate.length - 1;
+        }
+    }
 }

@@ -13,4 +13,6 @@
     <ion-card-content *ngIf="displayedVegetableIndex != null">
         <div>{{vegetablesToUpdate[displayedVegetableIndex].stock}} {{vegetablesToUpdate[displayedVegetableIndex].unit}}</div>
     </ion-card-content>
+  <ion-button (click)="decrementDisplayedVegetableIndex()">Gauche</ion-button>
+  <ion-button (click)="incrementDisplayedVegetableIndex()">Droite</ion-button>
 </ion-content>
