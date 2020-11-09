@@ -27,7 +27,7 @@
                 ></ion-input>
                 {{vegetablesToUpdate[displayedVegetableIndex].unit}}
             </ion-item>
-            <ion-button type="submit">Quittancer</ion-button>
+            <ion-button type="submit" [disabled]="quantityForm.controls.quantity.invalid">Quittancer</ion-button>
         </form>
         <ion-button (click)="decrementDisplayedVegetableIndex()">Gauche</ion-button>
         <ion-button (click)="incrementDisplayedVegetableIndex()">Droite</ion-button>

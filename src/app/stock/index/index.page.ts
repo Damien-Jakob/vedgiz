@@ -39,26 +39,27 @@ export class IndexPage implements OnInit {
     }
 
     protected submitQuantity(): void {
-        this.validatedVegetables[this.validatedVegetables.length] = ({
-            vegetable: this.vegetablesToUpdate[this.displayedVegetableIndex],
-            quantity: this.quantityForm.controls.quantity.value
-        });
-        const vegetables = this.vegetablesToUpdate;
-        this.vegetablesToUpdate = new Array<Vegetable>();
-        for (let i = 0; i < vegetables.length; i++) {
-            if (i < this.displayedVegetableIndex) {
-                this.vegetablesToUpdate[i] = (vegetables[i]);
-            } else if (i > this.displayedVegetableIndex) {
-                this.vegetablesToUpdate[i - 1] = (vegetables[i]);
+        if (this.quantityForm.controls.quantity.valid) {
+            this.validatedVegetables[this.validatedVegetables.length] = ({
+                vegetable: this.vegetablesToUpdate[this.displayedVegetableIndex],
+                quantity: this.quantityForm.controls.quantity.value
+            });
+            const vegetables = this.vegetablesToUpdate;
+            this.vegetablesToUpdate = new Array<Vegetable>();
+            for (let i = 0; i < vegetables.length; i++) {
+                if (i < this.displayedVegetableIndex) {
+                    this.vegetablesToUpdate[i] = (vegetables[i]);
+                } else if (i > this.displayedVegetableIndex) {
+                    this.vegetablesToUpdate[i - 1] = (vegetables[i]);
+                }
+            }
+            if (this.displayedVegetableIndex >= this.vegetablesToUpdate.length) {
+                this.displayedVegetableIndex = 0;
+            }
+            if (this.vegetablesToUpdate.length > 0) {
+                this.quantityForm.controls.quantity.setValue(this.vegetablesToUpdate[this.displayedVegetableIndex].stock);
             }
         }
-        if (this.displayedVegetableIndex >= this.vegetablesToUpdate.length) {
-            this.displayedVegetableIndex = 0;
-        }
-        if (this.vegetablesToUpdate.length > 0) {
-            this.quantityForm.controls.quantity.setValue(this.vegetablesToUpdate[this.displayedVegetableIndex].stock);
-        }
-
         console.log(this.validatedVegetables);
     }
 
