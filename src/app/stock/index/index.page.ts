@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DataProvider} from '../../data-provider.service';
 import {Vegetable} from '../../models/vegetable';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-index',
@@ -23,6 +24,7 @@ export class IndexPage implements OnInit {
 
     constructor(
         protected data: DataProvider,
+        protected router: Router,
         private formBuilder: FormBuilder,
     ) {
         this.quantityForm = this.formBuilder.group({
@@ -89,5 +91,19 @@ export class IndexPage implements OnInit {
             this.displayedVegetableIndex = this.vegetablesToUpdate.length - 1;
         }
         this.quantityForm.controls.quantity.setValue(this.vegetablesToUpdate[this.displayedVegetableIndex].stock);
+    }
+
+    protected reset() {
+        this.router.navigate(['/stock']);
+    }
+
+    protected submit() {
+        const submitData = new Array();
+        for (let i = 0; i < this.validatedVegetables.length; i++) {
+            submitData[i] = {
+                id: this.validatedVegetables[i].vegetable.id,
+                quantity: this.validatedVegetables[i].quantity,
+            };
+        }
     }
 }
