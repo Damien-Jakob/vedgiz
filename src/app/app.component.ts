@@ -27,10 +27,6 @@ export class AppComponent {
             title: 'Profil',
             url: '/users/me',
         },
-        {
-            title: 'Stock',
-            url: 'stock',
-        }
     ];
 
     constructor(
