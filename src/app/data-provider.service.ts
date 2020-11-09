@@ -5,6 +5,7 @@ import {environment} from '../environments/environment';
 import {BasketList} from './models/basket/basketlist';
 import {Basket} from './models/basket/basket';
 import {Balance} from './models/balance';
+import {Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -156,7 +157,7 @@ export class DataProvider {
         return environment.api_root + api;
     }
 
-    public postStock(data) {
+    public postStock(data): Observable<any> {
         return this.http.post(this.url(this.STOCK_API), data);
     }
 }

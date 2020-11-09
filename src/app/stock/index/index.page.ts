@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {DataProvider} from '../../data-provider.service';
 import {Vegetable} from '../../models/vegetable';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {ToastController} from "@ionic/angular";
 
 @Component({
     selector: 'app-index',
@@ -26,6 +27,7 @@ export class IndexPage implements OnInit {
         protected data: DataProvider,
         protected router: Router,
         private formBuilder: FormBuilder,
+        private toast: ToastController,
     ) {
         this.quantityForm = this.formBuilder.group({
             quantity: ['', IndexPage.quantityValidator],
@@ -105,6 +107,30 @@ export class IndexPage implements OnInit {
                 quantity: this.validatedVegetables[i].quantity,
             };
         }
-        this.data.postStock(submitData);
+        console.log(submitData);
+        this.data.postStock({
+            quantities: submitData
+        }).subscribe(
+            answer => {
+                this.toast.create({
+                    message: 'Les quantités ont été enregistrées',
+                    duration: 2000,
+                    position: 'bottom',
+                }).then(toast => {
+                    toast.present();
+                });
+                this.router.navigate(['/users/me']);
+            },
+            error => {
+                this.toast.create({
+                    message: 'Une erreur s\'est produite',
+                    duration: 2000,
+                    position: 'bottom',
+                }).then(toast => {
+                    toast.present();
+                });
+                this.router.navigate(['/users/me']);
+            }
+        );
     }
 }
