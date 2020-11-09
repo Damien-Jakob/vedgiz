@@ -3,7 +3,7 @@ import {DataProvider} from '../../data-provider.service';
 import {Vegetable} from '../../models/vegetable';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {ToastController} from "@ionic/angular";
+import {ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-index',
@@ -38,21 +38,7 @@ export class IndexPage implements OnInit {
     }
 
     ionViewWillEnter() {
-        this.data.loadVegetables().then(
-            answer => {
-                console.log('Vegetables loaded');
-                console.log(answer);
-                this.vegetablesToUpdate = new Array<Vegetable>();
-                for (let i = 0; i < answer.length; i++) {
-                    this.vegetablesToUpdate[i] = answer[i];
-                }
-                this.displayedVegetableIndex = 0;
-                this.quantityForm.controls.quantity.setValue(this.vegetablesToUpdate[this.displayedVegetableIndex].stock);
-                this.validatedVegetables = [];
-                console.log(this.vegetablesToUpdate);
-                console.log(this.vegetablesToUpdate[this.displayedVegetableIndex]);
-            },
-        );
+        this.reset();
     }
 
     protected submitQuantity(): void {
@@ -96,7 +82,21 @@ export class IndexPage implements OnInit {
     }
 
     protected reset() {
-        this.router.navigate(['/stock']);
+        this.data.loadVegetables().then(
+            answer => {
+                console.log('Vegetables loaded');
+                console.log(answer);
+                this.vegetablesToUpdate = new Array<Vegetable>();
+                for (let i = 0; i < answer.length; i++) {
+                    this.vegetablesToUpdate[i] = answer[i];
+                }
+                this.displayedVegetableIndex = 0;
+                this.quantityForm.controls.quantity.setValue(this.vegetablesToUpdate[this.displayedVegetableIndex].stock);
+                this.validatedVegetables = [];
+                console.log(this.vegetablesToUpdate);
+                console.log(this.vegetablesToUpdate[this.displayedVegetableIndex]);
+            },
+        );
     }
 
     protected submit() {
